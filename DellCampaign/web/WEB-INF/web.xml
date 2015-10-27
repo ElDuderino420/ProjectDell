@@ -10,5 +10,15 @@
         <servlet-name>FetchCampaigns</servlet-name>
         <url-pattern>/FetchCampaigns</url-pattern>
     </servlet-mapping>
+<servlet>
+        <servlet-name>MDFRequest</servlet-name>
+        <servlet-class>DataSource.MDFRequest</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>MDFRequest</servlet-name>
+        <url-pattern>/MDFRequest</url-pattern>
+    </servlet-mapping>
 
+ 
 </web-app>

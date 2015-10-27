@@ -16,34 +16,39 @@ import java.util.List;
  *
  * @author butwhole
  */
-public class CampaignController {
-
-    public List<Campaign> FetchCampaigns() throws Exception {
-        List<Campaign> result = new ArrayList<>();
+public class PartnerController {
+    List<Partner> result = new ArrayList();
+    public List<Partner> FetchPartners() throws Exception {
+        result = new ArrayList<>();
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM campaign");
+            ResultSet rs = ps.executeQuery("SELECT * FROM partner");
             while (rs.next()) {
-                Campaign camp = new Campaign(
+                Partner part = new Partner(
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
-                        rs.getBoolean(5),
-                        rs.getBoolean(6),
-                        rs.getString(7),
-                        rs.getString(8),
-                        rs.getBoolean(9),
-                        rs.getString(10));
+                        rs.getString(5),
+                        rs.getInt(6));
+
                 
-                result.add(camp);
+                result.add(part);
             }
         } finally {
             
         }
         return result;
+    }
+    public boolean checkValidity(String id,String pass){
+        for (Partner part : result) {
+            if(part.getId().equals(id) && part.getPassword().equals(pass)){
+                return true;
+            }
+        }
+        return false;
     }
 }

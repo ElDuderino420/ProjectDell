@@ -6,6 +6,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="Domain.Campaign"%>
+<%@page import="Domain.Partner"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%><!DOCTYPE html>
 <html>
     <head>
@@ -25,7 +26,7 @@
             <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">New Campaign</a>
             <div data-role="popup" id="myPopup" class="ui-content">
                 <h3>Create New Campaign</h3>
-                <form action="MDFRequest.jsp" method="POST">
+                <form action="MDFRequest" method="POST">
                     Partner ID: <input name="PartnerID" type = "text"/> <br/>
                     Partner Password: <input name ="Password" type = "password"/> <br/> 
                     <button type="submit" >Continue</button>
