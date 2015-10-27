@@ -5,9 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +13,6 @@
     </head>
     <body>
         <h1>DELL</h1>
-        <a href="FetchCampaigns" alt="" >Continue</a>
+        <a href="FetchCampaigns">Continue</a>
     </body>
 </html>
