@@ -25,14 +25,15 @@ public class MDFRequest extends HttpServlet{
         
         try
         {
-            PartnerController cc = new PartnerController();
-            request.getSession().setAttribute("allPart",cc.FetchPartners());
-            if(cc.checkValidity(request.getSession().getAttribute("PartnerID").toString(),
-                                request.getSession().getAttribute("Password").toString())){
-            response.sendRedirect("MDFRequest.jsp");
-            }else{
-            response.sendRedirect("index.jsp");
-            }
+//            PartnerController cc = new PartnerController();
+//            String pid = request.getSession().getAttribute("PartnerID").toString();
+//            String pass = request.getSession().getAttribute("Password").toString();
+//            
+//            if(cc.FetchPartners(pid, pass).equals("true")){
+                response.sendRedirect("MDFRequest.jsp");
+//            }
+            
+            
         }
         catch (Exception ex) 
         {

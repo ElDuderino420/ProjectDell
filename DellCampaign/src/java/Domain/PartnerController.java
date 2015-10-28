@@ -17,38 +17,23 @@ import java.util.List;
  * @author butwhole
  */
 public class PartnerController {
-    List<Partner> result = new ArrayList();
-    public List<Partner> FetchPartners() throws Exception {
-        result = new ArrayList<>();
+    
+    public String FetchPartners(String id,String pass) throws Exception {
+        String accepted = "false";
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM partner");
-            while (rs.next()) {
-                Partner part = new Partner(
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getInt(6));
-
-                
-                result.add(part);
+            ResultSet rs = ps.executeQuery("SELECT * FROM partner where pass = '" + pass + "' and id = '" + id + "';");
+            if (rs.next()){
+                accepted = "true";
             }
         } finally {
             
         }
-        return result;
+        return accepted;
+        
     }
-    public boolean checkValidity(String id,String pass){
-        for (Partner part : result) {
-            if(part.getId().equals(id) && part.getPassword().equals(pass)){
-                return true;
-            }
-        }
-        return false;
-    }
+    
 }
