@@ -10,25 +10,22 @@ package Domain;
  * @author butwhole
  */
 public class Campaign {
-    private String id,name,pid,did,comment;
+    private String id,pid,did,comment;
     private boolean poeApproved,campApproved,dismissed;
-    private String dateCreated, dateChanged;
+    private String  dateChanged;
 
-    public Campaign(String id, String name) {
+    public Campaign(String id) {
         this.id = id;
-        this.name = name;
     }
 
-    public Campaign(String id, String name, String dateCreated, String dateChanged, boolean campApproved, boolean poeApproved, String pid, String did, boolean dismissed,String comment) {
+    public Campaign(String id, String dateChanged, boolean campApproved, boolean poeApproved, String pid, String did, boolean dismissed,String comment) {
         this.id = id;
-        this.name = name;
         this.pid = pid;
         this.did = did;
         this.comment = comment;
         this.poeApproved = poeApproved;
         this.campApproved = campApproved;
         this.dismissed = dismissed;
-        this.dateCreated = dateCreated;
         this.dateChanged = dateChanged;
     }
 
@@ -38,13 +35,7 @@ public class Campaign {
 
     
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    
 
     public String getPid() {
         return pid;
@@ -94,13 +85,8 @@ public class Campaign {
         this.dismissed = dismissed;
     }
 
-    public String getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(String dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+    
+    
 
     public String getDateChanged() {
         return dateChanged;
