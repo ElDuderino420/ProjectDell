@@ -34,8 +34,8 @@
                                 + "<td>" + c.getId() + "</td>"
                                 + "<td>" + c.getPid() + "</td>"
                                 + "<td>" + c.getDid() + "</td>"
-                                + "<td>" + c.isCampApproved() + "</td>"
-                                + "<td>" + c.isPoeApproved() + "</td>"
+                                + "<td>" + c.getCampApproved() + "</td>"
+                                + "<td>" + c.getPoeApproved() + "</td>"
                                 + "<td>" + c.getDateChanged() + "</td>"
                                 + "<td>" + c.getComment() + "</td>"
                                 + "</tr>");

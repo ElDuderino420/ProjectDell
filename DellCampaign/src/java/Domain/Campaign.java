@@ -10,15 +10,15 @@ package Domain;
  * @author butwhole
  */
 public class Campaign {
-    private String id,pid,did,comment;
-    private boolean poeApproved,campApproved,dismissed;
+    private String poeApproved,campApproved,id,pid,did,comment;
+    private boolean dismissed;
     private String  dateChanged;
 
     public Campaign(String id) {
         this.id = id;
     }
 
-    public Campaign(String id, String dateChanged, boolean campApproved, boolean poeApproved, String pid, String did, boolean dismissed,String comment) {
+    public Campaign(String id, String dateChanged, String campApproved, String poeApproved, String pid, String did, boolean dismissed,String comment) {
         this.id = id;
         this.pid = pid;
         this.did = did;
@@ -61,19 +61,19 @@ public class Campaign {
         this.comment = comment;
     }
 
-    public boolean isPoeApproved() {
+    public String getPoeApproved() {
         return poeApproved;
     }
 
-    public void setPoeApproved(boolean poeApproved) {
+    public void setPoeApproved(String poeApproved) {
         this.poeApproved = poeApproved;
     }
 
-    public boolean isCampApproved() {
+    public String getCampApproved() {
         return campApproved;
     }
 
-    public void setCampApproved(boolean campApproved) {
+    public void setCampApproved(String campApproved) {
         this.campApproved = campApproved;
     }
 

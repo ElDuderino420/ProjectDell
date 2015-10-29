@@ -21,6 +21,16 @@
         <servlet-name>MDFRequest</servlet-name>
         <url-pattern>/MDFRequest</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ApplyCampaign</servlet-name>
+        <servlet-class>DataSource.ApplyCampaign</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ApplyCampaign</servlet-name>
+        <url-pattern>/ApplyCampaign</url-pattern>
+    </servlet-mapping>
 
  
 </web-app>

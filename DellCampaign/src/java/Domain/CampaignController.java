@@ -31,13 +31,13 @@ public class CampaignController {
                 Campaign camp = new Campaign(
                         rs.getString(1),
                         rs.getString(2),
-                        rs.getBoolean(3),
-                        rs.getBoolean(4),
+                        rs.getString(3),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
                         rs.getBoolean(7),
                         rs.getString(8));
-                
+
                 result.add(camp);
             }
         } finally {
@@ -45,12 +45,13 @@ public class CampaignController {
         }
         return result;
     }
-    
-    public void CreateCampaign(CampaignDetails cp) throws Exception{
-        
+
+    public void CreateCampaign(CampaignDetails cp) throws Exception {
+
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
+            PreparedStatement ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?)");
             PreparedStatement fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
@@ -63,7 +64,15 @@ public class CampaignController {
                     + "?,?,?,?,?)");
             
             fuckThis.setString(1, cp.getId());
+            ezshit.setString(1, cp.getId());
             fuckThis.setString(2, cp.getDateCreated());
+            ezshit.setString(2, cp.getDateCreated());
+            ezshit.setString(3, "Pending");
+            ezshit.setString(4, "N/A");
+            ezshit.setString(5, null);
+            ezshit.setString(6, null);
+            ezshit.setBoolean(7, false);
+            ezshit.setString(8, "");
             fuckThis.setString(3, cp.getContactName());
             fuckThis.setString(4, cp.getCompanyName());
             fuckThis.setString(5, cp.getCompanyAddress());
@@ -98,7 +107,7 @@ public class CampaignController {
             fuckThis.setBoolean(34, cp.isCloudClientComputing());
             fuckThis.setBoolean(35, cp.isInfrastructureHardware());
             fuckThis.setBoolean(36, cp.isBladeDataCenter());
-            fuckThis.setBoolean(37, cp.isOptimizedEnterprize());
+            fuckThis.setBoolean(37, cp.isOptimizedEnterprise());
             fuckThis.setBoolean(38, cp.isPowerEdgeFX());
             fuckThis.setBoolean(39, cp.isSds());
             fuckThis.setString(40, cp.getSoftwareComponent());
@@ -112,18 +121,46 @@ public class CampaignController {
             fuckThis.setInt(48, cp.getTotalMDFContribution());
             fuckThis.setInt(49, cp.getEstimatedOpportunities());
             fuckThis.setInt(50, cp.getEstimatedRevenue());
-            
-            
+
             fuckThis.executeUpdate();
             fuckThis.close();
-            
+            ezshit.executeUpdate();
+            ezshit.close();
+
         } finally {
-            if(con!=null){
-                con.close();
-            }
-        
+            
+
         }
+
+    }
+
+    public String getNextId() throws Exception{
+        int result = 0;
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+
+            ResultSet rs = ps.executeQuery("SELECT id FROM campaign");
+            while (rs.next()) {
+                int temp = Integer.parseInt(rs.getString(1).substring(1));
+                if(result < temp){
+                    result = temp;
+                }
+            }
+        } finally {
+            
+        }
+        result = result+1;
+        return "C"+result;
         
+    }
+
+    public boolean getChecked(String s){
+        if(s==null || s.equals(null) || s.equals("null")){
+            return false;
+        }
+        return true;
     }
     
 }

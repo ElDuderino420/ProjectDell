@@ -24,7 +24,7 @@
         <form action='ApplyCampaign'>
             <table>
                 <tr>
-                    <td>Submission date: <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now()%>"/></td>
+                    <td>Submission date: <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>"/></td>
                     <td>Contact name: <br><input name ="ContactName" type = "text"/></td>
                     <td>Company name: <br><input name ="CompanyName" type = "text"/></td>
                 </tr>
@@ -127,7 +127,7 @@
             </table>
             <p style="font-weight: bold">Is there a software component to your campaign?</p>
             <p>If so, please detail the specific software component(s) in the space below.</p>
-            <input name =desc type="text" >
+            <input name =softwareComponent type="text" >
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
