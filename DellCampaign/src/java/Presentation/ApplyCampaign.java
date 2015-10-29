@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 /**
  *
@@ -24,23 +26,25 @@ public class ApplyCampaign extends HttpServlet{
         
         try
         {
+            HttpSession ss = request.getSession();
             CampaignController cc = new CampaignController();
             CampaignDetails cd = new CampaignDetails(
                     cc.getNextId(),
-                    request.getSession().getAttribute("StartTime").toString(), 
-                    request.getSession().getAttribute("EndTime").toString(), 
-                    request.getSession().getAttribute("ProgramDate").toString(), 
-                    request.getSession().getAttribute("SubmissionDate").toString(), 
-                    request.getSession().getAttribute("ContactName").toString(), 
-                    request.getSession().getAttribute("CompanyName").toString(), 
-                    request.getSession().getAttribute("Address").toString(), 
-                    request.getSession().getAttribute("ContactEmail").toString(), 
-                    request.getSession().getAttribute("VenueName").toString(), 
-                    request.getSession().getAttribute("VenueAddress").toString(), 
-                    request.getSession().getAttribute("desc").toString(), 
-                    request.getSession().getAttribute("softwareComponent").toString(), 
-                    request.getSession().getAttribute("methodofreimbursement").toString(), 
-                    request.getSession().getAttribute("partner").toString(), 
+                    request.getParameter("StartTime"),
+                    request.getParameter("EndTime"),
+                    request.getParameter("ProgramDate"),
+                    request.getParameter("SubmissionDate"), 
+                    request.getParameter("ContactName"), 
+                    request.getParameter("CompanyName"), 
+                    request.getParameter("Address"), 
+                    request.getParameter("ContactEmail"), 
+                    request.getParameter("VenueName"), 
+                    request.getParameter("VenueAddress"), 
+                    request.getParameter("desc"), 
+                    request.getParameter("softwareComponent"), 
+                    request.getParameter("methodofreimbursement"), 
+                    request.getParameter("partner"),
+                    request.getParameter("ContactPhone"),
                     cc.getChecked(request.getParameter("ftfevent")), 
                     cc.getChecked(request.getParameter("tradeshows")), 
                     cc.getChecked(request.getParameter("mtcamp")), 
@@ -64,26 +68,27 @@ public class ApplyCampaign extends HttpServlet{
                     cc.getChecked(request.getParameter("infrahardware")), 
                     cc.getChecked(request.getParameter("bladedatacenter")), 
                     cc.getChecked(request.getParameter("optimizedenterprise")), 
-                    cc.getChecked(request.getParameter("poweredgepx")), 
+                    cc.getChecked(request.getParameter("poweredgefx")), 
                     cc.getChecked(request.getParameter("SDS")), 
                     cc.getChecked(request.getParameter("SMB")), 
                     cc.getChecked(request.getParameter("LE")), 
                     cc.getChecked(request.getParameter("PUB")), 
-                    Integer.parseInt(request.getSession().getAttribute("ContactPhone").toString()), 
-                    Integer.parseInt(request.getSession().getAttribute("cost").toString()), 
-                    Integer.parseInt(request.getSession().getAttribute("requesting").toString()), 
-                    Integer.parseInt(request.getSession().getAttribute("partnercontribution").toString()), 
-                    Integer.parseInt(request.getSession().getAttribute("NoOpp").toString()), 
-                    Integer.parseInt(request.getSession().getAttribute("estimatedrevenue").toString()), 
-                    Integer.parseInt(request.getSession().getAttribute("NOAttendees").toString()));
+                     
+                    Integer.parseInt(request.getParameter("cost").toString()), 
+                    Integer.parseInt(request.getParameter("requesting").toString()), 
+                    Integer.parseInt(request.getParameter("partnercontribution").toString()), 
+                    Integer.parseInt(request.getParameter("NoOpp").toString()), 
+                    Integer.parseInt(request.getParameter("estimatedrevenue").toString()), 
+                    Integer.parseInt(request.getParameter("NOAttendees").toString()));
             
             cc.CreateCampaign(cd);
-            response.sendRedirect("FetchCampaigns.java");
+            
+            response.sendRedirect("FetchCampaigns");
         }
         catch (Exception ex) 
         {
             ex.printStackTrace();
-            response.sendRedirect("index.jsp?msg=OMG WHY YOU SUCK?!?!"+ex.getMessage());
+            response.sendRedirect("index.jsp?msg="+ex.getMessage());
         }
     }
      

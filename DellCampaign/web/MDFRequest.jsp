@@ -21,7 +21,7 @@
         <h2 style="color: rgb(0,135,203); margin-bottom: 0;">Enterprise Field Marketing:</h2>
 
         <h4 style="color: rgb(0,135,203); margin-top: 0;">Marketing Development Fund (MDF) Request</h4>
-        <form action='DataSource/ApplyCampaign.java'>
+        <form action='ApplyCampaign'>
             <table>
                 <tr>
                     <td>Submission date: <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>"/></td>
@@ -54,7 +54,7 @@
                 <tr>
                     <td>Estimated # of attendees: <br><input name ="NOAttendees" type = "text"/></td>
                     <td>Venue name: <br><input name ="VenueName" type = "text"/></td>
-                    <td>Venue address(city,state and zip): <br><input name ="VenueAddress type = "text"/></td>
+                    <td>Venue address(city,state and zip): <br><input name ="VenueAddress" type = "text" /></td>
                 </tr>
             </table>
             <br>
@@ -347,7 +347,8 @@
                 be in effect. </p>
             <br>
             <br>
-            <button type='submit' name='applyCamp' >Apply Campaign</button>
+            <button type='submit' name='applyCamp' value="Submit" >Apply Campaign</button>
+            <a href="ApplyCampaign">derpa</a>
         </form>
     </body>
 </html>

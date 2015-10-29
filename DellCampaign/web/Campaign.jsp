@@ -20,7 +20,19 @@
         <% List<Campaign> data = (List<Campaign>) session.getAttribute("allCamp");
 
         %>
-        <a href="MDFRequest.jsp">New Campaign</a>
+        <table>
+            <tr>
+                <td><a href="MDFRequest.jsp">New Campaign</a></td>
+                        <td><form action="CampApproval">
+                                Campaign id: <input name ="CampId" type = "text"/><br>
+                                <button type="Submit" value="Submit">Approve Campaign</button>
+                    </form></td>
+                    <td><form action="POEApproval">
+                                Campaign id: <input name ="POEId" type = "text"/><br>
+                                <button type="Submit" value="Submit" >Approve POE</button>
+                    </form></td>
+        </tr>
+        </table>
         <table>
             <th>Campaign ID</th>
             <th>Partner ID</th>

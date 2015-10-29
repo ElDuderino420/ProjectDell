@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    
+    <!-- Fetch Campaign  -->
     <servlet>
         <servlet-name>FetchCampaigns</servlet-name>
         <servlet-class>Presentation.FetchCampaigns</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MDFRequest</servlet-name>
-        <servlet-class>Presentation.MDFRequest</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FetchCampaigns</servlet-name>
         <url-pattern>/FetchCampaigns</url-pattern>
     </servlet-mapping>
+    
+    
+    <!-- MDFRequest  -->
+    
+    <servlet>
+        <servlet-name>MDFRequest</servlet-name>
+        <servlet-class>Presentation.MDFRequest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MDFRequest</servlet-name>
         <url-pattern>/MDFRequest</url-pattern>
     </servlet-mapping>
+    
+    <!-- Apply Campaign  -->
     <servlet>
         <servlet-name>ApplyCampaign</servlet-name>
         <servlet-class>Presentation.ApplyCampaign</servlet-class>
@@ -23,5 +31,25 @@
     <servlet-mapping>
         <servlet-name>ApplyCampaign</servlet-name>
         <url-pattern>/ApplyCampaign</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Camp Approval  -->
+    <servlet>
+        <servlet-name>CampApproval</servlet-name>
+        <servlet-class>Presentation.CampApproval</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CampApproval</servlet-name>
+        <url-pattern>/CampApproval</url-pattern>
+    </servlet-mapping>
+    
+    <!-- POE Approval  -->
+    <servlet>
+        <servlet-name>POEApproval</servlet-name>
+        <servlet-class>Presentation.POEApproval</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>POEApproval</servlet-name>
+        <url-pattern>/POEApproval</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -11,9 +11,9 @@ package Domain;
  */
 public class CampaignDetails {
     
-    private String programDate, startTime, endTime, id, dateCreated, contactName, companyName, companyAddress, contactEmail, venueName, venueAddress, programDescription, softwareComponent, reimbursement, technologyPartners;
+    private String contactPhone, programDate, startTime, endTime, id, dateCreated, contactName, companyName, companyAddress, contactEmail, venueName, venueAddress, programDescription, softwareComponent, reimbursement, technologyPartners;
     private boolean faceToFace, tradeShows, multiTouch, doorOpener, thirdParty, directMail, blitz, sc4000, ps4210, dellStorageSol, flashPriceDisk, fluidCache, dataProtection, powerEdgeServers, windowsServer, x86Server, powerEdgeVRTX, sdn, userCentric, cloudClientComputing, infrastructureHardware, bladeDataCenter, optimizedEnterprise, powerEdgeFX, sds, smb, le, pub;
-    private int contactPhone, estimatedAttendees, totalProjectedCost, mdfRequest, totalMDFContribution, estimatedOpportunities, estimatedRevenue;
+    private int estimatedAttendees, totalProjectedCost, mdfRequest, totalMDFContribution, estimatedOpportunities, estimatedRevenue;
     
     
     public String getProgramDate() {
@@ -48,7 +48,7 @@ public class CampaignDetails {
         this.endTime = endTime;
     }
 
-    public CampaignDetails(String id, String startTime, String endTime, String programDate, String dateCreated, String contactName, String companyName, String companyAddress, String contactEmail, String venueName, String venueAddress, String programDescription, String softwareComponent, String reimbursement, String technologyPartners, boolean faceToFace, boolean tradeShows, boolean multiTouch, boolean doorOpener, boolean thirdParty, boolean directMail, boolean blitz, boolean sc4000, boolean ps4210, boolean dellStorageSol, boolean flashPriceDisk, boolean fluidCache, boolean dataProtection, boolean powerEdgeServers, boolean windowsServer, boolean x86Server, boolean powerEdgeVRTX, boolean sdn, boolean userCentric, boolean cloudClientComputing, boolean infrastructureHardware, boolean bladeDataCenter, boolean optimizedEnterprise, boolean powerEdgeFX, boolean sds, boolean smb, boolean le, boolean pub, int contactPhone, int totalProjectedCost, int mdfRequest, int totalMDFContribution, int estimatedOpportunities, int estimatedRevenue, int estimatedAttendees) {
+    public CampaignDetails(String id, String startTime, String endTime, String programDate, String dateCreated, String contactName, String companyName, String companyAddress, String contactEmail, String venueName, String venueAddress, String programDescription, String softwareComponent, String reimbursement, String technologyPartners, String contactPhone, boolean faceToFace, boolean tradeShows, boolean multiTouch, boolean doorOpener, boolean thirdParty, boolean directMail, boolean blitz, boolean sc4000, boolean ps4210, boolean dellStorageSol, boolean flashPriceDisk, boolean fluidCache, boolean dataProtection, boolean powerEdgeServers, boolean windowsServer, boolean x86Server, boolean powerEdgeVRTX, boolean sdn, boolean userCentric, boolean cloudClientComputing, boolean infrastructureHardware, boolean bladeDataCenter, boolean optimizedEnterprise, boolean powerEdgeFX, boolean sds, boolean smb, boolean le, boolean pub, int totalProjectedCost, int mdfRequest, int totalMDFContribution, int estimatedOpportunities, int estimatedRevenue, int estimatedAttendees) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -421,11 +421,11 @@ public class CampaignDetails {
         this.pub = pub;
     }
 
-    public int getContactPhone() {
+    public String getContactPhone() {
         return contactPhone;
     }
 
-    public void setContactPhone(int contactPhone) {
+    public void setContactPhone(String contactPhone) {
         this.contactPhone = contactPhone;
     }
 

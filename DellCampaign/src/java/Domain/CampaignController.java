@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +78,7 @@ public class CampaignController {
             fuckThis.setString(4, cp.getCompanyName());
             fuckThis.setString(5, cp.getCompanyAddress());
             fuckThis.setString(6, cp.getContactEmail());
-            fuckThis.setInt(7, cp.getContactPhone());
+            fuckThis.setString(7, cp.getContactPhone());
             fuckThis.setString(8, cp.getProgramDate());
             fuckThis.setString(9, cp.getStartTime());
             fuckThis.setString(10, cp.getEndTime());
@@ -141,18 +142,19 @@ public class CampaignController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT id FROM campaign");
+            ResultSet rs = ps.executeQuery("SELECT id FROM Campaign");
             while (rs.next()) {
                 int temp = Integer.parseInt(rs.getString(1).substring(1));
                 if(result < temp){
                     result = temp;
                 }
             }
+            result = result+1;
+        return "C"+result;
         } finally {
             
         }
-        result = result+1;
-        return "C"+result;
+        
         
     }
 
@@ -162,5 +164,48 @@ public class CampaignController {
         }
         return true;
     }
+    public void campApprove(String id) throws Exception{
+        
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("update campaign set CampApproved = 'Approved' where id = '"+id+"';");
+            ps.executeUpdate("update campaign set CampComment = 'Campaign has been approved' where id = '"+id+"';");
+            
+    }
+        finally {
+            
+        }
+    }
     
+    public void POEApprove(String id) throws Exception{
+        
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("update campaign set POEApproved = 'Approved' where id = '"+id+"';");
+            ps.executeUpdate("update campaign set CampComment = 'POE has been approved' where id = '"+id+"';");
+            
+    }
+        finally {
+            
+        }
+    }
+    
+    public void LastChange(String id) throws Exception{
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            String Date = LocalDateTime.now().toString().substring(0,10);
+            ps.executeUpdate("update campaign set LastChange = '"+ Date + "' where id = '"+id+"';");
+            
+            
+    }
+        finally {
+            
+        }
+    }
 }
