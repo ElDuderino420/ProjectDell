@@ -21,7 +21,7 @@
         <h2 style="color: rgb(0,135,203); margin-bottom: 0;">Enterprise Field Marketing:</h2>
 
         <h4 style="color: rgb(0,135,203); margin-top: 0;">Marketing Development Fund (MDF) Request</h4>
-        <form action='ApplyCampaign'>
+        <form action='DataSource/ApplyCampaign.java'>
             <table>
                 <tr>
                     <td>Submission date: <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>"/></td>
