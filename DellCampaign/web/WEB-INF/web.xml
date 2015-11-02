@@ -63,17 +63,13 @@
         <url-pattern>/POEUpload</url-pattern>
     </servlet-mapping>
     
-    
-    <web-app>
-....
-<context-param> 
+    <context-param> 
     <description>Location to store uploaded file</description> 
     <param-name>file-upload</param-name> 
     <param-value>
          C:\Program Files\Apache Software Foundation\Tomcat 8.0\webapps\POEdata\
      </param-value> 
 </context-param>
-....
-</web-app>
     
 </web-app>
+
