@@ -348,7 +348,6 @@
             <br>
             <br>
             <button type='submit' name='applyCamp' value="Submit" >Apply Campaign</button>
-            <a href="ApplyCampaign">derpa</a>
         </form>
     </body>
 </html>

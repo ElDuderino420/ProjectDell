@@ -52,4 +52,18 @@
         <servlet-name>POEApproval</servlet-name>
         <url-pattern>/POEApproval</url-pattern>
     </servlet-mapping>
+    
+    
+    <web-app>
+....
+<context-param> 
+    <description>Location to store uploaded file</description> 
+    <param-name>file-upload</param-name> 
+    <param-value>
+         c:\Project-POE\
+     </param-value> 
+</context-param>
+....
+</web-app>
+    
 </web-app>
