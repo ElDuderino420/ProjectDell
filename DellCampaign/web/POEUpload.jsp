@@ -13,6 +13,7 @@
     <body>
         <h3>File Upload:</h3>
         Select a file to upload: <br />
+        <p><%= request.getSession().getAttribute("SessionCamp") %></p>
         <form action="UploadServlet" method="post"
               enctype="multipart/form-data">
             <input type="file" name="file" size="50" />

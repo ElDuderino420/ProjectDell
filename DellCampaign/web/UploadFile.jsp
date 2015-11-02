@@ -1,3 +1,4 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%-- 
     Document   : UploadFile
     Created on : Nov 2, 2015, 10:02:11 AM
@@ -18,7 +19,8 @@
    int maxFileSize = 5000 * 1024;
    int maxMemSize = 5000 * 1024;
    ServletContext context = pageContext.getServletContext();
-   String filePath = context.getInitParameter("file-upload");
+   
+   String filePath = context.getInitParameter("file-upload" + request.getSession().getAttribute("SessionCamp"));
 
    // Verify the content type
    String contentType = request.getContentType();
@@ -28,7 +30,7 @@
       // maximum size that will be stored in memory
       factory.setSizeThreshold(maxMemSize);
       // Location to save data that is larger than maxMemSize.
-      factory.setRepository(new File("c:\\temp"));
+      factory.setRepository(new File("c:\\temp\\" + request.getSession().getAttribute("SessionCamp")));
 
       // Create a new file upload handler
       ServletFileUpload upload = new ServletFileUpload(factory);

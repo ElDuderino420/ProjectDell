@@ -27,10 +27,15 @@
                                 Campaign id: <input name ="CampId" type = "text"/><br>
                                 <button type="Submit" value="Submit">Approve Campaign</button>
                     </form></td>
+                    <td><form action="POEUpload">
+                                Campaign id: <input name ="CampId" type = "text"/><br>
+                                <button type="Submit" value="Submit" >Upload POE</button>
+                    </form></td>
                     <td><form action="POEApproval">
-                                Campaign id: <input name ="POEId" type = "text"/><br>
+                                Campaign id:<input name ="POEId" type = "text"/><br>
                                 <button type="Submit" value="Submit" >Approve POE</button>
                     </form></td>
+                    
         </tr>
         </table>
         <table>

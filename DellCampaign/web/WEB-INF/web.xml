@@ -53,6 +53,16 @@
         <url-pattern>/POEApproval</url-pattern>
     </servlet-mapping>
     
+    <!-- POE Approval  -->
+    <servlet>
+        <servlet-name>POEUpload</servlet-name>
+        <servlet-class>Presentation.POEUpload</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>POEUpload</servlet-name>
+        <url-pattern>/POEUpload</url-pattern>
+    </servlet-mapping>
+    
     
     <web-app>
 ....
@@ -60,7 +70,7 @@
     <description>Location to store uploaded file</description> 
     <param-name>file-upload</param-name> 
     <param-value>
-         c:\Project-POE\
+         C:\Program Files\Apache Software Foundation\Tomcat 8.0\webapps\POEdata\
      </param-value> 
 </context-param>
 ....
