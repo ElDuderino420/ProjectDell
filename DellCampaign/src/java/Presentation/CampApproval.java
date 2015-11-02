@@ -26,8 +26,9 @@ public class CampApproval extends HttpServlet{
         try
         {
             CampaignController cc = new CampaignController();
-            cc.campApprove(request.getParameter("CampId"));
-            cc.LastChange(request.getParameter("CampId"));
+            
+            cc.campApprove(request.getSession().getAttribute("CampId").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
             response.sendRedirect("FetchCampaigns");
         }
         catch (Exception ex) 

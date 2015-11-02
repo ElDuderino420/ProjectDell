@@ -63,6 +63,17 @@
         <url-pattern>/POEUpload</url-pattern>
     </servlet-mapping>
     
+    <!-- navigation controller  -->
+    <servlet>
+        <servlet-name>navCon</servlet-name>
+        <servlet-class>Presentation.navCon</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>navCon</servlet-name>
+        <url-pattern>/navCon</url-pattern>
+    </servlet-mapping>
+    
+    
     <context-param> 
     <description>Location to store uploaded file</description> 
     <param-name>file-upload</param-name> 

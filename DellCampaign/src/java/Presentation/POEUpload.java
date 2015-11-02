@@ -25,7 +25,7 @@ public class POEUpload extends HttpServlet{
         
         try
         {
-            request.getSession().setAttribute("SessionCamp", request.getParameter("CampId"));
+            // (request.getSession().getAttribute("CampId").toString())
                     response.sendRedirect("POEUpload.jsp");
         }
         catch (Exception ex) 

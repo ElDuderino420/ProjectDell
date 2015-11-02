@@ -5,7 +5,6 @@
  */
 package Presentation;
 
-import Domain.CampaignController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author butwhole
  */
-public class POEApproval extends HttpServlet{
+public class navCon extends HttpServlet{
 
     
     
@@ -25,10 +24,32 @@ public class POEApproval extends HttpServlet{
         
         try
         {
-            CampaignController cc = new CampaignController();
-            cc.POEApprove(request.getSession().getAttribute("CampId").toString());
-            cc.LastChange(request.getSession().getAttribute("CampId").toString());
-            response.sendRedirect("FetchCampaigns");
+            request.getSession().setAttribute("CampId", request.getParameter("CampId"));
+            //request.getSession().setAttribute("button", request.getParameter("nav"));
+            String derp = request.getParameter("nav").toString();
+            
+            if(derp.equals("NC")){
+                response.sendRedirect("MDFRequest");
+            }
+            if(derp.equals("AC")){
+                response.sendRedirect("CampApproval");
+            }
+            if(derp.equals("RC")){
+                response.sendRedirect("CampApproval");
+            }
+            if(derp.equals("UP")){
+                response.sendRedirect("CampApproval");
+            }
+            if(derp.equals("AP")){
+                response.sendRedirect("POEApproval");
+            }
+            if(derp.equals("RP")){
+                response.sendRedirect("CampApproval");
+            }
+            if(derp.equals("CC")){
+                response.sendRedirect("CampApproval");
+            }
+                    
         }
         catch (Exception ex) 
         {

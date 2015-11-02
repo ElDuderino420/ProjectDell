@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        
+
 
     </head>
     <body>
@@ -20,24 +20,19 @@
         <% List<Campaign> data = (List<Campaign>) session.getAttribute("allCamp");
 
         %>
-        <table>
-            <tr>
-                <td><a href="MDFRequest.jsp">New Campaign</a></td>
-                        <td><form action="CampApproval">
-                                Campaign id: <input name ="CampId" type = "text"/><br>
-                                <button type="Submit" value="Submit">Approve Campaign</button>
-                    </form></td>
-                    <td><form action="POEUpload">
-                                Campaign id: <input name ="CampId" type = "text"/><br>
-                                <button type="Submit" value="Submit" >Upload POE</button>
-                    </form></td>
-                    <td><form action="POEApproval">
-                                Campaign id:<input name ="POEId" type = "text"/><br>
-                                <button type="Submit" value="Submit" >Approve POE</button>
-                    </form></td>
-                    
-        </tr>
-        </table>
+        <form action="navCon">
+            Campaign id: <input name ="CampId" type = "text"/> <br>
+            Comment: <input name ="Comment" type = "text"/><br>
+            
+            <button type="Submit" value="NC" name="nav">New Campaign</button>
+            <button type="Submit" value="AC" name="nav">Approve Campaign</button>
+            <button type="Submit" value="RC" name="nav">Reject Campaign</button>
+            <button type="Submit" value="UP" name="nav">Upload POE</button>
+            <button type="Submit" value="AP" name="nav">Approve POE</button>
+            <button type="Submit" value="RP" name="nav">Reject POE</button>
+            <button type="Submit" value="CC" name="nav">Change Comment</button>
+
+        </form>
         <table>
             <th>Campaign ID</th>
             <th>Partner ID</th>
