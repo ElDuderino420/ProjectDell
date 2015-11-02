@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="maincss.css" type="text/css" media="screen"/>
 
 
     </head>
@@ -22,39 +23,42 @@
         %>
         <form action="navCon">
             Campaign id: <input name ="CampId" type = "text"/> <br>
-            Comment: <input name ="Comment" type = "text"/><br>
-            
-            <button type="Submit" value="NC" name="nav">New Campaign</button>
-            <button type="Submit" value="AC" name="nav">Approve Campaign</button>
-            <button type="Submit" value="RC" name="nav">Reject Campaign</button>
-            <button type="Submit" value="UP" name="nav">Upload POE</button>
-            <button type="Submit" value="AP" name="nav">Approve POE</button>
-            <button type="Submit" value="RP" name="nav">Reject POE</button>
-            <button type="Submit" value="CC" name="nav">Change Comment</button>
+            <div id="leftmenu">
+                <button type="Submit" value="NC" name="nav">New Campaign</button>
+                <button type="Submit" value="AC" name="nav">Approve Campaign</button>
+                <button type="Submit" value="RC" name="nav">Reject Campaign</button>
+                <button type="Submit" value="UP" name="nav">Upload POE</button>
+                <button type="Submit" value="AP" name="nav">Approve POE</button>
+                <button type="Submit" value="RP" name="nav">Reject POE</button>
+                <button type="Submit" value="CC" name="nav">Change Comment</button>
+                <div id="comment" >Comment: <textarea name ="Comment" type = "text"></textarea></div>
+            </div>
 
         </form>
-        <table>
-            <th>Campaign ID</th>
-            <th>Partner ID</th>
-            <th>Dell ID</th>
-            <th>Campaign approval</th>
-            <th>POE status</th>
-            <th>Last Changed</th>
-            <th>Comments</th>
-                <%                    for (Campaign c : data) {
-                        out.print("<tr>"
-                                + "<td>" + c.getId() + "</td>"
-                                + "<td>" + c.getPid() + "</td>"
-                                + "<td>" + c.getDid() + "</td>"
-                                + "<td>" + c.getCampApproved() + "</td>"
-                                + "<td>" + c.getPoeApproved() + "</td>"
-                                + "<td>" + c.getDateChanged() + "</td>"
-                                + "<td>" + c.getComment() + "</td>"
-                                + "</tr>");
-                    }
-                %>
+        <div id="contentarea">
+            <table cellspacing="0">
+                <th>Campaign ID</th>
+                <th>Partner ID</th>
+                <th>Dell ID</th>
+                <th>Campaign approval</th>
+                <th>POE status</th>
+                <th>Last Changed</th>
+                <th>Comments</th>
+                    <%                    for (Campaign c : data) {
+                            out.print("<tr>"
+                                    + "<td>" + c.getId() + "</td>"
+                                    + "<td>" + c.getPid() + "</td>"
+                                    + "<td>" + c.getDid() + "</td>"
+                                    + "<td>" + c.getCampApproved() + "</td>"
+                                    + "<td>" + c.getPoeApproved() + "</td>"
+                                    + "<td>" + c.getDateChanged() + "</td>"
+                                    + "<td>" + c.getComment() + "</td>"
+                                    + "</tr>");
+                        }
+                    %>
 
-        </table>
+            </table>
+        </div>
 
     </body>
 </html>
