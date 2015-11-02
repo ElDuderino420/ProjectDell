@@ -5,6 +5,7 @@
  */
 package Presentation;
 
+import Domain.CampaignController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author butwhole
  */
-public class navCon extends HttpServlet{
+public class ChangeComment extends HttpServlet{
 
     
     
@@ -24,32 +25,12 @@ public class navCon extends HttpServlet{
         
         try
         {
-            request.getSession().setAttribute("CampId", request.getParameter("CampId"));
-            request.getSession().setAttribute("Comment", request.getParameter("Comment"));
-            String derp = request.getParameter("nav").toString();
+            CampaignController cc = new CampaignController();
             
-            if(derp.equals("NC")){
-                response.sendRedirect("MDFRequest");
-            }
-            if(derp.equals("AC")){
-                response.sendRedirect("CampApproval");
-            }
-            if(derp.equals("RC")){
-                response.sendRedirect("CampReject");
-            }
-            if(derp.equals("UP")){
-                response.sendRedirect("POEUpload");
-            }
-            if(derp.equals("AP")){
-                response.sendRedirect("POEApproval");
-            }
-            if(derp.equals("RP")){
-                response.sendRedirect("POEReject");
-            }
-            if(derp.equals("CC")){
-                response.sendRedirect("ChangeComment");
-            }
-                    
+            cc.campChangeComment(request.getSession().getAttribute("CampId").toString(),
+                                 request.getSession().getAttribute("Comment").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            response.sendRedirect("FetchCampaigns");
         }
         catch (Exception ex) 
         {

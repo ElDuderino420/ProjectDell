@@ -26,7 +26,8 @@ public class POEApproval extends HttpServlet{
         try
         {
             CampaignController cc = new CampaignController();
-            cc.POEApprove(request.getSession().getAttribute("CampId").toString());
+            cc.POEApprove(request.getSession().getAttribute("CampId").toString(),
+                          request.getSession().getAttribute("Comment").toString());
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
             response.sendRedirect("FetchCampaigns");
         }

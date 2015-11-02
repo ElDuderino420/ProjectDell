@@ -164,14 +164,18 @@ public class CampaignController {
         }
         return true;
     }
-    public void campApprove(String id) throws Exception{
+    
+    public void campApprove(String id,String Comment) throws Exception{
         
         Connection con = null;
         try {
+            if(Comment == null || Comment.equals("")){
+                Comment = "Campaign has been Approved";
+            }
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ps.executeUpdate("update campaign set CampApproved = 'Approved' where id = '"+id+"';");
-            ps.executeUpdate("update campaign set CampComment = 'Campaign has been approved' where id = '"+id+"';");
+            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '"+id+"';");
             
     }
         finally {
@@ -179,14 +183,72 @@ public class CampaignController {
         }
     }
     
-    public void POEApprove(String id) throws Exception{
+    public void campReject(String id,String Comment) throws Exception{
         
         Connection con = null;
         try {
+            if(Comment == null || Comment.equals("")){
+                Comment = "Campaign has been Rejected";
+            }
+                
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("update campaign set CampApproved = 'Rejected' where id = '"+id+"';");
+            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '"+id+"';");
+            
+    }
+        finally {
+            
+        }
+    }
+    
+    public void POEApprove(String id,String Comment) throws Exception{
+        
+        Connection con = null;
+        try {
+            if(Comment == null || Comment.equals("")){
+                Comment = "POE has been Approved";
+            }
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ps.executeUpdate("update campaign set POEApproved = 'Approved' where id = '"+id+"';");
-            ps.executeUpdate("update campaign set CampComment = 'POE has been approved' where id = '"+id+"';");
+            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '"+id+"';");
+            
+    }
+        finally {
+            
+        }
+    }
+    
+    public void POEReject(String id,String Comment) throws Exception{
+        
+        Connection con = null;
+        try {
+            if(Comment == null || Comment.equals("")){
+                Comment = "POE has been Rejected";
+            }
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("update campaign set POEApproved = 'Rejected' where id = '"+id+"';");
+            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '"+id+"';");
+            
+    }
+        finally {
+            
+        }
+    }
+    
+    public void campChangeComment(String id,String Comment) throws Exception{
+        
+        Connection con = null;
+        try {
+            if(Comment == null || Comment.equals("")){
+                Comment = "";
+            }
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            
+            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '"+id+"';");
             
     }
         finally {

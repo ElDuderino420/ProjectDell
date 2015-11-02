@@ -27,7 +27,8 @@ public class CampApproval extends HttpServlet{
         {
             CampaignController cc = new CampaignController();
             
-            cc.campApprove(request.getSession().getAttribute("CampId").toString());
+            cc.campApprove(request.getSession().getAttribute("CampId").toString(),
+                           request.getSession().getAttribute("Comment").toString());
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
             response.sendRedirect("FetchCampaigns");
         }
