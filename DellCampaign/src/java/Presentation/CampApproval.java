@@ -30,6 +30,7 @@ public class CampApproval extends HttpServlet{
             cc.campApprove(request.getSession().getAttribute("CampId").toString(),
                            request.getSession().getAttribute("Comment").toString());
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            //request.getSession().setAttribute("path",request.getContextPath());
             response.sendRedirect("FetchCampaigns");
         }
         catch (Exception ex) 

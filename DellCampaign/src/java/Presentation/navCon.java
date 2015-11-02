@@ -26,6 +26,7 @@ public class navCon extends HttpServlet{
         {
             request.getSession().setAttribute("CampId", request.getParameter("CampId"));
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
+            request.getSession().setAttribute("Path", request.getContextPath());
             String derp = request.getParameter("nav").toString();
             
             if(derp.equals("NC")){

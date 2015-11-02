@@ -259,6 +259,7 @@ public class CampaignController {
     public void LastChange(String id) throws Exception{
         Connection con = null;
         try {
+            
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             String Date = LocalDateTime.now().toString().substring(0,10);
