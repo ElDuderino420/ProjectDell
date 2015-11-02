@@ -52,7 +52,7 @@
                                     + "<td>" + c.getCampApproved() + "</td>"
                                     + "<td>" + c.getPoeApproved() + "</td>"
                                     + "<td>" + c.getDateChanged() + "</td>"
-                                    + "<td>" + c.getComment() + "</td>"
+                                    + "<td><pre>" + c.getComment() + "</pre></td>"
                                     + "</tr>");
                         }
                     %>
