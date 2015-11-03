@@ -6,20 +6,13 @@
 package Domain;
 
 import DataSource.DatabaseCon;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
-import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import javax.servlet.ServletContext;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 /**
  *
