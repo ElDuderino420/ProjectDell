@@ -91,19 +91,19 @@
                 <tr>
                     <td><input name = SC4000 type = "checkbox" >Dell Storage SC4000 Series</td>
                     <td><input name = poweredgeservers type = "checkbox"> The Latest Generation of Del PowerEdge Servers</td>
-                    <td><input name = SDN type = "checkbox"> Software-Defined Networking (SDN): </td>
+                    <td><input name = SDN type = "checkbox"> Software-Defined Networking (SDN): Data Center Networkin </td>
                     <td><input name = cloud type = "checkbox"> Cloud Client-Computing</td>
                 </tr>
                 <tr>
                     <td><input name = PS4210 type = "checkbox" >Dell Storage PS4210 Series</td>
                     <td><input name = winserver type = "checkbox"> Windows Server 2003 Migration</td>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data Center Networking</td>
+                    <td><input name = usercentric type = "checkbox"> User-Centric Networking</td>
                     <td><input name = infrahardware type = "checkbox"> Converged Infrastructure Hardware</td>
                 </tr>
                 <tr>
                     <td><input name = storagesolutions type = "checkbox" >Dell Storage Solutions</td>
                     <td><input name = x86server type = "checkbox"> x86 Server Transition</td>
-                    <td><input name = usercentric type = "checkbox"> User-Centric Networking</td>
+                    <td></td>
                     <td><input name = bladedatacenter type = "checkbox"> Dell Converged Blade Data Center</td>
                 </tr>
                 <tr>
