@@ -27,7 +27,7 @@ public class CampaignController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM campaign");
+            ResultSet rs = ps.executeQuery("SELECT * FROM Campaign");
             while (rs.next()) {
                 Campaign camp = new Campaign(
                         rs.getString(1),
@@ -130,7 +130,7 @@ public class CampaignController {
             ezshit.close();
 
             Statement comment = con.createStatement();
-            comment.executeUpdate("update campaign set CampComment = 'Waiting for Approval' where id = '" + cp.getId() + "';");
+            comment.executeUpdate("update Campaign set CampComment = 'Waiting for Approval' where id = '" + cp.getId() + "';");
             comment.close();
 
         } finally {
@@ -179,8 +179,8 @@ public class CampaignController {
             }
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ps.executeUpdate("update campaign set CampApproved = 'Approved' where id = '" + id + "';");
-            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampApproved = 'Approved' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
         } finally {
 
@@ -197,8 +197,8 @@ public class CampaignController {
 
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ps.executeUpdate("update campaign set CampApproved = 'Rejected' where id = '" + id + "';");
-            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampApproved = 'Rejected' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
         } finally {
@@ -215,8 +215,8 @@ public class CampaignController {
             }
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ps.executeUpdate("update campaign set POEApproved = 'Approved' where id = '" + id + "';");
-            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set POEApproved = 'Approved' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
 
         } finally {
 
@@ -232,8 +232,8 @@ public class CampaignController {
             }
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ps.executeUpdate("update campaign set POEApproved = 'Rejected' where id = '" + id + "';");
-            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set POEApproved = 'Rejected' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
         } finally {
@@ -251,8 +251,8 @@ public class CampaignController {
 
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ps.executeUpdate("update campaign set POEApproved = 'Pending' where id = '" + id + "';");
-            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
         } finally {
@@ -270,7 +270,7 @@ public class CampaignController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ps.executeUpdate("update campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
         } finally {
@@ -285,7 +285,7 @@ public class CampaignController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             String Date = LocalDateTime.now().toString().substring(0, 10);
-            ps.executeUpdate("update campaign set LastChange = '" + Date + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set LastChange = '" + Date + "' where id = '" + id + "';");
             ps.close();
 
         } finally {

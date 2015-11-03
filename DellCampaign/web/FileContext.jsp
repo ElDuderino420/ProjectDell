@@ -8,6 +8,6 @@
 <!DOCTYPE html>
 <% 
     request.getSession().setAttribute("path", request.getContextPath());
-    request.getSession().getClass()
+    request.getSession().getClass();
 
 %>

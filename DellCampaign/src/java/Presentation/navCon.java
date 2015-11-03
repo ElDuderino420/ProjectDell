@@ -88,7 +88,7 @@ public class navCon extends HttpServlet{
         catch (Exception ex) 
         {
             ex.printStackTrace();
-            response.sendRedirect("index.jsp?msg=OMG WHY YOU SUCK?!?!"+ex.getMessage());
+            response.sendRedirect("index.jsp?msg=Error: "+ex.getMessage());
         }
     }
      

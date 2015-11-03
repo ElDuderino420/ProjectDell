@@ -23,7 +23,7 @@ public class PartnerController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM partner where pass = '" + pass + "' and id = '" + id + "';");
+            ResultSet rs = ps.executeQuery("SELECT * FROM Partner where pass = '" + pass + "' and id = '" + id + "';");
             if (rs.next()){
                 accepted = "true";
             }
