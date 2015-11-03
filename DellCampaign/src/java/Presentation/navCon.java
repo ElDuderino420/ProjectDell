@@ -5,6 +5,7 @@
  */
 package Presentation;
 
+import Domain.CampaignController;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,31 +25,63 @@ public class navCon extends HttpServlet{
         
         try
         {
+            // set 
+            request.getSession().setAttribute("motherPath", request.getContextPath());
             request.getSession().setAttribute("CampId", request.getParameter("CampId"));
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
             String derp = request.getParameter("nav").toString();
+            CampaignController cc = new CampaignController();
             
+            // click new campaign
             if(derp.equals("NC")){
-                response.sendRedirect("MDFRequest");
+                response.sendRedirect("MDFRequest.jsp");
             }
+            
+            // click approve campaign
             if(derp.equals("AC")){
-                response.sendRedirect("CampApproval");
+            cc.campApprove(request.getSession().getAttribute("CampId").toString(),
+                           request.getSession().getAttribute("Comment").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            response.sendRedirect("FetchCampaigns");
             }
+            
+            // click Reject Campaign
             if(derp.equals("RC")){
-                response.sendRedirect("CampReject");
+            cc.campReject(request.getSession().getAttribute("CampId").toString(),
+                          request.getSession().getAttribute("Comment").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            response.sendRedirect("FetchCampaigns");
             }
+            
+            // click Upload POE
             if(derp.equals("UP")){
-                response.sendRedirect("POEUpload");
+                    request.getSession().setAttribute("motherPath", request.getContextPath());
+                    response.sendRedirect("POEUpload.jsp");
             }
+            
+            // click Approve POE
             if(derp.equals("AP")){
-                response.sendRedirect("POEApproval");
+            cc.POEApprove(request.getSession().getAttribute("CampId").toString(),
+                          request.getSession().getAttribute("Comment").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            response.sendRedirect("FetchCampaigns");
             }
+            
+            // click Reject POE
             if(derp.equals("RP")){
-                response.sendRedirect("POEReject");
+            cc.POEReject(request.getSession().getAttribute("CampId").toString(),
+                         request.getSession().getAttribute("Comment").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            response.sendRedirect("FetchCampaigns");
             }
+            
+            // click Change Comment
             if(derp.equals("CC")){
-                response.sendRedirect("ChangeComment");
+            cc.campChangeComment(request.getSession().getAttribute("CampId").toString(),
+                                 request.getSession().getAttribute("Comment").toString());
+            cc.LastChange(request.getSession().getAttribute("CampId").toString());
+            response.sendRedirect("FetchCampaigns");
             }
                     
         }

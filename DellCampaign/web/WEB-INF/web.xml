@@ -101,12 +101,22 @@
         <url-pattern>/navCon</url-pattern>
     </servlet-mapping>
     
+    <!-- UploadFile  -->
+    <servlet>
+        <servlet-name>UploadFile</servlet-name>
+        <servlet-class>Presentation.UploadFile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadFile</servlet-name>
+        <url-pattern>/UploadFile</url-pattern>
+    </servlet-mapping>
     
     <context-param> 
     <description>Location to store uploaded file</description> 
     <param-name>file-upload</param-name> 
     <param-value>
-         C:\Program Files\Apache Software Foundation\Tomcat 8.0\webapps\POEdata\
+         /DellCampaign/Poe
+         
      </param-value> 
 </context-param>
     

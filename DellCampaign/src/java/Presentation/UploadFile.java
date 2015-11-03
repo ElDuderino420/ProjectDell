@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author butwhole
  */
-public class POEUpload extends HttpServlet{
+public class UploadFile extends HttpServlet{
 
     
     
@@ -25,8 +25,13 @@ public class POEUpload extends HttpServlet{
         
         try
         {
-            // (request.getSession().getAttribute("CampId").toString())
-                    response.sendRedirect("POEUpload.jsp");
+                    CampaignController cc = new CampaignController();
+                    String id = request.getSession().getAttribute("CampId").toString();
+                    cc.NewPOE(id, 
+                              request.getSession().getAttribute("Comment").toString());
+                    cc.LastChange(id);
+
+            response.sendRedirect("FetchCampaigns");
         }
         catch (Exception ex) 
         {
