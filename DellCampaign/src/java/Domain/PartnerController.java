@@ -16,6 +16,10 @@ import java.sql.Statement;
  */
 public class PartnerController {
     
+    
+    /*
+    FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
+    */
     public String FetchPartners(String id,String pass) throws Exception {
         String accepted = "false";
         Connection con = null;

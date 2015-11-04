@@ -14,6 +14,19 @@ public class Campaign {
     private boolean dismissed;
     private String  dateChanged;
 
+    /*
+    Campaing Claas for Campaing Objects
+    id: Campaing ID for the campaing primary key
+    pid: Partner ID
+    did: Dell ID
+    poeApproved: status on POE
+    campApproved: status on campaing approval
+    dismissed: notification dismissed
+    comment: optional comment on status
+    dateChanged: last date changed
+    */
+    
+    
     public Campaign(String id) {
         this.id = id;
     }

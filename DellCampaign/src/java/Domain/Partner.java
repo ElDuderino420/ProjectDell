@@ -13,6 +13,16 @@ public class Partner {
     private String id,name,dateCreated,password,email;
     int phone;
 
+    /*
+    Partner object that contains
+    id: Partner ID
+    name: Partner Name
+    dateCreated: date added to the database
+    password: Partner password
+    email: Partner email
+    phone: Partner phone number
+    */
+    
     public Partner(String id, String name, String dateCreated, String password, String email, int phone) {
         this.id = id;
         this.name = name;

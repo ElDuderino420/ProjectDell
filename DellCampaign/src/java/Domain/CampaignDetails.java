@@ -9,12 +9,14 @@ package Domain;
  *
  * @author butwhole
  */
-public class CampaignDetails {
-    
+public class CampaignDetails {    
     private String contactPhone, programDate, startTime, endTime, id, dateCreated, contactName, companyName, companyAddress, contactEmail, venueName, venueAddress, programDescription, softwareComponent, reimbursement, technologyPartners;
     private boolean faceToFace, tradeShows, multiTouch, doorOpener, thirdParty, directMail, blitz, sc4000, ps4210, dellStorageSol, flashPriceDisk, fluidCache, dataProtection, powerEdgeServers, windowsServer, x86Server, powerEdgeVRTX, sdn, userCentric, cloudClientComputing, infrastructureHardware, bladeDataCenter, optimizedEnterprise, powerEdgeFX, sds, smb, le, pub;
     private int estimatedAttendees, totalProjectedCost, mdfRequest, totalMDFContribution, estimatedOpportunities, estimatedRevenue;
     
+    /*
+    CampaignDetails contains all the infomation from the MDFRequest
+    */
     
     public String getProgramDate() {
         return programDate;

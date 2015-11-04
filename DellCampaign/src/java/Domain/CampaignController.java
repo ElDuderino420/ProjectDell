@@ -20,6 +20,9 @@ import java.util.List;
  */
 public class CampaignController {
 
+    /*
+    FetchCampaigns selects all the campaigns from the database and puts them into a list of campaigns and returns it
+    */
     public List<Campaign> FetchCampaigns() throws Exception {
         List<Campaign> result = new ArrayList<>();
         Connection con = null;
@@ -48,6 +51,9 @@ public class CampaignController {
         return result;
     }
 
+    /*
+    CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
+    */
     public void CreateCampaign(CampaignDetails cp) throws Exception {
 
         Connection con = null;
@@ -139,6 +145,9 @@ public class CampaignController {
 
     }
 
+    /*
+    getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
+    */
     public String getNextId() throws Exception {
         int result = 0;
         Connection con = null;
@@ -163,6 +172,9 @@ public class CampaignController {
 
     }
 
+    /*
+    getChecked returns a boolean if a checkbox has been checked or not
+    */
     public boolean getChecked(String s) {
         if (s == null || s.equals(null) || s.equals("null")) {
             return false;
@@ -170,6 +182,9 @@ public class CampaignController {
         return true;
     }
 
+    /*
+    campApprove takes a campaign id and comment and sets the campapproved status to approved and sets the comment to capaign has been approved
+    */
     public void campApprove(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -187,6 +202,9 @@ public class CampaignController {
         }
     }
 
+    /*
+    campReject takes the campaign id and a comment of a campaign and sets the campapproved status to rejected and the comment to campaign has been rejected
+    */
     public void campReject(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -206,6 +224,9 @@ public class CampaignController {
         }
     }
 
+    /*
+    POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
+    */
     public void POEApprove(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -223,6 +244,9 @@ public class CampaignController {
         }
     }
 
+    /*
+    POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
+    */
     public void POEReject(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -241,6 +265,9 @@ public class CampaignController {
         }
     }
 
+    /*
+    NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded
+    */
     public void NewPOE(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -260,6 +287,9 @@ public class CampaignController {
         }
     }
 
+    /*
+    campChangeComment changes the comment of a given campaign id to a given comment
+    */
     public void campChangeComment(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -278,6 +308,9 @@ public class CampaignController {
         }
     }
 
+    /*
+    LastChange updates the date of a given campaign id to todays date
+    */
     public void LastChange(String id) throws Exception {
         Connection con = null;
         try {
