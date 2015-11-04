@@ -24,7 +24,13 @@
     } else {
         
         int derp = filePath.indexOf("/build/web/");
-        filePath = filePath.substring(0, derp) + "/Poe/" + id + "/";
+        String f = "/";
+        
+        if(derp==-1){
+            f = "\\";
+            derp = filePath.indexOf("\\build\\web\\");
+        }
+        filePath = filePath.substring(0, derp) + f+"Poe"+f + id + f;
         file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
@@ -61,12 +67,12 @@
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();
                         // Write the file
-                        if (fileName.lastIndexOf("/") >= 0) {
+                        if (fileName.lastIndexOf(f) >= 0) {
                             file = new File(filePath
-                                    + fileName.substring(fileName.lastIndexOf("/")));
+                                    + fileName.substring(fileName.lastIndexOf(f)));
                         } else {
                             file = new File(filePath
-                                    + fileName.substring(fileName.lastIndexOf("/") + 1));
+                                    + fileName.substring(fileName.lastIndexOf(f) + 1));
                         }
 
                         fi.write(file);
