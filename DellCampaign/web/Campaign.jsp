@@ -31,7 +31,7 @@
                 <button type="Submit" value="AP" name="nav">Approve POE</button>
                 <button type="Submit" value="RP" name="nav">Reject POE</button>
                 <button type="Submit" value="CC" name="nav">Change Comment</button>
-                <div id="comment" >Comment: <textarea name ="Comment" type = "text"></textarea></div>
+                <div id="comment" >Comment: <textarea name ="Comment"></textarea></div>
             </div>
 
         </form>
