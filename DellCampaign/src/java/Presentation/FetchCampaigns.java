@@ -26,10 +26,15 @@ public class FetchCampaigns extends HttpServlet{
         
         try
         {
+            
             CampaignController cc = new CampaignController();
             request.getSession().setAttribute("allCamp",cc.FetchCampaigns());
+            if(request.getParameter("msg")!=null){
+                response.sendRedirect("Campaign.jsp?msg="+ request.getParameter("msg"));
+            }else{
             response.sendRedirect("Campaign.jsp");
-        }
+        }}
+        
         catch (Exception ex) 
         {
             ex.printStackTrace();

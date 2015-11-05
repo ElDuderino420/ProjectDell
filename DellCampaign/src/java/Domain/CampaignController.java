@@ -343,7 +343,29 @@ public class CampaignController {
 
         }
     }
+    
+    public boolean POECheckUpload(String id) throws Exception {
+        
+        Connection con = null;
+        try {
 
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet rs = ps.executeQuery("select POEApproved from Campaign where id = '" + id + "';");
+            rs.next();
+            if(rs.getString(1).equals("Pending"))
+                return true;
+            ps.close();
+            
+            
+
+        } finally {
+
+        }
+        return false;
+        
+    }
+    
      /*
              public void UploadFile(String id, String path) {
 
