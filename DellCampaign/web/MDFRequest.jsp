@@ -10,28 +10,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> 
- 
-         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
-        <link rel="stylesheet" href="maincss.css" type="text/css" media="screen"/>
+        
+        <!-- <link rel="stylesheet" href="maincss.css" type="text/css" media="screen"/> -->
         <title>MDF Reqeust</title>
     </head>
     <body>
         <h2 style="color: rgb(0,135,203); margin-bottom: 0;">Enterprise Field Marketing:</h2>
 
         <h4 style="color: rgb(0,135,203); margin-top: 0;">Marketing Development Fund (MDF) Request</h4>
+        <h6>*Required Field</h6>
         <form action='ApplyCampaign'>
             <table>
                 <tr>
-                    <td>Submission date: <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>"/></td>
-                    <td>Contact name: <br><input name ="ContactName" type = "text"/></td>
-                    <td>Company name: <br><input name ="CompanyName" type = "text"/></td>
+                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>"/></td>
+                    <td>Contact name*: <br><input name ="ContactName" type = "text"/></td>
+                    <td>Company name*: <br><input name ="CompanyName" type = "text"/></td>
                 </tr>
                 <tr>
-                    <td>Company address (city,state and zip):<br><input name ="Address" type = "text"/> </td>
-                    <td>Contact email: <br><input name ="ContactEmail" type = "text"/></td>
-                    <td>Contact Phone: <br><input name ="ContactPhone" type = "text"/></td>
+                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text"/> </td>
+                    <td>Contact email*: <br><input name ="ContactEmail" type = "text"/></td>
+                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text"/></td>
                 </tr>
             </table>
                     <br>
@@ -47,14 +45,14 @@
             <h4>Program Overview</h4>
             <table>
                 <tr>
-                    <td>Program Date: <br><input name ="ProgramDate" type = "text"/></td>
-                    <td>Start time: <br><input name ="StartTime" type = "text"/></td>
-                    <td>End time: <br><input name ="EndTime" type = "text"/></td>
+                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text"/></td>
+                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text"/></td>
+                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text"/></td>
                 </tr>
                 <tr>
-                    <td>Estimated # of attendees: <br><input name ="NOAttendees" type = "text"/></td>
-                    <td>Venue name: <br><input name ="VenueName" type = "text"/></td>
-                    <td>Venue address(city,state and zip): <br><input name ="VenueAddress" type = "text" /></td>
+                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text"/></td>
+                    <td>Venue name*: <br><input name ="VenueName" type = "text"/></td>
+                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" /></td>
                 </tr>
             </table>
             <br>
@@ -75,8 +73,8 @@
                     <td><input name = blitzcamp type = "checkbox"> Blitz Campaign (appt-setting or opportunity blitz)</td>
                 </tr>
             </table>
-            <p>Program description and/or agenda:</p><br>
-            <input name =desc type="text" >
+            <p>Program description and/or agenda*:</p><br>
+            <textarea name ="desc"></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
@@ -127,7 +125,7 @@
             </table>
             <p style="font-weight: bold">Is there a software component to your campaign?</p>
             <p>If so, please detail the specific software component(s) in the space below.</p>
-            <input name =softwareComponent type="text" >
+            <textarea name =softwareComponent ></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
@@ -145,14 +143,14 @@
 
             <h4>Additional Program Information</h4>
 
-            <p>Total projected cost of program: <input name='cost' type='text'></p>
-            <p>Total MDF requesting from Dell: <input name='requesting' type='text'></p>
-            <p>Note: Dell will fund up to fifty percent (50%)* of the projected total cost, based on actual costs incurred for the activity.*See terms and conditions for rules and restrictions.</p>
-            <p>Preferred method of reimbursement (AMEX or check/EFT):<input name='methodofreimbursement' type='text'></p>
-            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.):<input name='partner' type='text'></p>
-            <p>Total Technology Partner(s) MDF contribution: <input name='partnercontribution' type='text'></p>
-            <p>Estimated # of opportunities (deals registered through Dell Deal Registration): <input name='NoOpp' type='text'></p>
-            <p>Estimated revenue from program:<input name='estimatedrevenue' type='text'></p>
+            <p>Total projected cost of program*: <input name='cost' type='text'></p>
+            <p>Total MDF requesting from Dell*: <input name='requesting' type='text'></p>
+            <p>Note: Dell will fund up to fifty percent (50%)** of the projected total cost, based on actual costs incurred for the activity.**See terms and conditions for rules and restrictions.</p>
+            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text'></p>
+            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text'></p>
+            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text'></p>
+            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text'></p>
+            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text'></p>
 
             <h4 style='color:rgb(34,145,204);'>Following the completion of this form, please submit your full MDF request to your Enterprise Field
                 Marketing Manager for consideration and review. You may expect a response within 48 - 72 hours,
