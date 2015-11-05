@@ -21,8 +21,8 @@ import java.util.List;
 public class CampaignController {
 
     /*
-    FetchCampaigns selects all the campaigns from the database and puts them into a list of campaigns and returns it
-    */
+     FetchCampaigns selects all the campaigns from the database and puts them into a list of campaigns and returns it
+     */
     public List<Campaign> FetchCampaigns() throws Exception {
         List<Campaign> result = new ArrayList<>();
         Connection con = null;
@@ -52,8 +52,8 @@ public class CampaignController {
     }
 
     /*
-    CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
-    */
+     CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
+     */
     public void CreateCampaign(CampaignDetails cp) throws Exception {
 
         Connection con = null;
@@ -146,8 +146,8 @@ public class CampaignController {
     }
 
     /*
-    getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
-    */
+     getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
+     */
     public String getNextId() throws Exception {
         int result = 0;
         Connection con = null;
@@ -173,18 +173,36 @@ public class CampaignController {
     }
 
     /*
-    getChecked returns a boolean if a checkbox has been checked or not
-    */
+     getChecked returns a boolean if a checkbox has been checked or not
+     */
     public boolean getChecked(String s) {
-        if (s == null || s.equals(null) || s.equals("null")) {
+        if (s == null || s.equals("null") || s.equals("") || s.startsWith(" ")) {
             return false;
         }
         return true;
     }
 
+    public boolean checkTime(String s) {
+
+        String timeformat
+                = "([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]";
+
+        return s.matches(timeformat);
+
+    }
+    
+    public boolean checkDate(String s){
+        
+        String dateformat
+                = "20[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
+        
+        return s.matches(dateformat);
+        
+    }
+
     /*
-    campApprove takes a campaign id and comment and sets the campapproved status to approved and sets the comment to capaign has been approved
-    */
+     campApprove takes a campaign id and comment and sets the campapproved status to approved and sets the comment to capaign has been approved
+     */
     public void campApprove(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -203,8 +221,8 @@ public class CampaignController {
     }
 
     /*
-    campReject takes the campaign id and a comment of a campaign and sets the campapproved status to rejected and the comment to campaign has been rejected
-    */
+     campReject takes the campaign id and a comment of a campaign and sets the campapproved status to rejected and the comment to campaign has been rejected
+     */
     public void campReject(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -225,8 +243,8 @@ public class CampaignController {
     }
 
     /*
-    POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
-    */
+     POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
+     */
     public void POEApprove(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -245,8 +263,8 @@ public class CampaignController {
     }
 
     /*
-    POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
-    */
+     POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
+     */
     public void POEReject(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -266,8 +284,8 @@ public class CampaignController {
     }
 
     /*
-    NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded
-    */
+     NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded
+     */
     public void NewPOE(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -288,8 +306,8 @@ public class CampaignController {
     }
 
     /*
-    campChangeComment changes the comment of a given campaign id to a given comment
-    */
+     campChangeComment changes the comment of a given campaign id to a given comment
+     */
     public void campChangeComment(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -309,8 +327,8 @@ public class CampaignController {
     }
 
     /*
-    LastChange updates the date of a given campaign id to todays date
-    */
+     LastChange updates the date of a given campaign id to todays date
+     */
     public void LastChange(String id) throws Exception {
         Connection con = null;
         try {
@@ -325,81 +343,82 @@ public class CampaignController {
 
         }
     }
-    /*
-     public void UploadFile(String id, String path) {
 
-     File file;
-     int maxFileSize = 5000000 * 1024;
-     int maxMemSize = 5000000 * 1024;
-     ServletContext context = pageContext.getServletContext();
-     String filePath = application.getRealPath(request.getServletPath());
-     String id = request.getSession().getAttribute("CampId").toString();
-     if (id == null || id.equals("")) {
-     response.sendRedirect("POEUpload");
-     } else {
-     int derp = filePath.indexOf("\\build\\web\\");
-     filePath = filePath.substring(0, derp) + "\\Poe\\" + id + "\\";
-     file = new File(filePath);
-     if (!file.exists()) {
-     file.mkdirs();
-     }
+     /*
+             public void UploadFile(String id, String path) {
 
-     // Verify the content type
-     String contentType = request.getContentType();
+             File file;
+             int maxFileSize = 5000000 * 1024;
+             int maxMemSize = 5000000 * 1024;
+             ServletContext context = pageContext.getServletContext();
+             String filePath = application.getRealPath(request.getServletPath());
+             String id = request.getSession().getAttribute("CampId").toString();
+             if (id == null || id.equals("")) {
+             response.sendRedirect("POEUpload");
+             } else {
+             int derp = filePath.indexOf("\\build\\web\\");
+             filePath = filePath.substring(0, derp) + "\\Poe\\" + id + "\\";
+             file = new File(filePath);
+             if (!file.exists()) {
+             file.mkdirs();
+             }
 
-     if ((contentType.indexOf("multipart/form-data") >= 0)) {
+             // Verify the content type
+             String contentType = request.getContentType();
 
-     DiskFileItemFactory factory = new DiskFileItemFactory();
-     // maximum size that will be stored in memory
-     factory.setSizeThreshold(maxMemSize);
-     // Location to save data that is larger than maxMemSize.
-     factory.setRepository(new File("C:\\temp\\"));
+             if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
-     // Create a new file upload handler
-     ServletFileUpload upload = new ServletFileUpload(factory);
-     // maximum file size to be uploaded.
-     upload.setSizeMax(maxFileSize);
-     try {
-     // Parse the request to get file items.
-     List<FileItem> fileItems = upload.parseRequest(request);
+             DiskFileItemFactory factory = new DiskFileItemFactory();
+             // maximum size that will be stored in memory
+             factory.setSizeThreshold(maxMemSize);
+             // Location to save data that is larger than maxMemSize.
+             factory.setRepository(new File("C:\\temp\\"));
 
-     // Process the uploaded file items
-     Iterator i = fileItems.iterator();
+             // Create a new file upload handler
+             ServletFileUpload upload = new ServletFileUpload(factory);
+             // maximum file size to be uploaded.
+             upload.setSizeMax(maxFileSize);
+             try {
+             // Parse the request to get file items.
+             List<FileItem> fileItems = upload.parseRequest(request);
 
-     while (i.hasNext()) {
-     FileItem fi = (FileItem) i.next();
-     if (!fi.isFormField()) {
-     // Get the uploaded file parameters
-     String fieldName = fi.getFieldName();
-     String fileName = fi.getName();
-     boolean isInMemory = fi.isInMemory();
-     long sizeInBytes = fi.getSize();
-     // Write the file
-     if (fileName.lastIndexOf("\\") >= 0) {
-     file = new File(filePath
-     + fileName.substring(fileName.lastIndexOf("\\")));
-     } else {
-     file = new File(filePath
-     + fileName.substring(fileName.lastIndexOf("\\") + 1));
-     }
+             // Process the uploaded file items
+             Iterator i = fileItems.iterator();
 
-     fi.write(file);
+             while (i.hasNext()) {
+             FileItem fi = (FileItem) i.next();
+             if (!fi.isFormField()) {
+             // Get the uploaded file parameters
+             String fieldName = fi.getFieldName();
+             String fileName = fi.getName();
+             boolean isInMemory = fi.isInMemory();
+             long sizeInBytes = fi.getSize();
+             // Write the file
+             if (fileName.lastIndexOf("\\") >= 0) {
+             file = new File(filePath
+             + fileName.substring(fileName.lastIndexOf("\\")));
+             } else {
+             file = new File(filePath
+             + fileName.substring(fileName.lastIndexOf("\\") + 1));
+             }
 
-     request.setAttribute("Success", "Successfully Uploaded");
-     response.sendRedirect("FetchCampaigns");
-     }
-     }
+             fi.write(file);
 
-     } catch (Exception ex) {
-     System.out.println(ex);
-     }
-     } else {
-     request.setAttribute("Error", "Error!!");
-     response.sendRedirect("FetchCampaigns");
+             request.setAttribute("Success", "Successfully Uploaded");
+             response.sendRedirect("FetchCampaigns");
+             }
+             }
 
-     }
-     }
+             } catch (Exception ex) {
+             System.out.println(ex);
+             }
+             } else {
+             request.setAttribute("Error", "Error!!");
+             response.sendRedirect("FetchCampaigns");
 
-     }
-     */
+             }
+             }
+
+             }
+             */
 }
