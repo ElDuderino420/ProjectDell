@@ -18,6 +18,11 @@ ServletContext context = pageContext.getServletContext();
     </head>
     <body>
         <h1>DELL</h1>
+        <% String msg = request.getParameter("msg");
+            if (msg != null) {
+        %>
+        <h5 style="color: red"><%=msg%></h5>
+        <%}%>
         <p><%=application.getRealPath(request.getServletPath()).toString() %></p>
         <p><%= context.getRealPath(request.getServletPath()) %></p>
         <a href="FetchCampaigns">Continue</a>
