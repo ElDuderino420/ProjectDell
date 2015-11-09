@@ -27,7 +27,7 @@ public class DellNavCon extends HttpServlet {
             String derp = request.getParameter("DNC");
             if (derp.equals("CD")) {
                 
-
+                
                 request.getSession().setAttribute("currentCD", (CampaignDetails)cc.getCampDetail(request.getParameter("Cid")));
                 response.sendRedirect("CampDetails.jsp");
             }

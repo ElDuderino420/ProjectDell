@@ -25,14 +25,14 @@
         <form action='ApplyCampaign'>
             <table>
                 <tr>
-                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= cd.getProgramDate()%>"/></td>
-                    <td>Contact name*: <br><input name ="ContactName" type = "text"/></td>
-                    <td>Company name*: <br><input name ="CompanyName" type = "text"/></td>
+                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= cd.getDateCreated()%>"/></td>
+                    <td>Contact name*: <br><input name ="ContactName" type = "text" value="<%= cd.getContactName()%>"/></td>
+                    <td>Company name*: <br><input name ="CompanyName" type = "text" value="<%= cd.getCompanyName()%>"/></td>
                 </tr>
                 <tr>
-                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text"/> </td>
-                    <td>Contact email*: <br><input name ="ContactEmail" type = "text"/></td>
-                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text"/></td>
+                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text" value="<%= cd.getCompanyAddress()%>"/> </td>
+                    <td>Contact email*: <br><input name ="ContactEmail" type = "text" value="<%= cd.getContactEmail()%>"/></td>
+                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text" value="<%= cd.getContactPhone()%>"/></td>
                 </tr>
             </table>
                     <br>
@@ -48,14 +48,14 @@
             <h4>Program Overview</h4>
             <table>
                 <tr>
-                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text"/></td>
-                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text"/></td>
-                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text"/></td>
+                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text" value="<%= cd.getProgramDate()%>"/></td>
+                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text" value="<%= cd.getStartTime()%>"/></td>
+                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text" value="<%= cd.getEndTime()%>"/></td>
                 </tr>
                 <tr>
-                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text"/></td>
-                    <td>Venue name*: <br><input name ="VenueName" type = "text"/></td>
-                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" /></td>
+                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text" value="<%= cd.getEstimatedAttendees()%>"/></td>
+                    <td>Venue name*: <br><input name ="VenueName" type = "text" value="<%= cd.getVenueName()%>"/></td>
+                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" value="<%= cd.getVenueAddress()%>"/></td>
                 </tr>
             </table>
             <br>
@@ -63,8 +63,8 @@
             <h4>Type of Lead Generating Program</h4>
             <table>
                 <tr>
-                    <td><input name = ftfevent type = "checkbox" >Face-to-Face Event</td>
-                    <td><input name = tradeshows type = "checkbox"> Tradeshows</td>
+                    <td><input name = ftfevent type = "checkbox" <%= cd.isFaceToFace()%>>Face-to-Face Event</td>
+                    <td><input name = tradeshows type = "checkbox" value="<%= cd.isTradeShows()%>"> Tradeshows</td>
                     <td><input name = mtcamp type = "checkbox"> Multi-Touch Campaign</td>
                 </tr>
                 <tr>
