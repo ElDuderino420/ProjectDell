@@ -179,59 +179,58 @@ public class CampaignController {
             ResultSet fuckThis = ps.executeQuery("SELECT * FROM CampaignDetails where id = '" + id + "';");
             fuckThis.next();
             CampaignDetails cd = new CampaignDetails(
-            fuckThis.getString(1),
-            fuckThis.getString(2),
-            fuckThis.getString(3),
-            fuckThis.getString(4),
-            fuckThis.getString(5),
-            fuckThis.getString(6),
-            fuckThis.getString(7),
-            fuckThis.getString(8),
-            fuckThis.getString(9),
-            fuckThis.getString(10),
-            fuckThis.getInt(11),
-            fuckThis.getString(12),
-            fuckThis.getString(13),
-            fuckThis.getBoolean(14),
-            fuckThis.getBoolean(15),
-            fuckThis.getBoolean(16),
-            fuckThis.getBoolean(17),
-            fuckThis.getBoolean(18),
-            fuckThis.getBoolean(19),
-            fuckThis.getBoolean(20),
-            fuckThis.getString(21),
-            fuckThis.getBoolean(22),
-            fuckThis.getBoolean(23),
-            fuckThis.getBoolean(24),
-            fuckThis.getBoolean(25),
-            fuckThis.getBoolean(26),
-            fuckThis.getBoolean(27),
-            fuckThis.getBoolean(28),
-            fuckThis.getBoolean(29),
-            fuckThis.getBoolean(30),
-            fuckThis.getBoolean(31),
-            fuckThis.getBoolean(32),
-            fuckThis.getBoolean(33),
-            fuckThis.getBoolean(34),
-            fuckThis.getBoolean(35),
-            fuckThis.getBoolean(36),
-            fuckThis.getBoolean(37),
-            fuckThis.getBoolean(38),
-            fuckThis.getBoolean(39),
-            fuckThis.getString(40),
-            fuckThis.getBoolean(41),
-            fuckThis.getBoolean(42),
-            fuckThis.getBoolean(43),
-            fuckThis.getInt(44),
-            fuckThis.getInt(45),
-            fuckThis.getString(46),
-            fuckThis.getString(47),
-            fuckThis.getInt(48),
-            fuckThis.getInt(49),
-            fuckThis.getInt(50)
+                    fuckThis.getString(1),
+                    fuckThis.getString(2),
+                    fuckThis.getString(3),
+                    fuckThis.getString(4),
+                    fuckThis.getString(5),
+                    fuckThis.getString(6),
+                    fuckThis.getString(7),
+                    fuckThis.getString(8),
+                    fuckThis.getString(9),
+                    fuckThis.getString(10),
+                    fuckThis.getInt(11),
+                    fuckThis.getString(12),
+                    fuckThis.getString(13),
+                    fuckThis.getBoolean(14),
+                    fuckThis.getBoolean(15),
+                    fuckThis.getBoolean(16),
+                    fuckThis.getBoolean(17),
+                    fuckThis.getBoolean(18),
+                    fuckThis.getBoolean(19),
+                    fuckThis.getBoolean(20),
+                    fuckThis.getString(21),
+                    fuckThis.getBoolean(22),
+                    fuckThis.getBoolean(23),
+                    fuckThis.getBoolean(24),
+                    fuckThis.getBoolean(25),
+                    fuckThis.getBoolean(26),
+                    fuckThis.getBoolean(27),
+                    fuckThis.getBoolean(28),
+                    fuckThis.getBoolean(29),
+                    fuckThis.getBoolean(30),
+                    fuckThis.getBoolean(31),
+                    fuckThis.getBoolean(32),
+                    fuckThis.getBoolean(33),
+                    fuckThis.getBoolean(34),
+                    fuckThis.getBoolean(35),
+                    fuckThis.getBoolean(36),
+                    fuckThis.getBoolean(37),
+                    fuckThis.getBoolean(38),
+                    fuckThis.getBoolean(39),
+                    fuckThis.getString(40),
+                    fuckThis.getBoolean(41),
+                    fuckThis.getBoolean(42),
+                    fuckThis.getBoolean(43),
+                    fuckThis.getInt(44),
+                    fuckThis.getInt(45),
+                    fuckThis.getString(46),
+                    fuckThis.getString(47),
+                    fuckThis.getInt(48),
+                    fuckThis.getInt(49),
+                    fuckThis.getInt(50)
             );
-            
-            
+
             ps.close();
             return cd;
 
@@ -439,81 +438,24 @@ public class CampaignController {
         }
     }
 
-    /*
-     public void UploadFile(String id, String path) {
+    public boolean POECheckUpload(String id) throws Exception {
 
-     File file;
-     int maxFileSize = 5000000 * 1024;
-     int maxMemSize = 5000000 * 1024;
-     ServletContext context = pageContext.getServletContext();
-     String filePath = application.getRealPath(request.getServletPath());
-     String id = request.getSession().getAttribute("CampId").toString();
-     if (id == null || id.equals("")) {
-     response.sendRedirect("POEUpload");
-     } else {
-     int derp = filePath.indexOf("\\build\\web\\");
-     filePath = filePath.substring(0, derp) + "\\Poe\\" + id + "\\";
-     file = new File(filePath);
-     if (!file.exists()) {
-     file.mkdirs();
-     }
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet rs = ps.executeQuery("select POEApproved from Campaign where id = '" + id + "';");
+            rs.next();
+            if (rs.getString(1).equals("Pending")) {
+                return true;
+            }
+            ps.close();
 
-     // Verify the content type
-     String contentType = request.getContentType();
+        } finally {
 
-     if ((contentType.indexOf("multipart/form-data") >= 0)) {
+        }
+        return false;
 
-     DiskFileItemFactory factory = new DiskFileItemFactory();
-     // maximum size that will be stored in memory
-     factory.setSizeThreshold(maxMemSize);
-     // Location to save data that is larger than maxMemSize.
-     factory.setRepository(new File("C:\\temp\\"));
+    }
 
-     // Create a new file upload handler
-     ServletFileUpload upload = new ServletFileUpload(factory);
-     // maximum file size to be uploaded.
-     upload.setSizeMax(maxFileSize);
-     try {
-     // Parse the request to get file items.
-     List<FileItem> fileItems = upload.parseRequest(request);
-
-     // Process the uploaded file items
-     Iterator i = fileItems.iterator();
-
-     while (i.hasNext()) {
-     FileItem fi = (FileItem) i.next();
-     if (!fi.isFormField()) {
-     // Get the uploaded file parameters
-     String fieldName = fi.getFieldName();
-     String fileName = fi.getName();
-     boolean isInMemory = fi.isInMemory();
-     long sizeInBytes = fi.getSize();
-     // Write the file
-     if (fileName.lastIndexOf("\\") >= 0) {
-     file = new File(filePath
-     + fileName.substring(fileName.lastIndexOf("\\")));
-     } else {
-     file = new File(filePath
-     + fileName.substring(fileName.lastIndexOf("\\") + 1));
-     }
-
-     fi.write(file);
-
-     request.setAttribute("Success", "Successfully Uploaded");
-     response.sendRedirect("FetchCampaigns");
-     }
-     }
-
-     } catch (Exception ex) {
-     System.out.println(ex);
-     }
-     } else {
-     request.setAttribute("Error", "Error!!");
-     response.sendRedirect("FetchCampaigns");
-
-     }
-     }
-
-     }
-     */
-}
+    }
