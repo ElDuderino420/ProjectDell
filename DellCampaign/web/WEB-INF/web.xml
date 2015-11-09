@@ -1,124 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <!-- DellFetch  -->
+    <servlet>
+        <servlet-name>DellFetch</servlet-name>
+        <servlet-class>PresentationDell.DellFetch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DellFetch</servlet-name>
+        <url-pattern>/DellFetch</url-pattern>
+    </servlet-mapping>
+    
+    <!-- dell navigation controller  -->
+    <servlet>
+        <servlet-name>DellNavCon</servlet-name>
+        <servlet-class>PresentationDell.DellNavCon</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DellNavCon</servlet-name>
+        <url-pattern>/DellNavCon</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Main  -->
+    <servlet>
+        <servlet-name>Main</servlet-name>
+        <servlet-class>PresentationDell.Main</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Main</servlet-name>
+        <url-pattern>/Main</url-pattern>
+    </servlet-mapping>
     
     <!-- Apply Campaign  -->
     <servlet>
         <servlet-name>ApplyCampaign</servlet-name>
-        <servlet-class>Presentation.ApplyCampaign</servlet-class>
+        <servlet-class>PresentationPartner.ApplyCampaign</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApplyCampaign</servlet-name>
         <url-pattern>/ApplyCampaign</url-pattern>
     </servlet-mapping>
     
-    <!-- Camp Approval  -->
-    <servlet>
-        <servlet-name>CampApproval</servlet-name>
-        <servlet-class>Presentation.CampApproval</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CampApproval</servlet-name>
-        <url-pattern>/CampApproval</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Campaign Rejection  -->
-    <servlet>
-        <servlet-name>CampReject</servlet-name>
-        <servlet-class>Presentation.CampReject</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CampReject</servlet-name>
-        <url-pattern>/CampReject</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Change Comment  -->
-    <servlet>
-        <servlet-name>ChangeComment</servlet-name>
-        <servlet-class>Presentation.ChangeComment</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ChangeComment</servlet-name>
-        <url-pattern>/ChangeComment</url-pattern>
-    </servlet-mapping>
-    
     <!-- Fetch Campaign  -->
     <servlet>
         <servlet-name>FetchCampaigns</servlet-name>
-        <servlet-class>Presentation.FetchCampaigns</servlet-class>
+        <servlet-class>PresentationPartner.FetchCampaigns</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FetchCampaigns</servlet-name>
         <url-pattern>/FetchCampaigns</url-pattern>
     </servlet-mapping>
     
-    <!-- MDFRequest  -->
+    <!-- Partner Fetch  -->
     <servlet>
-        <servlet-name>MDFRequest</servlet-name>
-        <servlet-class>Presentation.MDFRequest</servlet-class>
+        <servlet-name>PartnerFetch</servlet-name>
+        <servlet-class>PresentationPartner.PartnerFetch</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>MDFRequest</servlet-name>
-        <url-pattern>/MDFRequest</url-pattern>
+        <servlet-name>PartnerFetch</servlet-name>
+        <url-pattern>/PartnerFetch</url-pattern>
     </servlet-mapping>
-    
-    <!-- POE Approval  -->
-    <servlet>
-        <servlet-name>POEApproval</servlet-name>
-        <servlet-class>Presentation.POEApproval</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>POEApproval</servlet-name>
-        <url-pattern>/POEApproval</url-pattern>
-    </servlet-mapping>
-    
-    <!-- POE Rejection  -->
-    <servlet>
-        <servlet-name>POEReject</servlet-name>
-        <servlet-class>Presentation.POEReject</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>POEReject</servlet-name>
-        <url-pattern>/POEReject</url-pattern>
-    </servlet-mapping>
-    
-    <!-- POE Upload  -->
-    <servlet>
-        <servlet-name>POEUpload</servlet-name>
-        <servlet-class>Presentation.POEUpload</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>POEUpload</servlet-name>
-        <url-pattern>/POEUpload</url-pattern>
-    </servlet-mapping>
-    
+  
     <!-- navigation controller  -->
     <servlet>
         <servlet-name>navCon</servlet-name>
-        <servlet-class>Presentation.navCon</servlet-class>
+        <servlet-class>PresentationPartner.navCon</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>navCon</servlet-name>
         <url-pattern>/navCon</url-pattern>
     </servlet-mapping>
-    
+
     <!-- UploadFile  -->
     <servlet>
         <servlet-name>UploadFile</servlet-name>
-        <servlet-class>Presentation.UploadFile</servlet-class>
+        <servlet-class>PresentationPartner.UploadFile</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UploadFile</servlet-name>
         <url-pattern>/UploadFile</url-pattern>
     </servlet-mapping>
-    
-    <context-param> 
-    <description>Location to store uploaded file</description> 
-    <param-name>file-upload</param-name> 
-    <param-value>
-         /DellCampaign/Poe
-         
-     </param-value> 
-</context-param>
-    
-</web-app>
 
+    <context-param>
+        <description>Location to store uploaded file</description>
+        <param-name>file-upload</param-name>
+        <param-value>
+            /DellCampaign/Poe
+         
+        </param-value>
+    </context-param>
+</web-app>

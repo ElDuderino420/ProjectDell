@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation;
+package PresentationPartner;
 
 import Domain.CampaignController;
 import java.io.IOException;
@@ -26,20 +26,23 @@ public class navCon extends HttpServlet{
         try
         {
             // set 
-            request.getSession().setAttribute("motherPath", request.getContextPath());
-            request.getSession().setAttribute("CampId", request.getParameter("CampId"));
+            
+            request.getSession().setAttribute("CampId", request.getParameter("Cid"));
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
-            String derp = request.getParameter("nav").toString();
+            String derp = request.getParameter("nav");
             CampaignController cc = new CampaignController();
             
             // click new campaign
             if(derp.equals("NC")){
                 response.sendRedirect("MDFRequest.jsp");
             }
-            
+            if(derp.equals("D")){
+                response.sendRedirect("PartnerDetails");
+            }
             // click approve campaign
-            if(derp.equals("AC")){
+            /*
+            if(derp.equals("")){
             cc.campApprove(request.getSession().getAttribute("CampId").toString(),
                            request.getSession().getAttribute("Comment").toString());
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
@@ -53,13 +56,18 @@ public class navCon extends HttpServlet{
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
             response.sendRedirect("FetchCampaigns");
             }
+                    */
             
             // click Upload POE
             if(derp.equals("UP")){
-                    request.getSession().setAttribute("motherPath", request.getContextPath());
+                    
                     response.sendRedirect("POEUpload.jsp");
             }
-            
+            if(derp.equals("C")){
+                cc.CompleteCamp("CampId");
+                response.sendRedirect("Partner.jsp");
+            }
+            /*
             // click Approve POE
             if(derp.equals("AP")){
             cc.POEApprove(request.getSession().getAttribute("CampId").toString(),
@@ -75,6 +83,7 @@ public class navCon extends HttpServlet{
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
             response.sendRedirect("FetchCampaigns");
             }
+                    
             
             // click Change Comment
             if(derp.equals("CC")){
@@ -83,6 +92,7 @@ public class navCon extends HttpServlet{
             cc.LastChange(request.getSession().getAttribute("CampId").toString());
             response.sendRedirect("FetchCampaigns");
             }
+                    */
                     
         }
         catch (Exception ex) 

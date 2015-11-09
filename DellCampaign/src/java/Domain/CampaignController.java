@@ -23,14 +23,29 @@ public class CampaignController {
     /*
      FetchCampaigns selects all the campaigns from the database and puts them into a list of campaigns and returns it
      */
-    public List<Campaign> FetchCampaigns() throws Exception {
+    public List<Campaign> FetchCampaigns(String s, String id) throws Exception {
         List<Campaign> result = new ArrayList<>();
         Connection con = null;
+        switch (s) {
+            case "ongoing":
+                s = "  where POEApproved != 'Approved' and PartnerId = '" + id + "' order by LastChange DESC";
+                break;
+            case "completed":
+                s = " where POEApproved = 'Approved';";
+                break;
+            case "poe":
+                s = " where POEApproved = 'Pending';";
+                break;
+            case "camp":
+                s = " where CampApproved = 'Pending';";
+                break;
+        }
+
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM Campaign");
+            ResultSet rs = ps.executeQuery("SELECT * FROM Campaign" + s);
             while (rs.next()) {
                 Campaign camp = new Campaign(
                         rs.getString(1),
@@ -49,6 +64,21 @@ public class CampaignController {
 
         }
         return result;
+    }
+
+    public void CompleteCamp(String id) throws Exception {
+        Connection con = null;
+
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+
+            ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
+
+            ps.close();
+        } finally {
+
+        }
     }
 
     /*
@@ -80,7 +110,7 @@ public class CampaignController {
             ezshit.setString(5, null);
             ezshit.setString(6, null);
             ezshit.setBoolean(7, false);
-            ezshit.setString(8, "");
+            ezshit.setString(8, "Waiting for Approval");
             fuckThis.setString(3, cp.getContactName());
             fuckThis.setString(4, cp.getCompanyName());
             fuckThis.setString(5, cp.getCompanyAddress());
@@ -135,19 +165,84 @@ public class CampaignController {
             ezshit.executeUpdate();
             ezshit.close();
 
-            Statement comment = con.createStatement();
-            comment.executeUpdate("update Campaign set CampComment = 'Waiting for Approval' where id = '" + cp.getId() + "';");
-            comment.close();
-
         } finally {
 
         }
 
     }
 
+    public CampaignDetails getCampDetail(String id) throws Exception {
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet fuckThis = ps.executeQuery("SELECT * FROM CampaignDetails where id = '" + id + "';");
+            fuckThis.next();
+            CampaignDetails cd = new CampaignDetails(
+            fuckThis.getString(1),
+            fuckThis.getString(2),
+            fuckThis.getString(3),
+            fuckThis.getString(4),
+            fuckThis.getString(5),
+            fuckThis.getString(6),
+            fuckThis.getString(7),
+            fuckThis.getString(8),
+            fuckThis.getString(9),
+            fuckThis.getString(10),
+            fuckThis.getInt(11),
+            fuckThis.getString(12),
+            fuckThis.getString(13),
+            fuckThis.getBoolean(14),
+            fuckThis.getBoolean(15),
+            fuckThis.getBoolean(16),
+            fuckThis.getBoolean(17),
+            fuckThis.getBoolean(18),
+            fuckThis.getBoolean(19),
+            fuckThis.getBoolean(20),
+            fuckThis.getString(21),
+            fuckThis.getBoolean(22),
+            fuckThis.getBoolean(23),
+            fuckThis.getBoolean(24),
+            fuckThis.getBoolean(25),
+            fuckThis.getBoolean(26),
+            fuckThis.getBoolean(27),
+            fuckThis.getBoolean(28),
+            fuckThis.getBoolean(29),
+            fuckThis.getBoolean(30),
+            fuckThis.getBoolean(31),
+            fuckThis.getBoolean(32),
+            fuckThis.getBoolean(33),
+            fuckThis.getBoolean(34),
+            fuckThis.getBoolean(35),
+            fuckThis.getBoolean(36),
+            fuckThis.getBoolean(37),
+            fuckThis.getBoolean(38),
+            fuckThis.getBoolean(39),
+            fuckThis.getString(40),
+            fuckThis.getBoolean(41),
+            fuckThis.getBoolean(42),
+            fuckThis.getBoolean(43),
+            fuckThis.getInt(44),
+            fuckThis.getInt(45),
+            fuckThis.getString(46),
+            fuckThis.getString(47),
+            fuckThis.getInt(48),
+            fuckThis.getInt(49),
+            fuckThis.getInt(50)
+            );
+            
+            
+            ps.close();
+            return cd;
+
+        } finally {
+
+        }
+    }
     /*
      getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
      */
+
     public String getNextId() throws Exception {
         int result = 0;
         Connection con = null;
@@ -190,14 +285,14 @@ public class CampaignController {
         return s.matches(timeformat);
 
     }
-    
-    public boolean checkDate(String s){
-        
+
+    public boolean checkDate(String s) {
+
         String dateformat
                 = "20[0-9][0-9]-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])";
-        
+
         return s.matches(dateformat);
-        
+
     }
 
     /*
@@ -344,81 +439,81 @@ public class CampaignController {
         }
     }
 
-     /*
-             public void UploadFile(String id, String path) {
+    /*
+     public void UploadFile(String id, String path) {
 
-             File file;
-             int maxFileSize = 5000000 * 1024;
-             int maxMemSize = 5000000 * 1024;
-             ServletContext context = pageContext.getServletContext();
-             String filePath = application.getRealPath(request.getServletPath());
-             String id = request.getSession().getAttribute("CampId").toString();
-             if (id == null || id.equals("")) {
-             response.sendRedirect("POEUpload");
-             } else {
-             int derp = filePath.indexOf("\\build\\web\\");
-             filePath = filePath.substring(0, derp) + "\\Poe\\" + id + "\\";
-             file = new File(filePath);
-             if (!file.exists()) {
-             file.mkdirs();
-             }
+     File file;
+     int maxFileSize = 5000000 * 1024;
+     int maxMemSize = 5000000 * 1024;
+     ServletContext context = pageContext.getServletContext();
+     String filePath = application.getRealPath(request.getServletPath());
+     String id = request.getSession().getAttribute("CampId").toString();
+     if (id == null || id.equals("")) {
+     response.sendRedirect("POEUpload");
+     } else {
+     int derp = filePath.indexOf("\\build\\web\\");
+     filePath = filePath.substring(0, derp) + "\\Poe\\" + id + "\\";
+     file = new File(filePath);
+     if (!file.exists()) {
+     file.mkdirs();
+     }
 
-             // Verify the content type
-             String contentType = request.getContentType();
+     // Verify the content type
+     String contentType = request.getContentType();
 
-             if ((contentType.indexOf("multipart/form-data") >= 0)) {
+     if ((contentType.indexOf("multipart/form-data") >= 0)) {
 
-             DiskFileItemFactory factory = new DiskFileItemFactory();
-             // maximum size that will be stored in memory
-             factory.setSizeThreshold(maxMemSize);
-             // Location to save data that is larger than maxMemSize.
-             factory.setRepository(new File("C:\\temp\\"));
+     DiskFileItemFactory factory = new DiskFileItemFactory();
+     // maximum size that will be stored in memory
+     factory.setSizeThreshold(maxMemSize);
+     // Location to save data that is larger than maxMemSize.
+     factory.setRepository(new File("C:\\temp\\"));
 
-             // Create a new file upload handler
-             ServletFileUpload upload = new ServletFileUpload(factory);
-             // maximum file size to be uploaded.
-             upload.setSizeMax(maxFileSize);
-             try {
-             // Parse the request to get file items.
-             List<FileItem> fileItems = upload.parseRequest(request);
+     // Create a new file upload handler
+     ServletFileUpload upload = new ServletFileUpload(factory);
+     // maximum file size to be uploaded.
+     upload.setSizeMax(maxFileSize);
+     try {
+     // Parse the request to get file items.
+     List<FileItem> fileItems = upload.parseRequest(request);
 
-             // Process the uploaded file items
-             Iterator i = fileItems.iterator();
+     // Process the uploaded file items
+     Iterator i = fileItems.iterator();
 
-             while (i.hasNext()) {
-             FileItem fi = (FileItem) i.next();
-             if (!fi.isFormField()) {
-             // Get the uploaded file parameters
-             String fieldName = fi.getFieldName();
-             String fileName = fi.getName();
-             boolean isInMemory = fi.isInMemory();
-             long sizeInBytes = fi.getSize();
-             // Write the file
-             if (fileName.lastIndexOf("\\") >= 0) {
-             file = new File(filePath
-             + fileName.substring(fileName.lastIndexOf("\\")));
-             } else {
-             file = new File(filePath
-             + fileName.substring(fileName.lastIndexOf("\\") + 1));
-             }
+     while (i.hasNext()) {
+     FileItem fi = (FileItem) i.next();
+     if (!fi.isFormField()) {
+     // Get the uploaded file parameters
+     String fieldName = fi.getFieldName();
+     String fileName = fi.getName();
+     boolean isInMemory = fi.isInMemory();
+     long sizeInBytes = fi.getSize();
+     // Write the file
+     if (fileName.lastIndexOf("\\") >= 0) {
+     file = new File(filePath
+     + fileName.substring(fileName.lastIndexOf("\\")));
+     } else {
+     file = new File(filePath
+     + fileName.substring(fileName.lastIndexOf("\\") + 1));
+     }
 
-             fi.write(file);
+     fi.write(file);
 
-             request.setAttribute("Success", "Successfully Uploaded");
-             response.sendRedirect("FetchCampaigns");
-             }
-             }
+     request.setAttribute("Success", "Successfully Uploaded");
+     response.sendRedirect("FetchCampaigns");
+     }
+     }
 
-             } catch (Exception ex) {
-             System.out.println(ex);
-             }
-             } else {
-             request.setAttribute("Error", "Error!!");
-             response.sendRedirect("FetchCampaigns");
+     } catch (Exception ex) {
+     System.out.println(ex);
+     }
+     } else {
+     request.setAttribute("Error", "Error!!");
+     response.sendRedirect("FetchCampaigns");
 
-             }
-             }
+     }
+     }
 
-             }
-             */
+     }
+     */
 }

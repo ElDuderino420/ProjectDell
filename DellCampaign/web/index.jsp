@@ -18,8 +18,10 @@ ServletContext context = pageContext.getServletContext();
     </head>
     <body>
         <h1>DELL</h1>
-        <p><%=application.getRealPath(request.getServletPath()).toString() %></p>
-        <p><%= context.getRealPath(request.getServletPath()) %></p>
-        <a href="FetchCampaigns">Continue</a>
+        <form action="Main" method="POST">
+        <input type="text" name="lid" />
+        <input type="password" name="pass"/>
+        <button type="submit">Login</button>
+        </form>
     </body>
 </html>

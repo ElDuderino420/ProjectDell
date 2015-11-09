@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation;
+package PresentationPartner;
 
 import Domain.CampaignController;
 import java.io.IOException;
@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author butwhole
  */
-public class FetchCampaigns extends HttpServlet{
+public class PartnerFetch extends HttpServlet{
 
     
     
@@ -26,9 +25,10 @@ public class FetchCampaigns extends HttpServlet{
         
         try
         {
+            
             CampaignController cc = new CampaignController();
-            request.getSession().setAttribute("allCamp",cc.FetchCampaigns());
-            response.sendRedirect("Campaign.jsp");
+            request.getSession().setAttribute("allCamp",cc.FetchCampaigns("ongoing",request.getSession().getAttribute("id").toString()));
+            response.sendRedirect("Partner.jsp");
         }
         catch (Exception ex) 
         {

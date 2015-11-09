@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Presentation;
+package PresentationPartner;
 
 import Domain.CampaignController;
 import Domain.CampaignDetails;
@@ -56,21 +56,18 @@ public class ApplyCampaign extends HttpServlet {
 
             CampaignDetails cd = new CampaignDetails(
                     cc.getNextId(),
-                    request.getParameter("StartTime"),
-                    request.getParameter("EndTime"),
-                    request.getParameter("ProgramDate"),
                     request.getParameter("SubmissionDate"),
                     request.getParameter("ContactName"),
                     request.getParameter("CompanyName"),
                     request.getParameter("Address"),
                     request.getParameter("ContactEmail"),
+                    request.getParameter("ContactPhone"),
+                    request.getParameter("ProgramDate"),
+                    request.getParameter("StartTime"),
+                    request.getParameter("EndTime"),
+                    Integer.parseInt(request.getParameter("NOAttendees").toString()),
                     request.getParameter("VenueName"),
                     request.getParameter("VenueAddress"),
-                    request.getParameter("desc"),
-                    request.getParameter("softwareComponent"),
-                    request.getParameter("methodofreimbursement"),
-                    request.getParameter("partner"),
-                    request.getParameter("ContactPhone"),
                     cc.getChecked(request.getParameter("ftfevent")),
                     cc.getChecked(request.getParameter("tradeshows")),
                     cc.getChecked(request.getParameter("mtcamp")),
@@ -78,7 +75,7 @@ public class ApplyCampaign extends HttpServlet {
                     cc.getChecked(request.getParameter("3rdparty")),
                     cc.getChecked(request.getParameter("directmail")),
                     cc.getChecked(request.getParameter("blitzcamp")),
-                    cc.getChecked(request.getParameter("SC4000")),
+                    request.getParameter("desc"),cc.getChecked(request.getParameter("SC4000")),
                     cc.getChecked(request.getParameter("PS4210")),
                     cc.getChecked(request.getParameter("storagesolutions")),
                     cc.getChecked(request.getParameter("pricedisk")),
@@ -96,15 +93,17 @@ public class ApplyCampaign extends HttpServlet {
                     cc.getChecked(request.getParameter("optimizedenterprise")),
                     cc.getChecked(request.getParameter("poweredgefx")),
                     cc.getChecked(request.getParameter("SDS")),
+                    request.getParameter("softwareComponent"),
                     cc.getChecked(request.getParameter("SMB")),
                     cc.getChecked(request.getParameter("LE")),
                     cc.getChecked(request.getParameter("PUB")),
                     Integer.parseInt(request.getParameter("cost").toString()),
                     Integer.parseInt(request.getParameter("requesting").toString()),
+                    request.getParameter("methodofreimbursement"),
+                    request.getParameter("partner"),
                     Integer.parseInt(request.getParameter("partnercontribution").toString()),
                     Integer.parseInt(request.getParameter("NoOpp").toString()),
-                    Integer.parseInt(request.getParameter("estimatedrevenue").toString()),
-                    Integer.parseInt(request.getParameter("NOAttendees").toString()));
+                    Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
 
             cc.CreateCampaign(cd);
 
