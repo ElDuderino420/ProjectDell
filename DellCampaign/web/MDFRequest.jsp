@@ -18,7 +18,12 @@
         <h2 style="color: rgb(0,135,203); margin-bottom: 0;">Enterprise Field Marketing:</h2>
 
         <h4 style="color: rgb(0,135,203); margin-top: 0;">Marketing Development Fund (MDF) Request</h4>
-        <h6>*Required Field</h6>
+        <h5>*Required Field</h5>
+        <% String msg = request.getParameter("msg");
+            if (msg != null) {
+        %>
+        <h5 style="color: red"><%=msg%></h5>
+        <%}%>
         <form action='ApplyCampaign'>
             <table>
                 <tr>

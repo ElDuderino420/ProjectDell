@@ -21,6 +21,11 @@
         <% List<Campaign> data = (List<Campaign>) session.getAttribute("allCamp");
 
         %>
+        <% String msg = request.getParameter("msg");
+            if (msg != null) {
+        %>
+        <h4 style="color: pink"><%=msg%></h4>
+        <%}%>
         <form action="navCon">
             Campaign id: <input name ="CampId" type = "text"/> <br>
             <div id="leftmenu">
