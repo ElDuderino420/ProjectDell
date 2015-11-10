@@ -51,8 +51,8 @@ public class ApplyCampaign extends HttpServlet {
                     || !cc.checkDate(request.getParameter("ProgramDate"))
                     || !cc.checkTime(request.getParameter("EndTime"))
                     || !cc.checkTime(request.getParameter("StartTime"))){
-                response.sendRedirect("MDFREquest");
-            }
+                response.sendRedirect("MDFRequest.jsp");
+            }else{
 
             CampaignDetails cd = new CampaignDetails(
                     cc.getNextId(),
@@ -105,9 +105,11 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("NoOpp").toString()),
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
 
-            cc.CreateCampaign(cd);
+            String s = request.getSession().getAttribute("id").toString();
+            cc.CreateCampaign(cd,s);
 
             response.sendRedirect("PartnerFetch");
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=" + ex.getMessage());

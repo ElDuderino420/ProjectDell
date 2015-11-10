@@ -35,7 +35,7 @@ public class CampaignApproval extends HttpServlet{
             if(request.getParameter("poe").equals("Reject")){
                 cc.campReject(derp.getId(), request.getParameter("comment"));
             }
-            response.sendRedirect("DellFetch.jsp");
+            response.sendRedirect("DellFetch");
         }
         catch (Exception ex) 
         {

@@ -84,7 +84,7 @@ public class CampaignController {
     /*
      CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
      */
-    public void CreateCampaign(CampaignDetails cp) throws Exception {
+    public void CreateCampaign(CampaignDetails cp, String pid) throws Exception {
 
         Connection con = null;
         try {
@@ -107,7 +107,7 @@ public class CampaignController {
             ezshit.setString(2, cp.getDateCreated());
             ezshit.setString(3, "Pending");
             ezshit.setString(4, "N/A");
-            ezshit.setString(5, null);
+            ezshit.setString(5, pid);
             ezshit.setString(6, null);
             ezshit.setBoolean(7, false);
             ezshit.setString(8, "Waiting for Approval");
