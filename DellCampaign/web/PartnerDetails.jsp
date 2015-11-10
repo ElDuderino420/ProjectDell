@@ -22,7 +22,7 @@
 
         <h4 style="color: rgb(0,135,203); margin-top: 0;">Marketing Development Fund (MDF) Request</h4>
         <h6>*Required Field</h6>
-        <form action='CampaignApproval'>
+        <form action='ApplyCampaign'>
             <table>
                 <tr>
                     <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= cd.getDateCreated()%>"/></td>
@@ -348,9 +348,7 @@
                 be in effect. </p>
             <br>
             <br>
-             <textarea name ="comment">Comments</textarea>
-            <button type='submit' name='poe' value="Approve" >Approve</button>
-            <button type='submit' name='poe' value="Reject" >Reject</button>
+            <button type='submit' name='applyCamp' value="Submit" >Apply Campaign</button>
         </form>
     </body>
 </html>

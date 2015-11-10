@@ -65,17 +65,17 @@
             <h4>Type of Lead Generating Program</h4>
             <table>
                 <tr>
-                    <td><input name = ftfevent type = "checkbox" >Face-to-Face Event</td>
-                    <td><input name = tradeshows type = "checkbox"> Tradeshows</td>
-                    <td><input name = mtcamp type = "checkbox"> Multi-Touch Campaign</td>
+                    <td><input name = ftfevent type = "checkbox" />Face-to-Face Event</td>
+                    <td><input name = tradeshows type = "checkbox"/> Tradeshows</td>
+                    <td><input name = mtcamp type = "checkbox"/> Multi-Touch Campaign</td>
                 </tr>
                 <tr>
-                    <td><input name = dooropen type = "checkbox"> Door Opener Campaign</td>
-                    <td><input name = 3rdparty type = "checkbox"> Third Party Campaign</td>
+                    <td><input name = dooropen type = "checkbox"/> Door Opener Campaign</td>
+                    <td><input name = 3rdparty type = "checkbox"/> Third Party Campaign</td>
                 </tr>
                 <tr>
-                    <td><input name = directmail type = "checkbox"> Direct Mail</td>
-                    <td><input name = blitzcamp type = "checkbox"> Blitz Campaign (appt-setting or opportunity blitz)</td>
+                    <td><input name = directmail type = "checkbox"/> Direct Mail</td>
+                    <td><input name = blitzcamp type = "checkbox"/> Blitz Campaign (appt-setting or opportunity blitz)</td>
                 </tr>
             </table>
             <p>Program description and/or agenda*:</p><br>
@@ -92,40 +92,40 @@
                     <td>Solutions</td>
                 </tr>
                 <tr>
-                    <td><input name = SC4000 type = "checkbox" >Dell Storage SC4000 Series</td>
-                    <td><input name = poweredgeservers type = "checkbox"> The Latest Generation of Del PowerEdge Servers</td>
-                    <td><input name = SDN type = "checkbox"> Software-Defined Networking (SDN): Data Center Networkin </td>
-                    <td><input name = cloud type = "checkbox"> Cloud Client-Computing</td>
+                    <td><input name = SC4000 type = "checkbox" />Dell Storage SC4000 Series</td>
+                    <td><input name = poweredgeservers type = "checkbox"/> The Latest Generation of Del PowerEdge Servers</td>
+                    <td><input name = SDN type = "checkbox"/> Software-Defined Networking (SDN): Data Center Networkin </td>
+                    <td><input name = cloud type = "checkbox"/> Cloud Client-Computing</td>
                 </tr>
                 <tr>
-                    <td><input name = PS4210 type = "checkbox" >Dell Storage PS4210 Series</td>
-                    <td><input name = winserver type = "checkbox"> Windows Server 2003 Migration</td>
-                    <td><input name = usercentric type = "checkbox"> User-Centric Networking</td>
-                    <td><input name = infrahardware type = "checkbox"> Converged Infrastructure Hardware</td>
+                    <td><input name = PS4210 type = "checkbox" />Dell Storage PS4210 Series</td>
+                    <td><input name = winserver type = "checkbox"/> Windows Server 2003 Migration</td>
+                    <td><input name = usercentric type = "checkbox"/> User-Centric Networking</td>
+                    <td><input name = infrahardware type = "checkbox"/> Converged Infrastructure Hardware</td>
                 </tr>
                 <tr>
-                    <td><input name = storagesolutions type = "checkbox" >Dell Storage Solutions</td>
-                    <td><input name = x86server type = "checkbox"> x86 Server Transition</td>
+                    <td><input name = storagesolutions type = "checkbox" />Dell Storage Solutions</td>
+                    <td><input name = x86server type = "checkbox"/> x86 Server Transition</td>
                     <td></td>
-                    <td><input name = bladedatacenter type = "checkbox"> Dell Converged Blade Data Center</td>
+                    <td><input name = bladedatacenter type = "checkbox"/> Dell Converged Blade Data Center</td>
                 </tr>
                 <tr>
-                    <td><input name = pricedisk type = "checkbox" >Flash at the Price of Disk</td>
-                    <td><input name = VRTX type = "checkbox"> PowerEdge VRTX</td>
+                    <td><input name = pricedisk type = "checkbox" />Flash at the Price of Disk</td>
+                    <td><input name = VRTX type = "checkbox"/> PowerEdge VRTX</td>
                     <td></td>
-                    <td><input name = optimizedenterprise type = "checkbox"> Optimized Enterprise(Future-Ready IT) </td>
+                    <td><input name = optimizedenterprise type = "checkbox"/> Optimized Enterprise(Future-Ready IT) </td>
                 </tr>
                 <tr>
-                    <td><input name = fluidcache type = "checkbox" >Fluid Cache for SAN</td>
+                    <td><input name = fluidcache type = "checkbox" />Fluid Cache for SAN</td>
                     <td></td>
                     <td></td>
-                    <td><input name = poweredgefx type = "checkbox"> PowerEdge FX Architecture</td>
+                    <td><input name = poweredgefx type = "checkbox"/> PowerEdge FX Architecture</td>
                 </tr>
                 <tr>
-                    <td><input name = dataprotec type = "checkbox" >Data Protection</td>
+                    <td><input name = dataprotec type = "checkbox"/> Data Protection</td>
                     <td></td>
                     <td></td>
-                    <td><input name = SDS type = "checkbox"> Software-Defined Storage(SDS)</td>
+                    <td><input name = SDS type = "checkbox"/> Software-Defined Storage(SDS)</td>
                 </tr>
             </table>
             <p style="font-weight: bold">Is there a software component to your campaign?</p>
@@ -137,9 +137,9 @@
             <h4>Target Audience <span style="font-weight: normal">(Please check all the apply)</span></h4>
             <table>
                 <tr>
-                    <td><input name = SMB type='checkbox'>SMB (Small & Medium Business)</td>
-                    <td><input name = LE type='checkbox'>LE (Large Enterprise, LEA & G500)</td>
-                    <td><input name = PUB type='checkbox'>PUB (Public, Federal, Education and Healthcare)*</td>
+                    <td><input name = SMB type='checkbox'/>SMB (Small & Medium Business)</td>
+                    <td><input name = LE type='checkbox'/>LE (Large Enterprise, LEA & G500)</td>
+                    <td><input name = PUB type='checkbox'/>PUB (Public, Federal, Education and Healthcare)*</td>
                 </tr>
             </table>
             <h6 style='font-weight: normal'>*Partners need to comply with PUB restrictions and limitations within any programs. See additional information within the terms and conditions(T&C) below.</h6>
@@ -148,14 +148,14 @@
 
             <h4>Additional Program Information</h4>
 
-            <p>Total projected cost of program*: <input name='cost' type='text'></p>
-            <p>Total MDF requesting from Dell*: <input name='requesting' type='text'></p>
+            <p>Total projected cost of program*: <input name='cost' type='text'/></p>
+            <p>Total MDF requesting from Dell*: <input name='requesting' type='text'/></p>
             <p>Note: Dell will fund up to fifty percent (50%)** of the projected total cost, based on actual costs incurred for the activity.**See terms and conditions for rules and restrictions.</p>
-            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text'></p>
-            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text'></p>
-            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text'></p>
-            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text'></p>
-            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text'></p>
+            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text'/></p>
+            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text'/></p>
+            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text'/></p>
+            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text'/></p>
+            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text'/></p>
 
             <h4 style='color:rgb(34,145,204);'>Following the completion of this form, please submit your full MDF request to your Enterprise Field
                 Marketing Manager for consideration and review. You may expect a response within 48 - 72 hours,

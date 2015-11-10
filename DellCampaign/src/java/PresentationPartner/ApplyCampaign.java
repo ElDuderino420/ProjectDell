@@ -107,7 +107,7 @@ public class ApplyCampaign extends HttpServlet {
 
             cc.CreateCampaign(cd);
 
-            response.sendRedirect("FetchCampaigns");
+            response.sendRedirect("PartnerFetch");
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=" + ex.getMessage());

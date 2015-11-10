@@ -18,6 +18,16 @@ public class CampaignDetails {
     CampaignDetails contains all the infomation from the MDFRequest
     */
     
+    public String getChecked(boolean cunt){
+        
+        if(cunt){
+            return "checked";
+        }
+        
+        return "";
+        
+    }
+    
     public String getProgramDate() {
         return programDate;
     }
