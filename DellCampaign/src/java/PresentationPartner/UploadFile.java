@@ -27,11 +27,10 @@ public class UploadFile extends HttpServlet{
         {
                     CampaignController cc = new CampaignController();
                     String id = request.getSession().getAttribute("CampId").toString();
-                    cc.NewPOE(id, 
-                              request.getSession().getAttribute("Comment").toString());
+//                    cc.NewPOE(id);
                     cc.LastChange(id);
 
-            response.sendRedirect("FetchCampaigns");
+            response.sendRedirect("PartnerFetch");
         }
         catch (Exception ex) 
         {

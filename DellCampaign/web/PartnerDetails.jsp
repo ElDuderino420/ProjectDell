@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <!-- <link rel="stylesheet" href="maincss.css" type="text/css" media="screen"/> -->
-        <title>MDF Reqeust</title>
+        <title>MDF Request</title>
     </head>
     <% CampaignDetails cd = (CampaignDetails)request.getSession().getAttribute("currentCD");
     %>
@@ -25,14 +25,14 @@
         <form action='ApplyCampaign'>
             <table>
                 <tr>
-                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= cd.getDateCreated()%>"/></td>
-                    <td>Contact name*: <br><input name ="ContactName" type = "text" value="<%= cd.getContactName()%>"/></td>
-                    <td>Company name*: <br><input name ="CompanyName" type = "text" value="<%= cd.getCompanyName()%>"/></td>
+                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>" readonly required/></td>
+                    <td>Contact name*: <br><input name ="ContactName" type = "text" value="<%= cd.getContactName()%>" required/></td>
+                    <td>Company name*: <br><input name ="CompanyName" type = "text" value="<%= cd.getCompanyName()%>" required/></td>
                 </tr>
                 <tr>
-                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text" value="<%= cd.getCompanyAddress()%>"/> </td>
-                    <td>Contact email*: <br><input name ="ContactEmail" type = "text" value="<%= cd.getContactEmail()%>"/></td>
-                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text" value="<%= cd.getContactPhone()%>"/></td>
+                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text" value="<%= cd.getCompanyAddress()%>" required/> </td>
+                    <td>Contact email*: <br><input name ="ContactEmail" type = "text" value="<%= cd.getContactEmail()%>" required/></td>
+                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text" value="<%= cd.getContactPhone()%>" required/></td>
                 </tr>
             </table>
                     <br>
@@ -48,14 +48,14 @@
             <h4>Program Overview</h4>
             <table>
                 <tr>
-                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text" value="<%= cd.getProgramDate()%>"/></td>
-                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text" value="<%= cd.getStartTime()%>"/></td>
-                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text" value="<%= cd.getEndTime()%>"/></td>
+                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text" value="<%= cd.getProgramDate()%>" required/></td>
+                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text" value="<%= cd.getStartTime()%>" required/></td>
+                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text" value="<%= cd.getEndTime()%>" required/></td>
                 </tr>
                 <tr>
-                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text" value="<%= cd.getEstimatedAttendees()%>"/></td>
-                    <td>Venue name*: <br><input name ="VenueName" type = "text" value="<%= cd.getVenueName()%>"/></td>
-                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" value="<%= cd.getVenueAddress()%>"/></td>
+                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text" value="<%= cd.getEstimatedAttendees()%>" required/></td>
+                    <td>Venue name*: <br><input name ="VenueName" type = "text" value="<%= cd.getVenueName()%>" required/></td>
+                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" value="<%= cd.getVenueAddress()%>" required/></td>
                 </tr>
             </table>
             <br>
@@ -77,7 +77,7 @@
                 </tr>
             </table>
             <p>Program description and/or agenda*:</p><br>
-            <textarea name ="desc" value="<%= cd.getProgramDescription()%>"></textarea>
+            <textarea name ="desc" value="<%= cd.getProgramDescription()%>" required></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
@@ -128,7 +128,7 @@
             </table>
             <p style="font-weight: bold">Is there a software component to your campaign?</p>
             <p>If so, please detail the specific software component(s) in the space below.</p>
-            <textarea name =softwareComponent value="<%= cd.getSoftwareComponent() %>">></textarea>
+            <textarea name =softwareComponent value="<%= cd.getSoftwareComponent() %>"></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
@@ -146,14 +146,14 @@
 
             <h4>Additional Program Information</h4>
 
-            <p>Total projected cost of program*: <input name='cost' type='text' value="<%= cd.getTotalProjectedCost()  %>"/></p>
-            <p>Total MDF requesting from Dell*: <input name='requesting' type='text' value="<%= cd.getMdfRequest() %>"/></p>
+            <p>Total projected cost of program*: <input name='cost' type='text' value="<%= cd.getTotalProjectedCost()%>" required/></p>
+            <p>Total MDF requesting from Dell*: <input name='requesting' type='text' value="<%= cd.getMdfRequest() %>" required/></p>
             <p>Note: Dell will fund up to fifty percent (50%)** of the projected total cost, based on actual costs incurred for the activity.**See terms and conditions for rules and restrictions.</p>
-            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text' value="<%= cd.getReimbursement() %>"/></p>
-            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text' value="<%= cd.getTechnologyPartners() %>"/></p>
-            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text' value="<%= cd.getTotalMDFContribution() %>"/></p>
-            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text' value="<%= cd.getEstimatedOpportunities() %>"/></p>
-            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text' value="<%= cd.getEstimatedRevenue() %>"</p>
+            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text' value="<%= cd.getReimbursement() %>" required/></p>
+            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text' value="<%= cd.getTechnologyPartners() %>" required/></p>
+            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text' value="<%= cd.getTotalMDFContribution() %>" required/></p>
+            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text' value="<%= cd.getEstimatedOpportunities() %>" required/></p>
+            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text' value="<%= cd.getEstimatedRevenue() %>" required/></p>
 
             <h4 style='color:rgb(34,145,204);'>Following the completion of this form, please submit your full MDF request to your Enterprise Field
                 Marketing Manager for consideration and review. You may expect a response within 48 - 72 hours,
@@ -348,7 +348,9 @@
                 be in effect. </p>
             <br>
             <br>
-            <button type='submit' name='applyCamp' value="Submit" >Apply Campaign</button>
+            <h5>Comments</h5>
+            <textarea name ="Comment" ></textarea>
+            <button type='submit' name='edit' value="Save" >Save and Edit</button>
         </form>
     </body>
 </html>

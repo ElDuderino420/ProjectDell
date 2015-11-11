@@ -61,6 +61,16 @@
         <url-pattern>/FetchCampaigns</url-pattern>
     </servlet-mapping>
     
+    <!-- Fetch Campaign  -->
+    <servlet>
+        <servlet-name>CompletePoe</servlet-name>
+        <servlet-class>PresentationPartner.CompletePoe</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CompletePoe</servlet-name>
+        <url-pattern>/CompletePoe</url-pattern>
+    </servlet-mapping>
+    
     <!-- Partner Fetch  -->
     <servlet>
         <servlet-name>PartnerFetch</servlet-name>

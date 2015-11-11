@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationDell;
+package PresentationPartner;
 
 import Domain.CampaignController;
-import Domain.CampaignDetails;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Whalecum
  */
-public class CampaignApproval extends HttpServlet{
+public class CompletePoe extends HttpServlet{
 
     
     
@@ -26,17 +25,12 @@ public class CampaignApproval extends HttpServlet{
         
         try
         {
-            
-            CampaignController cc = new CampaignController();
-            CampaignDetails derp = (CampaignDetails) request.getSession().getAttribute("currentCD");
-            String s = request.getSession().getAttribute("id").toString();
-            if(request.getParameter("poe").equals("Approve")){
-                cc.campApprove(derp.getId(), request.getParameter("comment"),s);
-            }
-            if(request.getParameter("poe").equals("Reject")){
-                cc.campReject(derp.getId(), request.getParameter("comment"),s);
-            }
-            response.sendRedirect("DellFetch");
+                    CampaignController cc = new CampaignController();
+                    String id = request.getSession().getAttribute("CampId").toString();
+                    cc.NewPOE(id);
+                    cc.LastChange(id);
+
+            response.sendRedirect("PartnerFetch");
         }
         catch (Exception ex) 
         {

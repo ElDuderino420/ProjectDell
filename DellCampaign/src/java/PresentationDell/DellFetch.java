@@ -28,7 +28,7 @@ public class DellFetch extends HttpServlet{
             
             CampaignController cc = new CampaignController();
             request.getSession().setAttribute("allCamp",cc.FetchCampaigns("camp",""));
-            request.getSession().setAttribute("allPOE",cc.FetchCampaigns("poe",""));
+            request.getSession().setAttribute("allPOE",cc.FetchCampaigns("poe",request.getSession().getAttribute("id").toString()));
             response.sendRedirect("Dell.jsp");
         }
         catch (Exception ex) 

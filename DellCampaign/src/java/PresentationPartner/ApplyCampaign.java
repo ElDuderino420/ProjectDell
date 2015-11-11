@@ -27,33 +27,7 @@ public class ApplyCampaign extends HttpServlet {
             HttpSession ss = request.getSession();
 
             CampaignController cc = new CampaignController();
-            if (!cc.getChecked(request.getParameter("StartTime"))
-                    || !cc.getChecked(request.getParameter("EndTime"))
-                    || !cc.getChecked(request.getParameter("ProgramDate"))
-                    || !cc.getChecked(request.getParameter("SubmissionDate"))
-                    || !cc.getChecked(request.getParameter("ContactName"))
-                    || !cc.getChecked(request.getParameter("CompanyName"))
-                    || !cc.getChecked(request.getParameter("Address"))
-                    || !cc.getChecked(request.getParameter("ContactEmail"))
-                    || !cc.getChecked(request.getParameter("VenueName"))
-                    || !cc.getChecked(request.getParameter("VenueAddress"))
-                    || !cc.getChecked(request.getParameter("desc"))
-                    || !cc.getChecked(request.getParameter("methodofreimbursement"))
-                    || !cc.getChecked(request.getParameter("partner"))
-                    || !cc.getChecked(request.getParameter("ContactPhone"))
-                    || !cc.getChecked(request.getParameter("cost"))
-                    || !cc.getChecked(request.getParameter("requesting"))
-                    || !cc.getChecked(request.getParameter("partnercontribution"))
-                    || !cc.getChecked(request.getParameter("NoOpp"))
-                    || !cc.getChecked(request.getParameter("estimatedrevenue"))
-                    || !cc.getChecked(request.getParameter("NOAttendees")) 
-                    || !cc.checkDate(request.getParameter("SubmissionDate"))
-                    || !cc.checkDate(request.getParameter("ProgramDate"))
-                    || !cc.checkTime(request.getParameter("EndTime"))
-                    || !cc.checkTime(request.getParameter("StartTime"))){
-                response.sendRedirect("MDFRequest.jsp");
-            }else{
-
+                
             CampaignDetails cd = new CampaignDetails(
                     cc.getNextId(),
                     request.getParameter("SubmissionDate"),
@@ -106,10 +80,17 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
 
             String s = request.getSession().getAttribute("id").toString();
-            cc.CreateCampaign(cd,s);
-
-            response.sendRedirect("PartnerFetch");
+            if(request.getParameter("edit") != null){
+            if(request.getParameter("edit").equals("Save")){
+                CampaignDetails cd2 =(CampaignDetails) request.getSession().getAttribute("currentCD");
+                cd.setId(cd2.getId());
+                cc.CreateCampaign(cd, s, "edit");
+            }}
+            else{
+                cc.CreateCampaign(cd,s,"Create");
             }
+            response.sendRedirect("PartnerFetch");
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=" + ex.getMessage());

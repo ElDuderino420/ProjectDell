@@ -13,7 +13,6 @@
     <body>
         <h3>File Upload:</h3>
         Select a file to upload: <br />
-        <p><%= request.getSession().getAttribute("motherPath").toString() %></p>
         
         
         <form role="form" action="UploadFile.jsp" method="post" enctype="multipart/form-data">

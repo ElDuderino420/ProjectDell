@@ -72,7 +72,8 @@
                 </table>
             </div>
             <input type="text" name="Cid2" />
-            <button type="submit" value="PD" name="DNC" >Details</button>
+            <button type="submit" value="PD" name="DNC" >Details</button> <br>
+            <a href="index.jsp">Log Out</a>
         </form>
     </body>
 </html>

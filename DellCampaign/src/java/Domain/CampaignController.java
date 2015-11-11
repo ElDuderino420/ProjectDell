@@ -34,7 +34,7 @@ public class CampaignController {
                 s = " where POEApproved = 'Approved';";
                 break;
             case "poe":
-                s = " where POEApproved = 'Pending';";
+                s = " where POEApproved = 'Pending' and DellId = '" + id + "' order by LastChange DESC";
                 break;
             case "camp":
                 s = " where CampApproved = 'Pending';";
@@ -84,13 +84,24 @@ public class CampaignController {
     /*
      CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
      */
-    public void CreateCampaign(CampaignDetails cp, String pid) throws Exception {
+    public void CreateCampaign(CampaignDetails cp, String pid, String derp) throws Exception {
 
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
+            
+            
+           if(derp.equals("edit")){
+           PreparedStatement ezshit2 = con.prepareStatement("Delete From Campaign where id= '"+ cp.getId() +"';");
+           PreparedStatement fuckThis2 = con.prepareStatement("Delete from CampaignDetails where id = '"+cp.getId() +"';");
+           ezshit2.executeUpdate();
+           fuckThis2.executeUpdate();
+           ezshit2.close();
+           fuckThis2.close();
+            }
+            
             PreparedStatement ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?)");
-            PreparedStatement fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
+            PreparedStatement  fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
@@ -100,7 +111,9 @@ public class CampaignController {
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?)");
+           
 
+            
             fuckThis.setString(1, cp.getId());
             ezshit.setString(1, cp.getId());
             fuckThis.setString(2, cp.getDateCreated());
@@ -297,7 +310,7 @@ public class CampaignController {
     /*
      campApprove takes a campaign id and comment and sets the campapproved status to approved and sets the comment to capaign has been approved
      */
-    public void campApprove(String id, String Comment) throws Exception {
+    public void campApprove(String id, String Comment, String did) throws Exception {
 
         Connection con = null;
         try {
@@ -308,6 +321,7 @@ public class CampaignController {
             Statement ps = con.createStatement();
             ps.executeUpdate("update Campaign set CampApproved = 'Approved' where id = '" + id + "';");
             ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set DellId = '"+ did +"' where id = '"+id+"';");
             ps.close();
         } finally {
 
@@ -317,7 +331,7 @@ public class CampaignController {
     /*
      campReject takes the campaign id and a comment of a campaign and sets the campapproved status to rejected and the comment to campaign has been rejected
      */
-    public void campReject(String id, String Comment) throws Exception {
+    public void campReject(String id, String Comment, String did) throws Exception {
 
         Connection con = null;
         try {
@@ -329,6 +343,7 @@ public class CampaignController {
             Statement ps = con.createStatement();
             ps.executeUpdate("update Campaign set CampApproved = 'Rejected' where id = '" + id + "';");
             ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set DellId = '"+ did +"' where id = '"+id+"';");
             ps.close();
 
         } finally {
@@ -377,21 +392,17 @@ public class CampaignController {
         }
     }
 
-    /*
-     NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded
-     */
-    public void NewPOE(String id, String Comment) throws Exception {
+    
+    /* NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded */
+     
+    public void NewPOE(String id) throws Exception {
 
         Connection con = null;
         try {
-            if (Comment == null || Comment.equals("")) {
-                Comment = "POE has been uploaded";
-            }
 
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
-            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
         } finally {

@@ -20,7 +20,7 @@
     String filePath = application.getRealPath(request.getServletPath());
     String id = request.getSession().getAttribute("CampId").toString();
     if (id == null || id.equals("")) {
-        response.sendRedirect("FetchCampaigns");
+        response.sendRedirect("PartnerFetch");
     } else {
         
         int derp = filePath.indexOf("/build/web/");
@@ -88,7 +88,7 @@
             }
         } else {
             request.setAttribute("Error", "Error!!");
-            response.sendRedirect("FetchCampaigns");
+            response.sendRedirect("PartnerFetch");
 
         }
     }

@@ -6,6 +6,7 @@
 package PresentationPartner;
 
 import Domain.CampaignController;
+import Domain.CampaignDetails;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +34,14 @@ public class navCon extends HttpServlet{
             String derp = request.getParameter("nav");
             CampaignController cc = new CampaignController();
             
+            
             // click new campaign
             if(derp.equals("NC")){
                 response.sendRedirect("MDFRequest.jsp");
             }
             if(derp.equals("D")){
-                response.sendRedirect("PartnerDetails");
+                request.getSession().setAttribute("currentCD", (CampaignDetails)cc.getCampDetail(request.getParameter("Cid")));
+                response.sendRedirect("PartnerDetails.jsp");                
             }
             // click approve campaign
             /*
@@ -60,12 +63,11 @@ public class navCon extends HttpServlet{
             
             // click Upload POE
             if(derp.equals("UP")){
-                    
                     response.sendRedirect("POEUpload.jsp");
             }
             if(derp.equals("C")){
                 cc.CompleteCamp("CampId");
-                response.sendRedirect("Partner.jsp");
+                response.sendRedirect("CompletePoe");
             }
             /*
             // click Approve POE
