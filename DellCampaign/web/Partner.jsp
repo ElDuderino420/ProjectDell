@@ -45,8 +45,9 @@
                 </table>
             </div>
             <input type="text" name="Cid" />
-            <button name="nav" value="UP" type="submit">Upload POE</button>
             <button name="nav" value="D" type="submit">Details</button>
+            <button name="nav" value="UP" type="submit">Upload POE</button>
+            <button name="nav" value="PD" type="submit">View POE</button>
             <button name="nav" value="C" type="submit">Complete</button>
             <br>
             <a href="index.jsp">Log Out</a>

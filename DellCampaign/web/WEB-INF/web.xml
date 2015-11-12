@@ -81,6 +81,16 @@
         <url-pattern>/PartnerFetch</url-pattern>
     </servlet-mapping>
   
+  <!-- Partner View POE  -->
+    <servlet>
+        <servlet-name>PartnerViewPOE</servlet-name>
+        <servlet-class>PresentationPartner.PartnerViewPOE</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PartnerViewPOE</servlet-name>
+        <url-pattern>/PartnerViewPOE</url-pattern>
+    </servlet-mapping>
+  
     <!-- navigation controller  -->
     <servlet>
         <servlet-name>navCon</servlet-name>

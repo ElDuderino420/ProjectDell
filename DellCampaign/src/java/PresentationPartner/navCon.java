@@ -7,7 +7,9 @@ package PresentationPartner;
 
 import Domain.CampaignController;
 import Domain.CampaignDetails;
+import Domain.POEDetails;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,9 +31,11 @@ public class navCon extends HttpServlet{
             // set 
             
             request.getSession().setAttribute("CampId", request.getParameter("Cid"));
+            String suckABigDick = request.getSession().getAttribute("CampId").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
             String derp = request.getParameter("nav");
+            
             CampaignController cc = new CampaignController();
             
             
@@ -39,64 +43,29 @@ public class navCon extends HttpServlet{
             if(derp.equals("NC")){
                 response.sendRedirect("MDFRequest.jsp");
             }
+            if(cc.checkID(suckABigDick)){
             if(derp.equals("D")){
                 request.getSession().setAttribute("currentCD", (CampaignDetails)cc.getCampDetail(request.getParameter("Cid")));
                 response.sendRedirect("PartnerDetails.jsp");                
             }
-            // click approve campaign
-            /*
-            if(derp.equals("")){
-            cc.campApprove(request.getSession().getAttribute("CampId").toString(),
-                           request.getSession().getAttribute("Comment").toString());
-            cc.LastChange(request.getSession().getAttribute("CampId").toString());
-            response.sendRedirect("FetchCampaigns");
-            }
-            
-            // click Reject Campaign
-            if(derp.equals("RC")){
-            cc.campReject(request.getSession().getAttribute("CampId").toString(),
-                          request.getSession().getAttribute("Comment").toString());
-            cc.LastChange(request.getSession().getAttribute("CampId").toString());
-            response.sendRedirect("FetchCampaigns");
-            }
-                    */
-            
             // click Upload POE
             if(derp.equals("UP")){
                     response.sendRedirect("POEUpload.jsp");
+
             }
             if(derp.equals("C")){
                 cc.CompleteCamp("CampId");
                 response.sendRedirect("CompletePoe");
             }
-            /*
-            // click Approve POE
-            if(derp.equals("AP")){
-            cc.POEApprove(request.getSession().getAttribute("CampId").toString(),
-                          request.getSession().getAttribute("Comment").toString());
-            cc.LastChange(request.getSession().getAttribute("CampId").toString());
-            response.sendRedirect("FetchCampaigns");
-            }
             
-            // click Reject POE
-            if(derp.equals("RP")){
-            cc.POEReject(request.getSession().getAttribute("CampId").toString(),
-                         request.getSession().getAttribute("Comment").toString());
-            cc.LastChange(request.getSession().getAttribute("CampId").toString());
-            response.sendRedirect("FetchCampaigns");
+            if(derp.equals("PD")){
+                List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("CampId").toString());
+                request.getSession().setAttribute("lust", list);
+                response.sendRedirect("PartnerViewPOE.jsp");
             }
                     
-            
-            // click Change Comment
-            if(derp.equals("CC")){
-            cc.campChangeComment(request.getSession().getAttribute("CampId").toString(),
-                                 request.getSession().getAttribute("Comment").toString());
-            cc.LastChange(request.getSession().getAttribute("CampId").toString());
-            response.sendRedirect("FetchCampaigns");
-            }
-                    */
-                    
-        }
+        }else {response.sendRedirect("Partner.jsp");}}
+             
         catch (Exception ex) 
         {
             ex.printStackTrace();

@@ -27,8 +27,8 @@ public class UploadFile extends HttpServlet{
         {
                     CampaignController cc = new CampaignController();
                     String id = request.getSession().getAttribute("CampId").toString();
-//                    cc.NewPOE(id);
                     cc.LastChange(id);
+                    cc.createPOE(id, request.getSession().getAttribute("POEname").toString());
 
             response.sendRedirect("PartnerFetch");
         }

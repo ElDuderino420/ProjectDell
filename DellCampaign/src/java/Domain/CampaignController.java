@@ -251,10 +251,32 @@ public class CampaignController {
 
         }
     }
+    
+    public boolean checkID(String id) throws Exception{
+        
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+
+            ResultSet rs = ps.executeQuery("SELECT id from Campaign where id = '"+id+"';");
+            while (rs.next()) {
+                return true;
+            }
+
+            ps.close();
+            return false;
+
+        } finally {
+
+        }
+        
+        
+    }
+    
     /*
      getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
      */
-
     public String getNextId() throws Exception {
         int result = 0;
         Connection con = null;
@@ -392,6 +414,49 @@ public class CampaignController {
         }
     }
 
+    
+    public void createPOE(String id, String path) throws Exception{
+        
+        Connection con = null;
+        try{
+            
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("Insert into POEDetails values('"+ path +"','"+id+"')");
+            
+            ps.close();
+            
+        }
+            finally{
+            
+        }
+        
+    }
+    
+    public List<POEDetails> ViewPOE(String id) throws Exception{
+        
+        Connection con = null;
+        try{
+            
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet rs = ps.executeQuery("select * from POEDetails where Cid = '" + id + "';");
+
+            ArrayList<POEDetails> list = new ArrayList();
+            
+            while(rs.next()){
+                list.add(new POEDetails(rs.getString(1)));
+            }
+            ps.close();
+            return list;
+        }
+        
+        finally{
+            
+        }
+        
+    }
+    
     
     /* NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded */
      

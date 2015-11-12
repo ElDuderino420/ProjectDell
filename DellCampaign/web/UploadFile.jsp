@@ -22,15 +22,15 @@
     if (id == null || id.equals("")) {
         response.sendRedirect("PartnerFetch");
     } else {
-        
+
         int derp = filePath.indexOf("/build/web/");
         String f = "/";
-        
-        if(derp==-1){
+
+        if (derp == -1) {
             f = "\\";
             derp = filePath.indexOf("\\build\\web\\");
         }
-        filePath = filePath.substring(0, derp) + f+"Poe"+f + id + f;
+        filePath = filePath.substring(0, derp) + f + "Poe" + f + id + f;
         file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
@@ -46,7 +46,7 @@
             factory.setSizeThreshold(maxMemSize);
             // Location to save data that is larger than maxMemSize.
             factory.setRepository(new File("C:\\temp\\"));
-            
+
             // Create a new file upload handler
             ServletFileUpload upload = new ServletFileUpload(factory);
             // maximum file size to be uploaded.
@@ -64,6 +64,7 @@
                         // Get the uploaded file parameters
                         String fieldName = fi.getFieldName();
                         String fileName = fi.getName();
+
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();
                         // Write the file
@@ -74,12 +75,12 @@
                             file = new File(filePath
                                     + fileName.substring(fileName.lastIndexOf(f) + 1));
                         }
-
+                        request.getSession().setAttribute("POEname", file.getName());
                         fi.write(file);
 
                         request.setAttribute("Success", "Successfully Uploaded");
                         response.sendRedirect("UploadFile");
-                        
+
                     }
                 }
 
