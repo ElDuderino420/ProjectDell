@@ -5,6 +5,8 @@
 --%>
 
 <%@page import="java.time.LocalDateTime"%>
+<%@page import="Domain.CampaignDetails"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,27 +16,24 @@
         <!-- <link rel="stylesheet" href="maincss.css" type="text/css" media="screen"/> -->
         <title>MDF Request</title>
     </head>
+    <% CampaignDetails cd = (CampaignDetails)request.getSession().getAttribute("cd");
+    %>
     <body>
         <h2 style="color: rgb(0,135,203); margin-bottom: 0;">Enterprise Field Marketing:</h2>
 
         <h4 style="color: rgb(0,135,203); margin-top: 0;">Marketing Development Fund (MDF) Request</h4>
-        <h5>*Required Field</h5>
-        <% String msg = request.getParameter("msg");
-            if (msg != null) {
-        %>
-        <h5 style="color: red"><%=msg%></h5>
-        <%}%>
+        <h6>*Required Field</h6>
         <form action='ApplyCampaign'>
             <table>
                 <tr>
-                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>" required readonly/></td>
-                    <td>Contact name*: <br><input name ="ContactName" type = "text" required/></td>
-                    <td>Company name*: <br><input name ="CompanyName" type = "text" required/></td>
+                    <td>Submission date*(YYYY-MM-DD): <br><input name="SubmissionDate" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>" readonly required/></td>
+                    <td>Contact name*: <br><input name ="ContactName" type = "text" value="<%= cd.getContactName()%>" required/></td>
+                    <td>Company name*: <br><input name ="CompanyName" type = "text" value="<%= cd.getCompanyName()%>" required/></td>
                 </tr>
                 <tr>
-                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text" required/> </td>
-                    <td>Contact email*: <br><input name ="ContactEmail" type = "text" required/></td>
-                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text" required/></td>
+                    <td>Company address (city,state and zip)*:<br><input name ="Address" type = "text" value="<%= cd.getCompanyAddress()%>" required/> </td>
+                    <td>Contact email*: <br><input name ="ContactEmail" type = "text" value="<%= cd.getContactEmail()%>" required/></td>
+                    <td>Contact Phone*: <br><input name ="ContactPhone" type = "text" value="<%= cd.getContactPhone()%>" required/></td>
                 </tr>
             </table>
                     <br>
@@ -50,14 +49,14 @@
             <h4>Program Overview</h4>
             <table>
                 <tr>
-                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text" required/></td>
-                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text" required/></td>
-                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text" required/></td>
+                    <td>Program Date(YYYY-MM-DD)*: <br><input name ="ProgramDate" type = "text" value="<%= cd.getProgramDate()%>" required/></td>
+                    <td>Start time(HH:MM:SS)*: <br><input name ="StartTime" type = "text" value="<%= cd.getStartTime()%>" required/></td>
+                    <td>End time(HH:MM:SS)*: <br><input name ="EndTime" type = "text" value="<%= cd.getEndTime()%>" required/></td>
                 </tr>
                 <tr>
-                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text" required/></td>
-                    <td>Venue name*: <br><input name ="VenueName" type = "text" required/></td>
-                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" required/></td>
+                    <td>Estimated # of attendees*: <br><input name ="NOAttendees" type = "text" value="<%= cd.getEstimatedAttendees()%>" required/></td>
+                    <td>Venue name*: <br><input name ="VenueName" type = "text" value="<%= cd.getVenueName()%>" required/></td>
+                    <td>Venue address(city,state and zip)*: <br><input name ="VenueAddress" type = "text" value="<%= cd.getVenueAddress()%>" required/></td>
                 </tr>
             </table>
             <br>
@@ -65,21 +64,21 @@
             <h4>Type of Lead Generating Program</h4>
             <table>
                 <tr>
-                    <td><input name = ftfevent type = "checkbox" />Face-to-Face Event</td>
-                    <td><input name = tradeshows type = "checkbox"/> Tradeshows</td>
-                    <td><input name = mtcamp type = "checkbox"/> Multi-Touch Campaign</td>
+                    <td><input name = ftfevent type = "checkbox" <%= cd.getChecked(cd.isFaceToFace())%>/>Face-to-Face Event</td>
+                    <td><input name = tradeshows type = "checkbox" <%= cd.getChecked(cd.isTradeShows())%>/> Tradeshows</td>
+                    <td><input name = mtcamp type = "checkbox" <%= cd.getChecked(cd.isMultiTouch())%>/> Multi-Touch Campaign</td>
                 </tr>
                 <tr>
-                    <td><input name = dooropen type = "checkbox"/> Door Opener Campaign</td>
-                    <td><input name = 3rdparty type = "checkbox"/> Third Party Campaign</td>
+                    <td><input name = dooropen type = "checkbox" <%= cd.getChecked(cd.isDoorOpener())%>/> Door Opener Campaign</td>
+                    <td><input name = 3rdparty type = "checkbox" <%= cd.getChecked(cd.isThirdParty())%>/> Third Party Campaign</td>
                 </tr>
                 <tr>
-                    <td><input name = directmail type = "checkbox"/> Direct Mail</td>
-                    <td><input name = blitzcamp type = "checkbox"/> Blitz Campaign (appt-setting or opportunity blitz)</td>
+                    <td><input name = directmail type = "checkbox" <%= cd.getChecked(cd.isDirectMail())%>/> Direct Mail</td>
+                    <td><input name = blitzcamp type = "checkbox" <%= cd.getChecked(cd.isBlitz())%>/> Blitz Campaign (appt-setting or opportunity blitz)</td>
                 </tr>
             </table>
             <p>Program description and/or agenda*:</p><br>
-            <textarea name ="desc" required></textarea>
+            <textarea name ="desc" required><%= cd.getProgramDescription()%></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
@@ -92,54 +91,54 @@
                     <td>Solutions</td>
                 </tr>
                 <tr>
-                    <td><input name = SC4000 type = "checkbox" />Dell Storage SC4000 Series</td>
-                    <td><input name = poweredgeservers type = "checkbox"/> The Latest Generation of Del PowerEdge Servers</td>
-                    <td><input name = SDN type = "checkbox"/> Software-Defined Networking (SDN): Data Center Networkin </td>
-                    <td><input name = cloud type = "checkbox"/> Cloud Client-Computing</td>
+                    <td><input name = SC4000 type = "checkbox" <%= cd.getChecked(cd.isSc4000())%>/>Dell Storage SC4000 Series</td>
+                    <td><input name = poweredgeservers type = "checkbox" <%= cd.getChecked(cd.isPowerEdgeServers())%>/> The Latest Generation of Del PowerEdge Servers</td>
+                    <td><input name = SDN type = "checkbox" <%= cd.getChecked(cd.isSdn())%>/> Software-Defined Networking (SDN): Data Center Networkin </td>
+                    <td><input name = cloud type = "checkbox" <%= cd.getChecked(cd.isCloudClientComputing())%>/> Cloud Client-Computing</td>
                 </tr>
                 <tr>
-                    <td><input name = PS4210 type = "checkbox" />Dell Storage PS4210 Series</td>
-                    <td><input name = winserver type = "checkbox"/> Windows Server 2003 Migration</td>
-                    <td><input name = usercentric type = "checkbox"/> User-Centric Networking</td>
-                    <td><input name = infrahardware type = "checkbox"/> Converged Infrastructure Hardware</td>
+                    <td><input name = PS4210 type = "checkbox" <%= cd.getChecked(cd.isPs4210())%> />Dell Storage PS4210 Series</td>
+                    <td><input name = winserver type = "checkbox" <%= cd.getChecked(cd.isWindowsServer())%>/> Windows Server 2003 Migration</td>
+                    <td><input name = usercentric type = "checkbox" <%= cd.getChecked(cd.isUserCentric())%>/> User-Centric Networking</td>
+                    <td><input name = infrahardware type = "checkbox" <%= cd.getChecked(cd.isInfrastructureHardware())%>/> Converged Infrastructure Hardware</td>
                 </tr>
                 <tr>
-                    <td><input name = storagesolutions type = "checkbox" />Dell Storage Solutions</td>
-                    <td><input name = x86server type = "checkbox"/> x86 Server Transition</td>
+                    <td><input name = storagesolutions type = "checkbox" <%= cd.getChecked(cd.isDellStorageSol())%>/>Dell Storage Solutions</td>
+                    <td><input name = x86server type = "checkbox" <%= cd.getChecked(cd.isX86Server())%>/> x86 Server Transition</td>
                     <td></td>
-                    <td><input name = bladedatacenter type = "checkbox"/> Dell Converged Blade Data Center</td>
+                    <td><input name = bladedatacenter type = "checkbox" <%= cd.getChecked(cd.isBladeDataCenter())%>/> Dell Converged Blade Data Center</td>
                 </tr>
                 <tr>
-                    <td><input name = pricedisk type = "checkbox" />Flash at the Price of Disk</td>
-                    <td><input name = VRTX type = "checkbox"/> PowerEdge VRTX</td>
+                    <td><input name = pricedisk type = "checkbox" <%= cd.getChecked(cd.isFlashPriceDisk())%>/>Flash at the Price of Disk</td>
+                    <td><input name = VRTX type = "checkbox" <%= cd.getChecked(cd.isPowerEdgeVRTX())%>/> PowerEdge VRTX</td>
                     <td></td>
-                    <td><input name = optimizedenterprise type = "checkbox"/> Optimized Enterprise(Future-Ready IT) </td>
+                    <td><input name = optimizedenterprise type = "checkbox" <%= cd.getChecked(cd.isOptimizedEnterprise())%>/> Optimized Enterprise(Future-Ready IT) </td>
                 </tr>
                 <tr>
-                    <td><input name = fluidcache type = "checkbox" />Fluid Cache for SAN</td>
+                    <td><input name = fluidcache type = "checkbox" <%= cd.getChecked(cd.isFluidCache())%>/>Fluid Cache for SAN</td>
                     <td></td>
                     <td></td>
-                    <td><input name = poweredgefx type = "checkbox"/> PowerEdge FX Architecture</td>
+                    <td><input name = poweredgefx type = "checkbox" <%= cd.getChecked(cd.isPowerEdgeFX())%>/> PowerEdge FX Architecture</td>
                 </tr>
                 <tr>
-                    <td><input name = dataprotec type = "checkbox"/> Data Protection</td>
+                    <td><input name = dataprotec type = "checkbox" <%= cd.getChecked(cd.isDataProtection())%>/>Data Protection</td>
                     <td></td>
                     <td></td>
-                    <td><input name = SDS type = "checkbox"/> Software-Defined Storage(SDS)</td>
+                    <td><input name = SDS type = "checkbox" <%= cd.getChecked(cd.isSds())%>/> Software-Defined Storage(SDS)</td>
                 </tr>
             </table>
             <p style="font-weight: bold">Is there a software component to your campaign?</p>
             <p>If so, please detail the specific software component(s) in the space below.</p>
-            <textarea name =softwareComponent ></textarea>
+            <textarea name =softwareComponent ><%= cd.getSoftwareComponent() %></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
             <h4>Target Audience <span style="font-weight: normal">(Please check all the apply)</span></h4>
             <table>
                 <tr>
-                    <td><input name = SMB type='checkbox'/>SMB (Small & Medium Business)</td>
-                    <td><input name = LE type='checkbox'/>LE (Large Enterprise, LEA & G500)</td>
-                    <td><input name = PUB type='checkbox'/>PUB (Public, Federal, Education and Healthcare)*</td>
+                    <td><input name = SMB type='checkbox'<%= cd.getChecked(cd.isSmb())%>/>SMB (Small & Medium Business)</td>
+                    <td><input name = LE type='checkbox'<%= cd.getChecked(cd.isLe())%>/>LE (Large Enterprise, LEA & G500)</td>
+                    <td><input name = PUB type='checkbox'<%= cd.getChecked(cd.isPub())%>/>PUB (Public, Federal, Education and Healthcare)*</td>
                 </tr>
             </table>
             <h6 style='font-weight: normal'>*Partners need to comply with PUB restrictions and limitations within any programs. See additional information within the terms and conditions(T&C) below.</h6>
@@ -148,14 +147,15 @@
 
             <h4>Additional Program Information</h4>
 
-            <p>Total projected cost of program*: <input name='cost' type='text' required/></p>
-            <p>Total MDF requesting from Dell*: <input name='requesting' type='text' required/></p>
+            <p>Total projected cost of program*: <input name='cost' type='text' value="<%= cd.getTotalProjectedCost()%>" required/></p>
+            <p>Total MDF requesting from Dell*: <input name='requesting' type='text' value="<%= cd.getMdfRequest() %>" required/></p>
             <p>Note: Dell will fund up to fifty percent (50%)** of the projected total cost, based on actual costs incurred for the activity.**See terms and conditions for rules and restrictions.</p>
-            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text' required/></p>
-            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text' required/></p>
-            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text' required/></p>
-            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text' required/></p>
-            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text' required/></p>
+            <p>Preferred method of reimbursement (AMEX or check/EFT)*:<input name='methodofreimbursement' type='text' value="<%= cd.getReimbursement() %>" required/></p>
+            <p>Participating Technology Partner(s) (VMware, Microsoft, etc.)*:<input name='partner' type='text' value="<%= cd.getTechnologyPartners() %>" required/></p>
+            <p>Total Technology Partner(s) MDF contribution*: <input name='partnercontribution' type='text' value="<%= cd.getTotalMDFContribution() %>" required/></p>
+            <p>Estimated # of opportunities (deals registered through Dell Deal Registration)*: <input name='NoOpp' type='text' value="<%= cd.getEstimatedOpportunities() %>" required/></p>
+            <p>Estimated revenue from program*:<input name='estimatedrevenue' type='text' value="<%= cd.getEstimatedRevenue() %>" required/></p>
+
 
             <h4 style='color:rgb(34,145,204);'>Following the completion of this form, please submit your full MDF request to your Enterprise Field
                 Marketing Manager for consideration and review. You may expect a response within 48 - 72 hours,

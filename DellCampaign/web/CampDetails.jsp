@@ -77,7 +77,7 @@
                 </tr>
             </table>
             <p>Program description and/or agenda*:</p><br>
-            <textarea name ="desc" value="<%= cd.getProgramDescription()%>" readonly></textarea>
+            <textarea name ="desc" readonly><%= cd.getProgramDescription()%></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>
@@ -128,7 +128,7 @@
             </table>
             <p style="font-weight: bold">Is there a software component to your campaign?</p>
             <p>If so, please detail the specific software component(s) in the space below.</p>
-            <textarea name =softwareComponent value="<%= cd.getSoftwareComponent() %>" readonly></textarea>
+            <textarea name =softwareComponent readonly><%= cd.getSoftwareComponent() %></textarea>
             <br>
             <br>
             <div style="border-bottom: 1px solid black"></div>

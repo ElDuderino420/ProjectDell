@@ -51,17 +51,8 @@
         <url-pattern>/ApplyCampaign</url-pattern>
     </servlet-mapping>
     
-    <!-- Fetch Campaign  -->
-    <servlet>
-        <servlet-name>FetchCampaigns</servlet-name>
-        <servlet-class>PresentationPartner.FetchCampaigns</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>FetchCampaigns</servlet-name>
-        <url-pattern>/FetchCampaigns</url-pattern>
-    </servlet-mapping>
-    
-    <!-- Fetch Campaign  -->
+  
+    <!-- CompletePOE  -->
     <servlet>
         <servlet-name>CompletePoe</servlet-name>
         <servlet-class>PresentationPartner.CompletePoe</servlet-class>
@@ -69,6 +60,16 @@
     <servlet-mapping>
         <servlet-name>CompletePoe</servlet-name>
         <url-pattern>/CompletePoe</url-pattern>
+    </servlet-mapping>
+    
+    <!-- DownloadPOE  -->
+    <servlet>
+        <servlet-name>DownloadPOE</servlet-name>
+        <servlet-class>PresentationPartner.DownloadPOE</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadPOE</servlet-name>
+        <url-pattern>/DownloadPOE</url-pattern>
     </servlet-mapping>
     
     <!-- Partner Fetch  -->

@@ -60,6 +60,26 @@ public class CampaignDetails {
         this.endTime = endTime;
     }
 
+    public CampaignDetails() {
+        this.id = "";
+        this.startTime = "";
+        this.endTime = "";
+        this.programDate = "";
+        this.dateCreated = "";
+        this.contactName = "";
+        this.companyName = "";
+        this.companyAddress = "";
+        this.contactEmail = "";
+        this.venueName = "";
+        this.venueAddress = "";
+        this.programDescription = "";
+        this.softwareComponent = "";
+        this.reimbursement = "";
+        this.technologyPartners = "";
+        this.contactPhone = "";
+    }
+
+    
     public CampaignDetails(String id, String dateCreated, String contactName, String companyName, String companyAddress, String contactEmail, String contactPhone, String programDate, String startTime, String endTime, int estimatedAttendees, String venueName, String venueAddress, boolean faceToFace, boolean tradeShows, boolean multiTouch, boolean doorOpener, boolean thirdParty, boolean directMail, boolean blitz, String programDescription,boolean sc4000, boolean ps4210, boolean dellStorageSol, boolean flashPriceDisk, boolean fluidCache, boolean dataProtection, boolean powerEdgeServers, boolean windowsServer, boolean x86Server, boolean powerEdgeVRTX, boolean sdn, boolean userCentric, boolean cloudClientComputing, boolean infrastructureHardware, boolean bladeDataCenter, boolean optimizedEnterprise, boolean powerEdgeFX, boolean sds, String softwareComponent, boolean smb, boolean le, boolean pub, int totalProjectedCost, int mdfRequest, String reimbursement, String technologyPartners, int totalMDFContribution, int estimatedOpportunities, int estimatedRevenue) {
         this.id = id;
         this.startTime = startTime;

@@ -19,60 +19,58 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author butwhole
  */
-public class navCon extends HttpServlet{
+public class navCon extends HttpServlet {
 
-    
-    
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        try
-        {
+
+        try {
             // set 
-            
+
             request.getSession().setAttribute("CampId", request.getParameter("Cid"));
             String suckABigDick = request.getSession().getAttribute("CampId").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
             String derp = request.getParameter("nav");
-            
+
             CampaignController cc = new CampaignController();
-            
-            
+
             // click new campaign
-            if(derp.equals("NC")){
+            if (derp.equals("NC")) {
+                CampaignDetails cd = new CampaignDetails();
+                request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
             }
-            if(cc.checkID(suckABigDick)){
-            if(derp.equals("D")){
-                request.getSession().setAttribute("currentCD", (CampaignDetails)cc.getCampDetail(request.getParameter("Cid")));
-                response.sendRedirect("PartnerDetails.jsp");                
-            }
-            // click Upload POE
-            if(derp.equals("UP")){
+            else if (cc.checkID(suckABigDick)) {
+                if (derp.equals("D")) {
+                    request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(request.getParameter("Cid")));
+                    response.sendRedirect("PartnerDetails.jsp");
+                }
+                // click Upload POE
+                if (derp.equals("UP")) {
                     response.sendRedirect("POEUpload.jsp");
 
+                }
+                if (derp.equals("C")) {
+                    cc.CompleteCamp("CampId");
+                    response.sendRedirect("CompletePoe");
+                }
+
+                if (derp.equals("PD")) {
+                    List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("CampId").toString());
+                    request.getSession().setAttribute("lust", list);
+                    response.sendRedirect("PartnerViewPOE.jsp");
+                }
+
+            } else {
+                response.sendRedirect("Partner.jsp");
             }
-            if(derp.equals("C")){
-                cc.CompleteCamp("CampId");
-                response.sendRedirect("CompletePoe");
-            }
-            
-            if(derp.equals("PD")){
-                List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("CampId").toString());
-                request.getSession().setAttribute("lust", list);
-                response.sendRedirect("PartnerViewPOE.jsp");
-            }
-                    
-        }else {response.sendRedirect("Partner.jsp");}}
-             
-        catch (Exception ex) 
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            response.sendRedirect("index.jsp?msg=Error: "+ex.getMessage());
+            response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());
         }
     }
-     
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
@@ -82,5 +80,5 @@ public class navCon extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
     }
-    
+
 }

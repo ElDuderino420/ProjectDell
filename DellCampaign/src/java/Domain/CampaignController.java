@@ -87,21 +87,24 @@ public class CampaignController {
     public void CreateCampaign(CampaignDetails cp, String pid, String derp) throws Exception {
 
         Connection con = null;
+        PreparedStatement ezshit = null;
+        PreparedStatement fuckThis = null;
+        PreparedStatement ezshit2 = null;
+        PreparedStatement fuckThis2 = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
-            
-            
-           if(derp.equals("edit")){
-           PreparedStatement ezshit2 = con.prepareStatement("Delete From Campaign where id= '"+ cp.getId() +"';");
-           PreparedStatement fuckThis2 = con.prepareStatement("Delete from CampaignDetails where id = '"+cp.getId() +"';");
-           ezshit2.executeUpdate();
-           fuckThis2.executeUpdate();
-           ezshit2.close();
-           fuckThis2.close();
+            con.setAutoCommit(false);
+
+            if (derp.equals("edit")) {
+                ezshit2 = con.prepareStatement("Delete From Campaign where id= '" + cp.getId() + "';");
+                fuckThis2 = con.prepareStatement("Delete from CampaignDetails where id = '" + cp.getId() + "';");
+                ezshit2.executeUpdate();
+                fuckThis2.executeUpdate();
+                
             }
-            
-            PreparedStatement ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?)");
-            PreparedStatement  fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
+
+            ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?)");
+            fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
@@ -111,9 +114,7 @@ public class CampaignController {
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?)");
-           
 
-            
             fuckThis.setString(1, cp.getId());
             ezshit.setString(1, cp.getId());
             fuckThis.setString(2, cp.getDateCreated());
@@ -172,14 +173,26 @@ public class CampaignController {
             fuckThis.setInt(48, cp.getTotalMDFContribution());
             fuckThis.setInt(49, cp.getEstimatedOpportunities());
             fuckThis.setInt(50, cp.getEstimatedRevenue());
-
             fuckThis.executeUpdate();
-            fuckThis.close();
             ezshit.executeUpdate();
-            ezshit.close();
-
+            con.commit();
+        
         } finally {
 
+            if (fuckThis != null) {
+                fuckThis.close();
+            }
+            if (ezshit != null) {
+                ezshit.close();
+            }
+            if (fuckThis2 != null) {
+                fuckThis2.close();
+            }
+            if (ezshit2 != null) {
+                ezshit2.close();
+            }
+
+            con.setAutoCommit(true);
         }
 
     }
@@ -251,15 +264,15 @@ public class CampaignController {
 
         }
     }
-    
-    public boolean checkID(String id) throws Exception{
-        
+
+    public boolean checkID(String id) throws Exception {
+
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT id from Campaign where id = '"+id+"';");
+            ResultSet rs = ps.executeQuery("SELECT id from Campaign where id = '" + id + "';");
             while (rs.next()) {
                 return true;
             }
@@ -270,10 +283,9 @@ public class CampaignController {
         } finally {
 
         }
-        
-        
+
     }
-    
+
     /*
      getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
      */
@@ -343,7 +355,7 @@ public class CampaignController {
             Statement ps = con.createStatement();
             ps.executeUpdate("update Campaign set CampApproved = 'Approved' where id = '" + id + "';");
             ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
-            ps.executeUpdate("update Campaign set DellId = '"+ did +"' where id = '"+id+"';");
+            ps.executeUpdate("update Campaign set DellId = '" + did + "' where id = '" + id + "';");
             ps.close();
         } finally {
 
@@ -365,7 +377,7 @@ public class CampaignController {
             Statement ps = con.createStatement();
             ps.executeUpdate("update Campaign set CampApproved = 'Rejected' where id = '" + id + "';");
             ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
-            ps.executeUpdate("update Campaign set DellId = '"+ did +"' where id = '"+id+"';");
+            ps.executeUpdate("update Campaign set DellId = '" + did + "' where id = '" + id + "';");
             ps.close();
 
         } finally {
@@ -414,52 +426,46 @@ public class CampaignController {
         }
     }
 
-    
-    public void createPOE(String id, String path) throws Exception{
-        
+    public void createPOE(String id, String path) throws Exception {
+
         Connection con = null;
-        try{
-            
+        try {
+
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ps.executeUpdate("Insert into POEDetails values('"+ path +"','"+id+"')");
-            
+            ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "')");
+
             ps.close();
-            
+
+        } finally {
+
         }
-            finally{
-            
-        }
-        
+
     }
-    
-    public List<POEDetails> ViewPOE(String id) throws Exception{
-        
+
+    public List<POEDetails> ViewPOE(String id) throws Exception {
+
         Connection con = null;
-        try{
-            
+        try {
+
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ResultSet rs = ps.executeQuery("select * from POEDetails where Cid = '" + id + "';");
 
             ArrayList<POEDetails> list = new ArrayList();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 list.add(new POEDetails(rs.getString(1)));
             }
             ps.close();
             return list;
+        } finally {
+
         }
-        
-        finally{
-            
-        }
-        
+
     }
-    
-    
+
     /* NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded */
-     
     public void NewPOE(String id) throws Exception {
 
         Connection con = null;
@@ -534,4 +540,4 @@ public class CampaignController {
 
     }
 
-    }
+}

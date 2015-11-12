@@ -27,7 +27,7 @@ public class ApplyCampaign extends HttpServlet {
             HttpSession ss = request.getSession();
 
             CampaignController cc = new CampaignController();
-                
+
             CampaignDetails cd = new CampaignDetails(
                     cc.getNextId(),
                     request.getParameter("SubmissionDate"),
@@ -49,7 +49,7 @@ public class ApplyCampaign extends HttpServlet {
                     cc.getChecked(request.getParameter("3rdparty")),
                     cc.getChecked(request.getParameter("directmail")),
                     cc.getChecked(request.getParameter("blitzcamp")),
-                    request.getParameter("desc"),cc.getChecked(request.getParameter("SC4000")),
+                    request.getParameter("desc"), cc.getChecked(request.getParameter("SC4000")),
                     cc.getChecked(request.getParameter("PS4210")),
                     cc.getChecked(request.getParameter("storagesolutions")),
                     cc.getChecked(request.getParameter("pricedisk")),
@@ -78,19 +78,25 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("partnercontribution").toString()),
                     Integer.parseInt(request.getParameter("NoOpp").toString()),
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
-
-            String s = request.getSession().getAttribute("id").toString();
-            if(request.getParameter("edit") != null){
-            if(request.getParameter("edit").equals("Save")){
-                CampaignDetails cd2 =(CampaignDetails) request.getSession().getAttribute("currentCD");
-                cd.setId(cd2.getId());
-                cc.CreateCampaign(cd, s, "edit");
-            }}
-            else{
-                cc.CreateCampaign(cd,s,"Create");
+            if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false && request.getParameter("edit") == null) {
+                request.getSession().setAttribute("cd", cd);
+                response.sendRedirect("MDFRequest.jsp");
+            } else {
+                String s = request.getSession().getAttribute("id").toString();
+                if (request.getParameter("edit") != null) {
+                    if (!cd.isSmb() && !cd.isPub() && !cd.isLe()) {
+                        request.getSession().setAttribute("currentCD", cd);
+                        response.sendRedirect("PartnerDetails.jsp");
+                    } else if (request.getParameter("edit").equals("Save")) {
+                        CampaignDetails cd2 = (CampaignDetails) request.getSession().getAttribute("currentCD");
+                        cd.setId(cd2.getId());
+                        cc.CreateCampaign(cd, s, "edit");
+                    }
+                } else {
+                    cc.CreateCampaign(cd, s, "Create");
+                }
+                response.sendRedirect("PartnerFetch");
             }
-            response.sendRedirect("PartnerFetch");
-            
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=" + ex.getMessage());

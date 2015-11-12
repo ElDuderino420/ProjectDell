@@ -30,10 +30,15 @@
                 }
                 filePath = filePath.substring(0, derp) + f + "Poe" + f + id + f;
             }
+            
+            request.getSession().setAttribute("filepath",filePath );
+            
         %>    
-
+        
         <% for (POEDetails s : viewpoe) {
-        %> <a href="<%= filePath + s.getDl()%>"><%= s.getDl() %></a><br>
+            request.getSession().setAttribute("filename",s.getDl() );
+            
+        %> <a href=DownloadPOE><%= s.getDl() %> </a><br>
         <%}%>
     </body>
 </html>
