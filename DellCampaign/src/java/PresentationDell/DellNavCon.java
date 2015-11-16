@@ -21,18 +21,36 @@ public class DellNavCon extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         try {
             CampaignController cc = new CampaignController();
             String derp = request.getParameter("DNC");
             if (derp.equals("CD")) {
-                
-                
-                request.getSession().setAttribute("currentCD", (CampaignDetails)cc.getCampDetail(request.getParameter("Cid")));
+
+                request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(request.getParameter("Cid")));
                 response.sendRedirect("CampDetails.jsp");
             }
             if (derp.equals("PD")) {
                 request.getSession().setAttribute("CID", request.getParameter("Cid2"));
+
+            }
+            if (derp.equals("nuke")) {
+                String path = request.getSession().getAttribute("filepath").toString();
+                cc.nukeCamp(request.getParameter("id2"), path);
+                derp = "DC";
+            }
+            if (derp.equals("DC")) {
+                request.getSession().setAttribute("deletedCamp", cc.FetchCampaigns("deleted", ""));
+                request.getSession().setAttribute("doneCamp", cc.FetchCampaigns("completed", ""));
+                response.sendRedirect("DCComics.jsp");
+            }
+            
+            if (derp.equals("nerd")) {
+                response.sendRedirect("nerd.jsp");
+
+            }
+            if (derp.equals("back")) {
+                response.sendRedirect("DCComics.jsp");
 
             }
 

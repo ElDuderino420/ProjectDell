@@ -82,20 +82,28 @@ public class ApplyCampaign extends HttpServlet {
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
             } else {
-                String s = request.getSession().getAttribute("id").toString();
-                if (request.getParameter("edit") != null) {
+                String id = request.getSession().getAttribute("id").toString();
+                String Campid = request.getSession().getAttribute("CampId").toString();
+
+                String submit = request.getParameter("edit");
+                String comment = request.getParameter("Comment");
+                String redirect = "PartnerFetch";
+                if (submit != null) {
                     if (!cd.isSmb() && !cd.isPub() && !cd.isLe()) {
                         request.getSession().setAttribute("currentCD", cd);
-                        response.sendRedirect("PartnerDetails.jsp");
-                    } else if (request.getParameter("edit").equals("Save")) {
+                        redirect = "PartnerDetails.jsp";
+                    } else if (submit.equals("Save")) {
                         CampaignDetails cd2 = (CampaignDetails) request.getSession().getAttribute("currentCD");
                         cd.setId(cd2.getId());
-                        cc.CreateCampaign(cd, s, "edit");
+                        cc.CreateCampaign(cd, id, "edit", comment);
+                    }
+                    if (submit.equals("Delete")) {
+                        cc.deleteCamp(Campid, comment);
                     }
                 } else {
-                    cc.CreateCampaign(cd, s, "Create");
+                    cc.CreateCampaign(cd, id, "Create", null);
                 }
-                response.sendRedirect("PartnerFetch");
+                response.sendRedirect(redirect);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

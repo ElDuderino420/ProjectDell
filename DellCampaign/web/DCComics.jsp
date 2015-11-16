@@ -11,20 +11,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dell Main Window</title>
+        <title>Deleted and Completed Campaigns</title>
     </head>
     <body>
-        <form action="DellNavCon" method="POST">
-            
-            <button type="submit" name="DNC" value="DC">Deleted and Completed Campaigns</button>
-            
-        </form>
-        <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
-            List<Campaign> PoeData = (List<Campaign>) session.getAttribute("allPOE");
+        <% 
+            List<Campaign> DoneData = (List<Campaign>) session.getAttribute("doneCamp");
+            List<Campaign> DeletedData = (List<Campaign>) session.getAttribute("deletedCamp");
+            request.getSession().setAttribute("filepath", application.getRealPath(request.getServletPath()));
         %>
+        <p><%=application.getRealPath(request.getServletPath())%></p>
         <form action="DellNavCon" method="POST">
             <div id="contentarea">
-                <h2>New Campaigns</h2>
+                <h2>Completed Campaigns</h2>
                 <table cellspacing="0">
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -33,7 +31,7 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                        <%                    for (Campaign c : CampData) {
+                        <%                    for (Campaign c : DoneData) {
                                 out.print("<tr>"
                                         + "<td>" + c.getId() + "</td>"
                                         + "<td>" + c.getPid() + "</td>"
@@ -48,8 +46,8 @@
 
                 </table>
             </div>
-            <input type="text" name="Cid" />
-            <button type="submit" value="CD" name="DNC">Details</button>
+            <input type="text" name="id" />
+            <button type="submit" value="nerd" name="DNC">Details</button>
         </form>
         <form action="DellNavCon" method="POST">
             <div id="contentarea">
@@ -61,7 +59,7 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                        <%                    for (Campaign c : PoeData) {
+                        <%                    for (Campaign c : DeletedData) {
                                 out.print("<tr>"
                                         + "<td>" + c.getId() + "</td>"
                                         + "<td>" + c.getPid() + "</td>"
@@ -76,8 +74,8 @@
 
                 </table>
             </div>
-            <input type="text" name="Cid2" />
-            <button type="submit" value="PD" name="DNC" >Details</button> <br>
+            <input type="text" name="id2" />
+            <button type="submit" value="nuke" name="DNC" >Permanent Delete</button> <br>
             <a href="index.jsp">Log Out</a>
         </form>
     </body>
