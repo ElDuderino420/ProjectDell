@@ -3,6 +3,7 @@
     Created on : 12-Nov-2015, 12:24:20
     Author     : Whalecum
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="Domain.POEDetails"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,7 +39,15 @@
         <% for (POEDetails s : viewpoe) {
             request.getSession().setAttribute("filename",s.getDl() );
             
-        %> <a href=DownloadPOE><%= s.getDl() %> </a><br>
+            %><p><%=s.getDl()%></p><br>
+            
         <%}%>
+        <form>
+                                <a href="<c:url value="web/Poe/c1/New Text Document (3).txt"/>">link</a>
+
+        </form>
+
+        
+        
     </body>
 </html>

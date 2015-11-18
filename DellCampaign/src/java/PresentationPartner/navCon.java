@@ -48,6 +48,7 @@ public class navCon extends HttpServlet {
                 }
                 // click Upload POE
                 if (derp.equals("UP")) {
+                    
                     response.sendRedirect("POEUpload.jsp");
 
                 }

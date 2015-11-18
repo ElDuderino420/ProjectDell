@@ -46,10 +46,9 @@ public class CampaignController {
                 break;
 
         }
-
+        con = DatabaseCon.getInstance().getConnection();
+        Statement ps = con.createStatement();
         try {
-            con = DatabaseCon.getInstance().getConnection();
-            Statement ps = con.createStatement();
 
             ResultSet rs = ps.executeQuery("SELECT * FROM Campaign" + s);
             while (rs.next()) {
@@ -65,10 +64,11 @@ public class CampaignController {
 
                 result.add(camp);
             }
-            ps.close();
+
         } finally {
 
         }
+        ps.close();
         return result;
     }
 
@@ -107,9 +107,10 @@ public class CampaignController {
             }
 
             if (derp.equals("edit")) {
-                dammit = con.prepareStatement("Delete From POEDetails where id ='" + cp.getId() + "';");
-                ezshit2 = con.prepareStatement("Delete From Campaign where id= '" + cp.getId() + "';");
                 fuckThis2 = con.prepareStatement("Delete from CampaignDetails where id = '" + cp.getId() + "';");
+                dammit = con.prepareStatement("Delete From POEDetails where Cid ='" + cp.getId() + "';");
+                ezshit2 = con.prepareStatement("Delete From Campaign where id= '" + cp.getId() + "';");
+                dammit.executeUpdate();
                 ezshit2.executeUpdate();
                 fuckThis2.executeUpdate();
 
@@ -302,13 +303,11 @@ public class CampaignController {
 
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'DELETED';");
-            while (rs.next()) {
-                nukeFolder(id, path);
-                ps.executeUpdate("delete from POEDetails where Cid = '" + id + "';");
-                ps.executeUpdate("delete from Campaign where id = '" + id + "';");
-                ps.executeUpdate("delete from CampaignDetails where id = '" + id + "';");
-            }
+
+            nukeFolder(id, path);
+            ps.executeUpdate("delete from POEDetails where Cid = '" + id + "';");
+            ps.executeUpdate("delete from Campaign where id = '" + id + "';");
+            ps.executeUpdate("delete from CampaignDetails where id = '" + id + "';");
 
             ps.close();
         } finally {
@@ -316,7 +315,7 @@ public class CampaignController {
         }
     }
 
-    public void nukeFolder(String id, String path) {
+    private void nukeFolder(String id, String path) {
         File file;
         int derp = path.indexOf("/build/web/");
         String f = "/";
@@ -330,7 +329,7 @@ public class CampaignController {
         DeleteFileFolder(file);
     }
 
-    public void DeleteFileFolder(File file2) {
+    private void DeleteFileFolder(File file2) {
 
         File file = file2;
         if (file.exists()) {
@@ -448,23 +447,20 @@ public class CampaignController {
     public void campApprove(String id, String Comment, String did) throws Exception {
 
         Connection con = null;
+        con = DatabaseCon.getInstance().getConnection();
+        Statement ps = con.createStatement();
         try {
-            con = DatabaseCon.getInstance().getConnection();
-            Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'PENDING';");
-            while (rs.next()) {
-                if (Comment == null || Comment.equals("")) {
-                    Comment = "Campaign has been Approved";
-                }
 
-                ps.executeUpdate("update Campaign set CampApproved = 'Approved' where id = '" + id + "';");
-                ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
-                ps.executeUpdate("update Campaign set DellId = '" + did + "' where id = '" + id + "';");
-
+            if (Comment == null || Comment.equals("")) {
+                Comment = "Campaign has been Approved";
             }
-            ps.close();
-        } finally {
 
+            ps.executeUpdate("update Campaign set CampApproved = 'Approved' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set DellId = '" + did + "' where id = '" + id + "';");
+
+        } finally {
+            ps.close();
         }
     }
 
@@ -477,17 +473,14 @@ public class CampaignController {
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'PENDING';");
-            while (rs.next()) {
-                if (Comment == null || Comment.equals("")) {
-                    Comment = "Campaign has been Rejected";
-                }
-
-                ps.executeUpdate("update Campaign set CampApproved = 'Rejected' where id = '" + id + "';");
-                ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
-                ps.executeUpdate("update Campaign set DellId = '" + did + "' where id = '" + id + "';");
-
+            if (Comment == null || Comment.equals("")) {
+                Comment = "Campaign has been Rejected";
             }
+
+            ps.executeUpdate("update Campaign set CampApproved = 'Rejected' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set DellId = '" + did + "' where id = '" + id + "';");
+
             ps.close();
         } finally {
 
@@ -503,15 +496,13 @@ public class CampaignController {
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'Approved' and POEApproved = 'Pending';");
-            while (rs.next()) {
-                if (Comment == null || Comment.equals("")) {
-                    Comment = "POE has been Approved";
-                }
-
-                ps.executeUpdate("update Campaign set POEApproved = 'Approved' where id = '" + id + "';");
-                ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+            if (Comment == null || Comment.equals("")) {
+                Comment = "POE has been Approved";
             }
+
+            ps.executeUpdate("update Campaign set POEApproved = 'Approved' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+
             ps.close();
         } finally {
 
@@ -527,16 +518,13 @@ public class CampaignController {
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'Approved' and POEApproved = 'Pending';");
-            while (rs.next()) {
-                if (Comment == null || Comment.equals("")) {
-                    Comment = "POE has been Rejected";
-                }
-
-                ps.executeUpdate("update Campaign set POEApproved = 'Rejected' where id = '" + id + "';");
-                ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
-
+            if (Comment == null || Comment.equals("")) {
+                Comment = "POE has been Rejected";
             }
+
+            ps.executeUpdate("update Campaign set POEApproved = 'Rejected' where id = '" + id + "';");
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
+
             ps.close();
         } finally {
 
@@ -549,10 +537,9 @@ public class CampaignController {
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'Approved';");
-            while (rs.next()) {
-                ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "')");
-            }
+
+            ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "')");
+
             ps.close();
 
         } finally {
@@ -568,17 +555,15 @@ public class CampaignController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ArrayList<POEDetails> list = null;
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and POEApproved = 'Pending';");
+
+            ResultSet rs = ps.executeQuery("select * from POEDetails where Cid = '" + id + "';");
+
+            list = new ArrayList();
+
             while (rs.next()) {
-
-                ResultSet rs2 = ps.executeQuery("select * from POEDetails where Cid = '" + id + "';");
-
-                list = new ArrayList();
-
-                while (rs2.next()) {
-                    list.add(new POEDetails(rs.getString(1)));
-                }
+                list.add(new POEDetails(rs.getString(1)));
             }
+
             ps.close();
             return list;
         } finally {
@@ -594,19 +579,19 @@ public class CampaignController {
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet rs = ps.executeQuery("select * from Campaign where id = '" + id + "' and CampApproved = 'Approved';");
-            while (rs.next()) {
-                ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
-            }
-                ps.close();
 
-            }finally {
+            ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
+
+            ps.close();
+
+        } finally {
 
         }
-        }
-        /*
-         campChangeComment changes the comment of a given campaign id to a given comment
-         */
+    }
+    /*
+     campChangeComment changes the comment of a given campaign id to a given comment
+     */
+
     public void campChangeComment(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -663,4 +648,57 @@ public class CampaignController {
 
     }
 
+    public boolean validate(String id, String method, String userId) throws Exception {
+        Connection con = null;
+        con = DatabaseCon.getInstance().getConnection();
+        Statement ps = con.createStatement();
+        String statement = null;
+        try {
+            switch (method) {
+                //partner functions
+                case "poeupload":
+                    statement = "select * from Campaign where id = '" + id + "' and CampApproved = 'Approved' and Pid = '" + userId + "';";
+                    break;
+                case "viewpoe":
+                    statement = "select * from Campaign,POEDetails where Campaign.id = POEDEtails.Cid "
+                            + "and Campaign.CampApproved = 'Approved' "
+                            + "and Campaign.PartnerId = '" + userId + "' "
+                            + "and Campaign.id = '" + id + "';";
+                    break;
+                case "complete":
+                    statement = "select * from POEDetails,Campaign where Campaign.id = POEDEtails.Cid "
+                            + "and DL = 'faktura.pdf' "
+                            + "and Cid = '" + id + "' "
+                            + "and Campaign.PartnerId = '" + userId + "';";
+                    break;
+                case "edit":
+                    statement = "select * from Campaign where POEApproved = 'N/A'"
+                            + "and Campaign.PartnerId = '" + userId + "' "
+                            + "and Campaign.id = '" + id + "';";
+                    break;
+
+                //dell functions
+                case "campapprove":
+                    statement = "select * from Campaign where CampApproved = 'Pending'"
+                            + "and Campaign.id = '" + id + "';";
+                    break;
+                case "poeapprove":
+                    statement = "select * from Campaign where POEApproved = 'Pending'"
+                            + "and Campaign.DellId = '" + userId + "' "
+                            + "and Campaign.id = '" + id + "';";
+                    break;
+                case "completed":
+                    statement = "select * from Campaign where POEApproved = 'Approved'"
+                            + "and Campaign.id = '" + id + "';";
+                    break;
+                case "deleted":
+                    statement = "select * from Campaign where CampApproved = 'DELETED'"
+                            + "and Campaign.id = '" + id + "';";
+                    break;
+            }
+        } finally {
+
+        }
+        return true;
+    }
 }

@@ -80,7 +80,10 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
             if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false && request.getParameter("edit") == null) {
                 request.getSession().setAttribute("cd", cd);
-                response.sendRedirect("MDFRequest.jsp");
+                response.sendRedirect("MDFRequest.jsp?msg=please select atleast 1 target audience");
+            }else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
+                request.getSession().setAttribute("cd", cd);
+                response.sendRedirect("MDFRequest.jsp?msg=time and/or date incorrect");
             } else {
                 String id = request.getSession().getAttribute("id").toString();
                 String Campid = request.getSession().getAttribute("CampId").toString();

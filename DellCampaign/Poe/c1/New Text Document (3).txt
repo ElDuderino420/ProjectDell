@@ -1,0 +1,2 @@
+<a href="<c:url value="/Poe/"<%=s.getDl()%>/>">
+            <a href="<c:url value="/jsp/data.txt"/>">
