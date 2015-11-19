@@ -48,7 +48,7 @@
 
                 </table>
             </div>
-            <input type="text" name="Cid" />
+            <input type="text" name="Cid" style="text-transform:uppercase"/>
             <button type="submit" value="CD" name="DNC">Details</button>
         </form>
         <form action="DellNavCon" method="POST">
@@ -76,7 +76,7 @@
 
                 </table>
             </div>
-            <input type="text" name="Cid2" />
+            <input type="text" name="Cid2" style="text-transform:uppercase"/>
             <button type="submit" value="PD" name="DNC" >Details</button> <br>
             <a href="index.jsp">Log Out</a>
         </form>

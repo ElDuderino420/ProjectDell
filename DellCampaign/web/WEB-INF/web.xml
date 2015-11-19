@@ -11,6 +11,17 @@
         <url-pattern>/CampaignApproval</url-pattern>
     </servlet-mapping>
     
+    <!-- POE Approval  -->
+    <servlet>
+        <servlet-name>POEApproval</servlet-name>
+        <servlet-class>PresentationDell.POEApproval</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>POEApproval</servlet-name>
+        <url-pattern>/POEApproval</url-pattern>
+    </servlet-mapping>
+    
+    
     <!-- DellFetch  -->
     <servlet>
         <servlet-name>DellFetch</servlet-name>
@@ -120,4 +131,14 @@
          
         </param-value>
     </context-param>
+    
+    <!-- Finance Fetch  -->
+    <servlet>
+        <servlet-name>FinanceFetch</servlet-name>
+        <servlet-class>PresentationFinance.FinanceFetch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FinanceFetch</servlet-name>
+        <url-pattern>/FinanceFetch</url-pattern>
+    </servlet-mapping>
 </web-app>

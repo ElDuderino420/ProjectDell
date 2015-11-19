@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationPartner;
+package PresentationFinance;
 
 import Domain.CampaignController;
 import java.io.IOException;
@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Whalecum
+ * @author David
  */
-public class CompletePoe extends HttpServlet{
+public class FinanceFetch extends HttpServlet{
 
     
     
@@ -25,12 +25,10 @@ public class CompletePoe extends HttpServlet{
         
         try
         {
-                    CampaignController cc = new CampaignController();
-                    String id = request.getSession().getAttribute("CampId").toString();
-                    cc.NewPOE(id);
-                    cc.LastChange(id);
-
-            response.sendRedirect("PartnerFetch");
+            
+            CampaignController cc = new CampaignController();
+            request.getSession().setAttribute("allCamp",cc.FetchCampaigns("completed",""));
+            response.sendRedirect("Finance.jsp");
         }
         catch (Exception ex) 
         {

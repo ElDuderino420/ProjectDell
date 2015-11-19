@@ -18,19 +18,19 @@
     int maxMemSize = 5000000 * 1024;
     ServletContext context = pageContext.getServletContext();
     String filePath = application.getRealPath(request.getServletPath());
-    String id = request.getSession().getAttribute("CampId").toString();
+    String id = request.getSession().getAttribute("CampId").toString().toUpperCase();
     if (id == null || id.equals("")) {
         response.sendRedirect("PartnerFetch");
     } else {
 
-        int derp = filePath.indexOf("/build/web/");
+        int derp = filePath.indexOf("/web/");
         String f = "/";
 
         if (derp == -1) {
             f = "\\";
-            derp = filePath.indexOf("\\build\\web\\");
+            derp = filePath.indexOf("\\web\\");
         }
-        filePath = filePath.substring(0, derp) + f + "Poe" + f + id + f;
+        filePath = filePath.substring(0, derp) + f + "web" + f + "Poe" + f + id + f;
         file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
@@ -64,6 +64,9 @@
                         // Get the uploaded file parameters
                         String fieldName = fi.getFieldName();
                         String fileName = fi.getName();
+                        if(fileName.equalsIgnoreCase("Invoice.pdf")){
+                           fileName = "invoice.pdf";
+                        }
 
                         boolean isInMemory = fi.isInMemory();
                         long sizeInBytes = fi.getSize();

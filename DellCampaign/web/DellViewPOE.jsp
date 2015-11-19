@@ -1,7 +1,7 @@
 <%-- 
-    Document   : PartnerViewPOE
-    Created on : 12-Nov-2015, 12:24:20
-    Author     : Whalecum
+    Document   : DellViewPOE
+    Created on : 19 Nov 2015, 11:00:15 AM
+    Author     : David
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
@@ -15,7 +15,7 @@
     </head>
     <body>
         <% List<POEDetails> viewpoe = (List<POEDetails>) request.getSession().getAttribute("lust");
-           String id = request.getSession().getAttribute("CampId").toString().toUpperCase();
+           String id = request.getSession().getAttribute("CID").toString().toUpperCase();
             
         %>    
         <ul>
@@ -28,6 +28,13 @@
             
         <%}%>
         </ul>
+        
+        <form action="POEApproval" method="POST">
+            <h5>Comments</h5>
+            <textarea name ="comment" ></textarea>
+            <button type='submit' name='poe' value="Approve" >Approve</button>
+            <button type='submit' name='poe' value="Reject" >Reject</button>
+        </form>
         
         
     </body>

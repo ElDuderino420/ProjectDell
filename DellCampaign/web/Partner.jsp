@@ -15,8 +15,7 @@
     </head>
     <body>
         
-        <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
-        %>
+        <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");%>
         <form action="navCon">
             <h1><button name="nav" value="NC" type="submit">New Camp</button></h1>
             <div id="contentarea">
@@ -44,7 +43,7 @@
 
                 </table>
             </div>
-            <input type="text" name="Cid" />
+            <input type="text" name="Cid" style="text-transform:uppercase"/>
             <button name="nav" value="D" type="submit">Details</button>
             <button name="nav" value="UP" type="submit">Upload POE</button>
             <button name="nav" value="PD" type="submit">View POE</button>

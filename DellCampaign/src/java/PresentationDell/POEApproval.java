@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationPartner;
+package PresentationDell;
 
 import Domain.CampaignController;
+import Domain.CampaignDetails;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,26 +15,36 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author butwhole
+ * @author David
  */
-public class PartnerFetch extends HttpServlet {
+public class POEApproval extends HttpServlet{
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    
+    
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        try {
-
-            CampaignController cc = new CampaignController();
-            request.getSession().setAttribute("allCamp", cc.FetchCampaigns("ongoing", request.getSession().getAttribute("id").toString()));
+        
+        try
+        {
             
-            response.sendRedirect("Partner.jsp");
-
-        } catch (Exception ex) {
+            CampaignController cc = new CampaignController();
+            String id = request.getSession().getAttribute("CID").toString();
+            String comment = request.getParameter("comment");
+            if(request.getParameter("poe").equals("Approve")){
+                cc.POEApprove(id, comment);
+            }
+            if(request.getParameter("poe").equals("Reject")){
+                cc.POEReject(id, comment);
+            }
+            response.sendRedirect("DellFetch");
+        }
+        catch (Exception ex) 
+        {
             ex.printStackTrace();
-            response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());
+            response.sendRedirect("index.jsp?msg=Error: "+ex.getMessage());
         }
     }
-
+     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
@@ -43,5 +54,5 @@ public class PartnerFetch extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
     }
-
+    
 }

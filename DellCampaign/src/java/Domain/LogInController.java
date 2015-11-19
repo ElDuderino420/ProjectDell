@@ -58,4 +58,23 @@ public class LogInController {
         
     }
     
+    public String FetchFinance(String id,String pass) throws Exception {
+        String Finance = null;
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+
+            ResultSet rs = ps.executeQuery("SELECT * FROM Finance where pass = '" + pass + "' and id = '" + id + "';");
+            if (rs.next()){
+                Finance = rs.getString(1);
+            }
+            
+        } finally {
+            
+        }
+        return Finance;
+        
+    }
+    
 }

@@ -31,6 +31,7 @@ public class navCon extends HttpServlet {
             String suckABigDick = request.getSession().getAttribute("CampId").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
+            request.getSession().setAttribute("msg", null);
             String derp = request.getParameter("nav");
 
             CampaignController cc = new CampaignController();
@@ -40,21 +41,24 @@ public class navCon extends HttpServlet {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
-            }
-            else if (cc.checkID(suckABigDick)) {
+            } else if (cc.checkID(suckABigDick)) {
                 if (derp.equals("D")) {
                     request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(request.getParameter("Cid")));
                     response.sendRedirect("PartnerDetails.jsp");
                 }
                 // click Upload POE
                 if (derp.equals("UP")) {
-                    
+
                     response.sendRedirect("POEUpload.jsp");
 
                 }
                 if (derp.equals("C")) {
-                    cc.CompleteCamp("CampId");
-                    response.sendRedirect("CompletePoe");
+                    if (cc.InvoiceCheck(suckABigDick)) {
+                        cc.CompleteCamp(suckABigDick);
+                        cc.LastChange(suckABigDick);
+                        
+                    }
+                    response.sendRedirect("PartnerFetch");
                 }
 
                 if (derp.equals("PD")) {

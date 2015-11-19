@@ -14,7 +14,7 @@
         <title>Deleted and Completed Campaigns</title>
     </head>
     <body>
-        <% 
+        <%
             List<Campaign> DoneData = (List<Campaign>) session.getAttribute("doneCamp");
             List<Campaign> DeletedData = (List<Campaign>) session.getAttribute("deletedCamp");
             request.getSession().setAttribute("filepath", application.getRealPath(request.getServletPath()));
@@ -46,8 +46,10 @@
 
                 </table>
             </div>
-            <input type="text" name="id" />
+            <input type="text" name="id" style="text-transform:uppercase"/>
             <button type="submit" value="nerd" name="DNC">Details</button>
+            <button type="submit" value="viewpoe" name="DNC">View POE</button>
+
         </form>
         <form action="DellNavCon" method="POST">
             <div id="contentarea">
@@ -74,9 +76,14 @@
 
                 </table>
             </div>
-            <input type="text" name="id2" />
+            <input type="text" name="id2" style="text-transform:uppercase"/>
             <button type="submit" value="nuke" name="DNC" >Permanent Delete</button> <br>
-            <a href="index.jsp">Log Out</a>
+
         </form>
+
+        <form action="DellNavCon">
+            <button type="submit" value="back" name="DNC" >Back</button>
+        </form>
+        <a href="index.jsp">Log Out</a>
     </body>
 </html>

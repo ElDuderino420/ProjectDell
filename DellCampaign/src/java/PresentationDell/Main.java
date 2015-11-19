@@ -30,6 +30,7 @@ public class Main extends HttpServlet{
         {
             String derp = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
             String herp = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
+            String herpderp = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             if(derp != null){
                 request.getSession().setAttribute("id", derp);
                 response.sendRedirect("PartnerFetch");
@@ -37,6 +38,10 @@ public class Main extends HttpServlet{
             else if(herp != null){
                 request.getSession().setAttribute("id", herp);
                 response.sendRedirect("DellFetch");
+            }
+            else if(herpderp != null){
+                request.getSession().setAttribute("id", herp);
+                response.sendRedirect("FinanceFetch");
             }
             else{
                 response.sendRedirect("index.jsp?msg=Incorrect username or password");

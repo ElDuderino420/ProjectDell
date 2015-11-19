@@ -1,7 +1,7 @@
 <%-- 
-    Document   : PartnerViewPOE
-    Created on : 12-Nov-2015, 12:24:20
-    Author     : Whalecum
+    Document   : nerdPOE
+    Created on : 19 Nov 2015, 11:34:00 AM
+    Author     : David
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
@@ -15,20 +15,23 @@
     </head>
     <body>
         <% List<POEDetails> viewpoe = (List<POEDetails>) request.getSession().getAttribute("lust");
-           String id = request.getSession().getAttribute("CampId").toString().toUpperCase();
-            
+            String id = request.getSession().getAttribute("campIDDD").toString().toUpperCase();
+
         %>    
         <ul>
-        <% for (POEDetails s : viewpoe) {
-            request.getSession().setAttribute("filename",s.getDl() );
-            
-            String filepath = "Poe/" + id + "/" + s.getDl();
-            
+            <% for (POEDetails s : viewpoe) {
+                    request.getSession().setAttribute("filename", s.getDl());
+
+                    String filepath = "Poe/" + id + "/" + s.getDl();
+
             %><li><a href="<c:url value="<%=filepath%>"/>"><%=s.getDl()%></a></li>
-            
-        <%}%>
+
+            <%}%>
         </ul>
-        
-        
+
+        <form action="DellNavCon" method="POST">
+            <button type="submit" value="DC" name="DNC">Back</button>
+        </form>
+
     </body>
 </html>

@@ -30,19 +30,19 @@ public class CampaignController {
         Connection con = null;
         switch (s) {
             case "ongoing":
-                s = "  where POEApproved != 'Approved' and PartnerId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC";
+                s = "  where POEApproved != 'Approved' and PartnerId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC;";
                 break;
             case "completed":
-                s = " where POEApproved = 'Approved' and CampApproved != 'DELETED';";
+                s = " where POEApproved = 'Approved' and CampApproved != 'DELETED' order by LastChange DESC;";
                 break;
             case "poe":
-                s = " where POEApproved = 'Pending' and DellId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC";
+                s = " where POEApproved = 'Pending' and DellId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC;";
                 break;
             case "camp":
-                s = " where CampApproved = 'Pending';";
+                s = " where CampApproved = 'Pending' order by LastChange DESC;";
                 break;
             case "deleted":
-                s = " where CampApproved = 'DELETED';";
+                s = " where CampApproved = 'DELETED' order by LastChange DESC;";
                 break;
 
         }
@@ -86,7 +86,7 @@ public class CampaignController {
 
         }
     }
-
+    
     /*
      CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
      */
@@ -548,6 +548,26 @@ public class CampaignController {
 
     }
 
+    
+    public boolean InvoiceCheck(String id) throws Exception {
+
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet rs = ps.executeQuery("select * from POEDetails where Cid = '" + id + "' and DL = 'invoice.pdf';");
+            if(rs.next()) {
+                return true;
+            }
+            ps.close();
+
+        } finally {
+
+        }
+        return false;
+
+    }
+    
     public List<POEDetails> ViewPOE(String id) throws Exception {
 
         Connection con = null;
@@ -572,22 +592,7 @@ public class CampaignController {
 
     }
 
-    /* NewPOE updates the poeapproved status to pending and comments that a poe has been uploaded */
-    public void NewPOE(String id) throws Exception {
 
-        Connection con = null;
-        try {
-            con = DatabaseCon.getInstance().getConnection();
-            Statement ps = con.createStatement();
-
-            ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
-
-            ps.close();
-
-        } finally {
-
-        }
-    }
     /*
      campChangeComment changes the comment of a given campaign id to a given comment
      */
