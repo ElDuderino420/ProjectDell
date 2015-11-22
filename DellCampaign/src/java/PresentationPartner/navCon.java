@@ -25,9 +25,6 @@ public class navCon extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // set 
-
-            
             String suckABigDick = request.getSession().getAttribute("Selected").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
@@ -41,7 +38,7 @@ public class navCon extends HttpServlet {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
-            }else if (derp.substring(0,1).equals("C")){
+            }else if (derp.substring(0,1).equals("C") && !derp.equals("Com")){
                 request.getSession().setAttribute("Selected", derp);
                 request.getSession().setAttribute("CampId", derp);
                 response.sendRedirect("PartnerFetch");
@@ -56,9 +53,9 @@ public class navCon extends HttpServlet {
                     response.sendRedirect("POEUpload.jsp");
 
                 }
-                if (derp.equals("C")) {
+                if (derp.equals("Com")) {
                     if (cc.InvoiceCheck(suckABigDick)) {
-                        cc.CompleteCamp(suckABigDick);
+                        cc.CompleteCamp(suckABigDick,"");
                         cc.LastChange(suckABigDick);
                         
                     }

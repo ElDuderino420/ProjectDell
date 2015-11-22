@@ -49,7 +49,8 @@ public class ApplyCampaign extends HttpServlet {
                     cc.getChecked(request.getParameter("3rdparty")),
                     cc.getChecked(request.getParameter("directmail")),
                     cc.getChecked(request.getParameter("blitzcamp")),
-                    request.getParameter("desc"), cc.getChecked(request.getParameter("SC4000")),
+                    request.getParameter("desc"), 
+                    cc.getChecked(request.getParameter("SC4000")),
                     cc.getChecked(request.getParameter("PS4210")),
                     cc.getChecked(request.getParameter("storagesolutions")),
                     cc.getChecked(request.getParameter("pricedisk")),
@@ -78,10 +79,11 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("partnercontribution").toString()),
                     Integer.parseInt(request.getParameter("NoOpp").toString()),
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
+            
             if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false && request.getParameter("edit") == null) {
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp?msg=please select atleast 1 target audience");
-            }else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
+            } else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp?msg=time and/or date incorrect");
             } else {

@@ -61,7 +61,6 @@
 
                 </table>
             </div>
-            <input type="text" name="Cid" style="text-transform:uppercase"/>
             <button name="nav" value="D" type="submit">Details</button>
             <button name="nav" value="UP" type="submit">Upload POE</button>
             <button name="nav" value="PD" type="submit">View POE</button>

@@ -72,21 +72,23 @@ public class CampaignController {
         return result;
     }
 
-    public void CompleteCamp(String id) throws Exception {
+    public void CompleteCamp(String id, String comment) throws Exception {
         Connection con = null;
 
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-
+            if (comment == null || comment.equals("")) {
+                comment = "POE has been completed";
+            }
             ps.executeUpdate("update Campaign set POEApproved = 'Pending' where id = '" + id + "';");
-
+            ps.executeUpdate("update Campaign set CampComment = '" + comment + "' where id = '" + id + "';");
             ps.close();
         } finally {
 
         }
     }
-    
+
     /*
      CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
      */
@@ -531,15 +533,17 @@ public class CampaignController {
         }
     }
 
-    public void createPOE(String id, String path) throws Exception {
+    public void createPOE(String id, String path, String Comment) throws Exception {
 
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-
+            if (Comment == null || Comment.equals("")) {
+                Comment = "POE has been Uploaded";
+            }
             ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "')");
-
+            ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
         } finally {
@@ -548,7 +552,6 @@ public class CampaignController {
 
     }
 
-    
     public boolean InvoiceCheck(String id) throws Exception {
 
         Connection con = null;
@@ -556,7 +559,7 @@ public class CampaignController {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ResultSet rs = ps.executeQuery("select * from POEDetails where Cid = '" + id + "' and DL = 'invoice.pdf';");
-            if(rs.next()) {
+            if (rs.next()) {
                 return true;
             }
             ps.close();
@@ -567,7 +570,7 @@ public class CampaignController {
         return false;
 
     }
-    
+
     public List<POEDetails> ViewPOE(String id) throws Exception {
 
         Connection con = null;
@@ -596,7 +599,6 @@ public class CampaignController {
     /*
      campChangeComment changes the comment of a given campaign id to a given comment
      */
-
     public void campChangeComment(String id, String Comment) throws Exception {
 
         Connection con = null;
