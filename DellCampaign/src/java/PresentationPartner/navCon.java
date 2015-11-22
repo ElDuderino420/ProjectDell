@@ -27,8 +27,8 @@ public class navCon extends HttpServlet {
         try {
             // set 
 
-            request.getSession().setAttribute("CampId", request.getParameter("Cid"));
-            String suckABigDick = request.getSession().getAttribute("CampId").toString();
+            
+            String suckABigDick = request.getSession().getAttribute("Selected").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
             request.getSession().setAttribute("msg", null);
@@ -41,9 +41,13 @@ public class navCon extends HttpServlet {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
+            }else if (derp.substring(0,1).equals("C")){
+                request.getSession().setAttribute("Selected", derp);
+                request.getSession().setAttribute("CampId", derp);
+                response.sendRedirect("PartnerFetch");
             } else if (cc.checkID(suckABigDick)) {
                 if (derp.equals("D")) {
-                    request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(request.getParameter("Cid")));
+                    request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(suckABigDick));
                     response.sendRedirect("PartnerDetails.jsp");
                 }
                 // click Upload POE
@@ -62,7 +66,7 @@ public class navCon extends HttpServlet {
                 }
 
                 if (derp.equals("PD")) {
-                    List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("CampId").toString());
+                    List<POEDetails> list = cc.ViewPOE(suckABigDick);
                     request.getSession().setAttribute("lust", list);
                     response.sendRedirect("PartnerViewPOE.jsp");
                 }
