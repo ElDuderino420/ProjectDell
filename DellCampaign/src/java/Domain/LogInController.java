@@ -5,76 +5,28 @@
  */
 package Domain;
 
-import DataSource.DatabaseCon;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import DataSource.Mapper;
 
 /**
  *
  * @author butwhole
  */
 public class LogInController {
+    Mapper map = new Mapper();
     
-    
-    /*
-    FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
-    */
+    // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
     public String FetchPartners(String id,String pass) throws Exception {
-        String Partner = null;
-        Connection con = null;
-        try {
-            con = DatabaseCon.getInstance().getConnection();
-            Statement ps = con.createStatement();
-
-            ResultSet rs = ps.executeQuery("SELECT * FROM Partner where pass = '" + pass + "' and id = '" + id + "';");
-            if (rs.next()){
-                Partner = rs.getString(1);
-            }
-            
-        } finally {
-            
-        }
-        return Partner;
-        
+        return map.FetchPartners(id, pass);
     }
     
+    // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
     public String FetchDell(String id,String pass) throws Exception {
-        String Dell = null;
-        Connection con = null;
-        try {
-            con = DatabaseCon.getInstance().getConnection();
-            Statement ps = con.createStatement();
-
-            ResultSet rs = ps.executeQuery("SELECT * FROM Dell where pass = '" + pass + "' and id = '" + id + "';");
-            if (rs.next()){
-                Dell = rs.getString(1);
-            }
-            
-        } finally {
-            
-        }
-        return Dell;
-        
+        return map.FetchDell(id, pass);
     }
-    
-    public String FetchFinance(String id,String pass) throws Exception {
-        String Finance = null;
-        Connection con = null;
-        try {
-            con = DatabaseCon.getInstance().getConnection();
-            Statement ps = con.createStatement();
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM Finance where pass = '" + pass + "' and id = '" + id + "';");
-            if (rs.next()){
-                Finance = rs.getString(1);
-            }
-            
-        } finally {
-            
-        }
-        return Finance;
-        
+    // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false    
+    public String FetchFinance(String id,String pass) throws Exception {
+        return map.FetchFinance(id, pass);
     }
     
 }
