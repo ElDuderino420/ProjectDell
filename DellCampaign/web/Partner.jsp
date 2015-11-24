@@ -11,18 +11,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="maincss.css">
         <title>Main Partner Window</title>
     </head>
     <body>
 
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
            String Selected = request.getSession().getAttribute("Selected").toString();
+           String count = "class=\"alt\"";
         %>
         <form action="navCon">
-            <h1><button name="nav" value="NC" type="submit">New Camp</button></h1>
+            <h1><button id="NCB" class="button" name="nav" value="NC" type="submit">New Camp</button></h1>
             <div id="contentarea">
                 <h2>New Campaigns</h2>
-                <table cellspacing="0">
+                <table id="partner" cellspacing="0">
                     <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -32,6 +34,12 @@
                     <th>Last Changed</th>
                     <th>Comments</th>
                         <%                    for (Campaign c : CampData) {
+                            if(count.equals("class=\"alt\"")){
+                                count = "";
+                            }
+                            else{
+                                count = "class=\"alt\"";
+                            }
                             if(Selected.equals(c.getId())){
                         %>
                     <tr bgcolor="red">
@@ -45,7 +53,7 @@
                         <td><%= c.getComment()%></td>
                     </tr>
                     <%} else{ %>
-                    <tr>
+                    <tr <%=count%>>
                         <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
