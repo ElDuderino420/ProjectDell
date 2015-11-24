@@ -18,8 +18,9 @@
             List<Campaign> DoneData = (List<Campaign>) session.getAttribute("doneCamp");
             List<Campaign> DeletedData = (List<Campaign>) session.getAttribute("deletedCamp");
             request.getSession().setAttribute("filepath", application.getRealPath(request.getServletPath()));
+            String Selected = request.getSession().getAttribute("Selected").toString();
         %>
-        <p><%=application.getRealPath(request.getServletPath())%></p>
+        
         <form action="DellNavCon" method="POST">
             <div id="contentarea">
                 <h2>Completed Campaigns</h2>
@@ -32,21 +33,25 @@
                     <th>Last Changed</th>
                     <th>Comments</th>
                         <%                    for (Campaign c : DoneData) {
-                                out.print("<tr>"
-                                        + "<td>" + c.getId() + "</td>"
-                                        + "<td>" + c.getPid() + "</td>"
-                                        + "<td>" + c.getDid() + "</td>"
-                                        + "<td>" + c.getCampApproved() + "</td>"
-                                        + "<td>" + c.getPoeApproved() + "</td>"
-                                        + "<td>" + c.getDateChanged() + "</td>"
-                                        + "<td><pre>" + c.getComment() + "</pre></td>"
-                                        + "</tr>");
-                            }
+                                if (Selected.equals(c.getId())) {
                         %>
+                    <tr bgcolor="red">
+                        <%} else { %>
+                    <tr>
+                        <%}%>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%}%>
 
                 </table>
             </div>
-            <input type="text" name="id" style="text-transform:uppercase"/>
             <button type="submit" value="nerd" name="DNC">Details</button>
             <button type="submit" value="viewpoe" name="DNC">View POE</button>
 
@@ -61,22 +66,26 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                        <%                    for (Campaign c : DeletedData) {
-                                out.print("<tr>"
-                                        + "<td>" + c.getId() + "</td>"
-                                        + "<td>" + c.getPid() + "</td>"
-                                        + "<td>" + c.getDid() + "</td>"
-                                        + "<td>" + c.getCampApproved() + "</td>"
-                                        + "<td>" + c.getPoeApproved() + "</td>"
-                                        + "<td>" + c.getDateChanged() + "</td>"
-                                        + "<td><pre>" + c.getComment() + "</pre></td>"
-                                        + "</tr>");
-                            }
+                         <%                    for (Campaign c : DeletedData) {
+                                if (Selected.equals(c.getId())) {
                         %>
+                    <tr bgcolor="red">
+                        <%} else { %>
+                    <tr>
+                        <%}%>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%}%>
 
                 </table>
             </div>
-            <input type="text" name="id2" style="text-transform:uppercase"/>
             <button type="submit" value="nuke" name="DNC" >Permanent Delete</button> <br>
 
         </form>

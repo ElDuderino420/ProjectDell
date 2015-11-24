@@ -20,12 +20,17 @@
             
         </form>
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
-            List<Campaign> PoeData = (List<Campaign>) session.getAttribute("allPOE");
+           List<Campaign> PoeData = (List<Campaign>) session.getAttribute("allPOE");
+           String Selected = request.getSession().getAttribute("Selected").toString();
+           
+           
         %>
+        
         <form action="DellNavCon" method="POST">
             <div id="contentarea">
                 <h2>New Campaigns</h2>
                 <table cellspacing="0">
+                    <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
                     <th>Dell ID</th>
@@ -34,26 +39,41 @@
                     <th>Last Changed</th>
                     <th>Comments</th>
                         <%                    for (Campaign c : CampData) {
-                                out.print("<tr>"
-                                        + "<td>" + c.getId() + "</td>"
-                                        + "<td>" + c.getPid() + "</td>"
-                                        + "<td>" + c.getDid() + "</td>"
-                                        + "<td>" + c.getCampApproved() + "</td>"
-                                        + "<td>" + c.getPoeApproved() + "</td>"
-                                        + "<td>" + c.getDateChanged() + "</td>"
-                                        + "<td><pre>" + c.getComment() + "</pre></td>"
-                                        + "</tr>");
-                            }
+                            if(Selected.equals(c.getId())){
                         %>
+                    <tr bgcolor="red">
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%} else{ %>
+                    <tr>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%}}%>
 
                 </table>
+                    
+                    
             </div>
-            <input type="text" name="Cid" style="text-transform:uppercase"/>
             <button type="submit" value="CD" name="DNC">Details</button>
         </form>
         <form action="DellNavCon" method="POST">
             <div id="contentarea">
                 <table cellspacing="0">
+                    <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
                     <th>Dell ID</th>
@@ -62,21 +82,33 @@
                     <th>Last Changed</th>
                     <th>Comments</th>
                         <%                    for (Campaign c : PoeData) {
-                                out.print("<tr>"
-                                        + "<td>" + c.getId() + "</td>"
-                                        + "<td>" + c.getPid() + "</td>"
-                                        + "<td>" + c.getDid() + "</td>"
-                                        + "<td>" + c.getCampApproved() + "</td>"
-                                        + "<td>" + c.getPoeApproved() + "</td>"
-                                        + "<td>" + c.getDateChanged() + "</td>"
-                                        + "<td><pre>" + c.getComment() + "</pre></td>"
-                                        + "</tr>");
-                            }
+                            if(Selected.equals(c.getId())){
                         %>
+                    <tr bgcolor="red">
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%} else{ %>
+                    <tr>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%}}%>
 
                 </table>
             </div>
-            <input type="text" name="Cid2" style="text-transform:uppercase"/>
             <button type="submit" value="PD" name="DNC" >Details</button> <br>
             <a href="index.jsp">Log Out</a>
         </form>

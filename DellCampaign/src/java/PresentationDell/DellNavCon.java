@@ -23,18 +23,31 @@ public class DellNavCon extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         try {
             CampaignController cc = new CampaignController();
-            String derp = request.getParameter("DNC");
+            String selected = request.getSession().getAttribute("Selected").toString();
+            String sel = "";
+            String derp = "";
+            if (request.getParameter("DNC") == null) {
+                sel = request.getParameter("sel");
+            } else {
+                derp = request.getParameter("DNC");
+            }
+            if(derp.equals("") ){
+                request.getSession().setAttribute("Selected", sel);
+                request.getSession().setAttribute("CampId", sel);
+                response.sendRedirect("DellFetch");
+            }
+            else{
             if (derp.equals("CD")) {
 
-                request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(request.getParameter("Cid")));
+                request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                 response.sendRedirect("CampDetails.jsp");
             }
             if (derp.equals("PD")) {
-                request.getSession().setAttribute("CID", request.getParameter("Cid2"));
-                List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("CID").toString());
+                request.getSession().setAttribute("CID", selected);
+                List<POEDetails> list = cc.ViewPOE(selected);
                 request.getSession().setAttribute("lust", list);
                 response.sendRedirect("DellViewPOE.jsp");
 
@@ -49,23 +62,24 @@ public class DellNavCon extends HttpServlet {
                 request.getSession().setAttribute("doneCamp", cc.FetchCampaigns("completed", ""));
                 response.sendRedirect("DCComics.jsp");
             }
-            
+
             if (derp.equals("nerd")) {
-                request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(request.getParameter("id")));
+                request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                 response.sendRedirect("nerd.jsp");
 
             }
             if (derp.equals("back")) {
-                
+
                 response.sendRedirect("DellFetch");
 
             }
             if (derp.equals("viewpoe")) {
-                request.getSession().setAttribute("campIDDD", request.getParameter("id"));
+                request.getSession().setAttribute("campIDDD", selected);
                 List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("campIDDD").toString());
                 request.getSession().setAttribute("lust", list);
                 response.sendRedirect("nerdPOE.jsp");
 
+            }
             }
 
         } catch (Exception ex) {

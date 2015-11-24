@@ -35,7 +35,7 @@
                             if(Selected.equals(c.getId())){
                         %>
                     <tr bgcolor="red">
-                        <td><button name="nav" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>
@@ -43,11 +43,10 @@
                         <td><%= c.getPoeApproved()%></td>
                         <td><%= c.getDateChanged()%></td>
                         <td><%= c.getComment()%></td>
-                        
                     </tr>
                     <%} else{ %>
                     <tr>
-                        <td><button name="nav" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>

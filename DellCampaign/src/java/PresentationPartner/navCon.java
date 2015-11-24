@@ -29,18 +29,23 @@ public class navCon extends HttpServlet {
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());
             request.getSession().setAttribute("msg", null);
-            String derp = request.getParameter("nav");
-
+            String derp = "";
+            String herp = "";
             CampaignController cc = new CampaignController();
 
+            if(request.getParameter("nav") == null){
+                herp = request.getParameter("sel");
+            }
+            else{derp = request.getParameter("nav");}
             // click new campaign
             if (derp.equals("NC")) {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
-            }else if (derp.substring(0,1).equals("C") && !derp.equals("Com")){
-                request.getSession().setAttribute("Selected", derp);
-                request.getSession().setAttribute("CampId", derp);
+            }else if (!herp.equals("")){
+                
+                request.getSession().setAttribute("Selected", herp);
+                request.getSession().setAttribute("CampId", herp);
                 response.sendRedirect("PartnerFetch");
             } else if (cc.checkID(suckABigDick)) {
                 if (derp.equals("D")) {
