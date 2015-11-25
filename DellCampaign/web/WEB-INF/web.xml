@@ -32,6 +32,16 @@
         <url-pattern>/DellFetch</url-pattern>
     </servlet-mapping>
     
+    <!-- Apply Partner  -->
+    <servlet>
+        <servlet-name>ApplyPartner</servlet-name>
+        <servlet-class>PresentationDell.ApplyPartner</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ApplyPartner</servlet-name>
+        <url-pattern>/ApplyPartner</url-pattern>
+    </servlet-mapping>
+    
     <!-- dell navigation controller  -->
     <servlet>
         <servlet-name>DellNavCon</servlet-name>

@@ -11,7 +11,7 @@ package Domain;
  */
 public class Partner {
     private String id,name,dateCreated,password,email;
-    int phone;
+    String phone;
 
     /*
     Partner object that contains
@@ -23,13 +23,14 @@ public class Partner {
     phone: Partner phone number
     */
     
-    public Partner(String id, String name, String dateCreated, String password, String email, int phone) {
+    public Partner() {
+    }
+
+    public Partner(String id, String name, String dateCreated, String password) {
         this.id = id;
         this.name = name;
         this.dateCreated = dateCreated;
         this.password = password;
-        this.email = email;
-        this.phone = phone;
     }
 
     public String getId() {
@@ -69,11 +70,11 @@ public class Partner {
         this.email = email;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     

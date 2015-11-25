@@ -5,15 +5,7 @@
  */
 package Domain;
 
-import DataSource.DatabaseCon;
 import DataSource.Mapper;
-import java.io.File;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,6 +25,10 @@ public class CampaignController {
         map.CompleteCamp(id, comment);
     }
 
+    public void createPartner(Partner p) throws Exception{
+        map.CreatePartner(p);
+    }
+    
     // CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
     public void CreateCampaign(CampaignDetails cp, String pid, String derp, String comment) throws Exception {
         map.CreateCampaign(cp, pid, derp, comment);
@@ -140,5 +136,16 @@ public class CampaignController {
     public boolean POECheckUpload(String id) throws Exception {
         return map.POECheckUpload(id);
     }
+    
+    public boolean CheckPartner(String id) throws Exception{
+        return map.CheckPartner(id);
+    }
+    
+    public Partner GetPartner(String id) throws Exception{
+        return map.GetPartner(id);
+    }
    
+    public void EditPartner(Partner p) throws Exception{
+        map.EditPartner(p);
+    } 
 }

@@ -8,6 +8,7 @@ package DataSource;
 import Domain.Campaign;
 import Domain.CampaignDetails;
 import Domain.POEDetails;
+import Domain.Partner;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -114,7 +115,7 @@ public class Mapper {
 
             }
 
-            ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?)");
+            ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?);");
             fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
@@ -124,7 +125,7 @@ public class Mapper {
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
-                    + "?,?,?,?,?)");
+                    + "?,?,?,?,?);");
 
             fuckThis.setString(1, cp.getId());
             ezshit.setString(1, cp.getId());
@@ -205,6 +206,107 @@ public class Mapper {
 
             con.setAutoCommit(true);
         }
+    }
+
+    public boolean CheckPartner(String id) throws Exception {
+        Connection con = null;
+        PreparedStatement check = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+
+            ResultSet rs = check.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
+
+            rs.next();
+            if (rs.getString(5) == null || rs.getString(6) == null) {
+                return false;
+            }
+
+        } finally {
+            check.close();
+        }
+        return true;
+    }
+
+    public void CreatePartner(Partner p) throws Exception {
+        Connection con = null;
+        PreparedStatement newPartner = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            con.setAutoCommit(false);
+
+            newPartner = con.prepareStatement("Insert into Partner Values(?,?,?,?);");
+
+            newPartner.setString(1, p.getId());
+            newPartner.setString(2, p.getName());
+            newPartner.setString(3, p.getDateCreated());
+            newPartner.setString(4, p.getPassword());
+
+            newPartner.executeUpdate();
+            con.commit();
+
+        } finally {
+            if (newPartner != null) {
+                newPartner.close();
+            }
+        }
+        con.setAutoCommit(true);
+    }
+
+    public Partner GetPartner(String id) throws Exception {
+        Connection con = null;
+        PreparedStatement part = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+
+            ResultSet rs = part.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
+
+            rs.next();
+            
+            Partner p = new Partner(rs.getString(1),
+            rs.getString(2),
+            rs.getString(3),
+            rs.getString(4));
+            
+            p.setEmail(rs.getString(5));
+            p.setPhone(rs.getString(6));
+
+            return p;
+            
+        } finally {
+            if (part != null) {
+                part.close();
+            }
+        }
+        
+    }
+    
+    public void EditPartner(Partner p) throws Exception{
+        Connection con = null;
+        PreparedStatement part = null;
+        
+        try{
+            con.setAutoCommit(false);
+            part = con.prepareStatement("Delete from Partner where id = '" + p.getId() + "';");
+            part.executeUpdate();
+            
+            part = con.prepareStatement("Insert Into Partner values(?,?,?,?,?,?);");
+            part.setString(1, p.getId());
+            part.setString(2, p.getName());
+            part.setString(3, p.getDateCreated());
+            part.setString(4, p.getPassword());
+            part.setString(5, p.getEmail());
+            part.setString(6, p.getPhone());
+
+            part.executeUpdate();
+            con.commit();
+                        
+        }
+        finally{
+            if(part!=null){
+                part.close();
+            }
+        }
+        con.setAutoCommit(true);
     }
 
     public CampaignDetails getCampDetail(String id) throws Exception {
@@ -406,7 +508,7 @@ public class Mapper {
         }
 
     }
-    
+
     public void campApprove(String id, String Comment, String did) throws Exception {
 
         Connection con = null;
@@ -465,7 +567,7 @@ public class Mapper {
 
         }
     }
-    
+
     public void POEReject(String id, String Comment) throws Exception {
         Connection con = null;
         try {
@@ -545,7 +647,7 @@ public class Mapper {
         }
 
     }
-    
+
     public void campChangeComment(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -596,8 +698,8 @@ public class Mapper {
 
         }
         return false;
-}
-    
+    }
+
     public boolean validate(String id, String method, String userId) throws Exception {
         Connection con = null;
         con = DatabaseCon.getInstance().getConnection();
@@ -651,13 +753,9 @@ public class Mapper {
         }
         return true;
     }
-    
-    
-    
-    
-    
+
     // checks if user login is a partner
-    public String FetchPartners(String id,String pass) throws Exception {
+    public String FetchPartners(String id, String pass) throws Exception {
         String Partner = null;
         Connection con = null;
         try {
@@ -665,19 +763,19 @@ public class Mapper {
             Statement ps = con.createStatement();
 
             ResultSet rs = ps.executeQuery("SELECT * FROM Partner where pass = '" + pass + "' and id = '" + id + "';");
-            if (rs.next()){
+            if (rs.next()) {
                 Partner = rs.getString(1);
             }
-            
+
         } finally {
-            
+
         }
         return Partner;
-        
+
     }
-    
+
     // checks if user login is a Dell employee
-    public String FetchDell(String id,String pass) throws Exception {
+    public String FetchDell(String id, String pass) throws Exception {
         String Dell = null;
         Connection con = null;
         try {
@@ -685,19 +783,19 @@ public class Mapper {
             Statement ps = con.createStatement();
 
             ResultSet rs = ps.executeQuery("SELECT * FROM Dell where pass = '" + pass + "' and id = '" + id + "';");
-            if (rs.next()){
+            if (rs.next()) {
                 Dell = rs.getString(1);
             }
-            
+
         } finally {
-            
+
         }
         return Dell;
-        
+
     }
-    
+
     // checks if user login is a finance member
-    public String FetchFinance(String id,String pass) throws Exception {
+    public String FetchFinance(String id, String pass) throws Exception {
         String Finance = null;
         Connection con = null;
         try {
@@ -705,16 +803,15 @@ public class Mapper {
             Statement ps = con.createStatement();
 
             ResultSet rs = ps.executeQuery("SELECT * FROM Finance where pass = '" + pass + "' and id = '" + id + "';");
-            if (rs.next()){
+            if (rs.next()) {
                 Finance = rs.getString(1);
             }
-            
+
         } finally {
-            
+
         }
         return Finance;
-        
+
     }
-    
-    
+
 }

@@ -8,6 +8,7 @@ package PresentationPartner;
 import Domain.CampaignController;
 import Domain.CampaignDetails;
 import Domain.POEDetails;
+import Domain.Partner;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -33,17 +34,31 @@ public class navCon extends HttpServlet {
             String herp = "";
             CampaignController cc = new CampaignController();
 
-            if(request.getParameter("nav") == null){
-                herp = request.getParameter("sel");
+            if (request.getParameter("EditPartner") != null) {
+                Partner p = (Partner) request.getSession().getAttribute("part");
+                p.setName(request.getParameter("PartnerName"));
+                p.setPassword(request.getParameter("Password"));
+                p.setEmail(request.getParameter("Email"));
+                p.setPhone(request.getParameter("Phone"));
+                cc.EditPartner(p);
+                response.sendRedirect("PartnerFetch");
             }
-            else{derp = request.getParameter("nav");}
+
+            if (request.getParameter("nav") == null) {
+                herp = request.getParameter("sel");
+            } else {
+                derp = request.getParameter("nav");
+            }
             // click new campaign
             if (derp.equals("NC")) {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
-            }else if (!herp.equals("")){
-                
+            } else if (derp.equals("EP")) {
+                Partner p = cc.GetPartner(request.getSession().getAttribute("id").toString());
+                request.getSession().setAttribute("part", p);
+                response.sendRedirect("EditPartner.jsp");
+            } else if (!herp.equals("")) {
                 request.getSession().setAttribute("Selected", herp);
                 request.getSession().setAttribute("CampId", herp);
                 response.sendRedirect("PartnerFetch");
@@ -60,9 +75,9 @@ public class navCon extends HttpServlet {
                 }
                 if (derp.equals("Com")) {
                     if (cc.InvoiceCheck(suckABigDick)) {
-                        cc.CompleteCamp(suckABigDick,"");
+                        cc.CompleteCamp(suckABigDick, "");
                         cc.LastChange(suckABigDick);
-                        
+
                     }
                     response.sendRedirect("PartnerFetch");
                 }

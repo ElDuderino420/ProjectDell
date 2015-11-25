@@ -51,7 +51,7 @@ color: blue;
 }
 
 .button:hover, .button:focus {
-    background: #356094;
+    background: deeppink;
     border: solid 1px #2A4E77;
     text-decoration: none;
 }

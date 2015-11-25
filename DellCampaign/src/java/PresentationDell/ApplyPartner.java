@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationPartner;
+package PresentationDell;
 
 import Domain.CampaignController;
+import Domain.Partner;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,20 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author butwhole
+ * @author Whalecum
  */
-public class PartnerFetch extends HttpServlet {
+public class ApplyPartner extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-                        
+            Partner p = new Partner(request.getParameter("PartnerID"),
+                    request.getParameter("PartnerName"),
+                    request.getParameter("DateCreated"), 
+                    request.getParameter("Password"));
             CampaignController cc = new CampaignController();
-            if(cc.CheckPartner(request.getSession().getAttribute("id").toString()))
-            request.getSession().setAttribute("allCamp", cc.FetchCampaigns("ongoing", request.getSession().getAttribute("id").toString()));
-            response.sendRedirect("Partner.jsp");
+            
+            cc.createPartner(p);
 
+            response.sendRedirect("DellFetch");
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());

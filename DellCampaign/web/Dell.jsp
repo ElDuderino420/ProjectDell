@@ -17,6 +17,7 @@
         <form action="DellNavCon" method="POST">
             
             <button type="submit" name="DNC" value="DC">Deleted and Completed Campaigns</button>
+            <button type="submit" name="DNC" value="CP">Create Partner</button>
             
         </form>
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");

@@ -31,7 +31,7 @@ public class DellNavCon extends HttpServlet {
             String derp = "";
             if (request.getParameter("DNC") == null) {
                 sel = request.getParameter("sel");
-            } else {
+            } else{
                 derp = request.getParameter("DNC");
             }
             if(derp.equals("") ){
@@ -40,6 +40,9 @@ public class DellNavCon extends HttpServlet {
                 response.sendRedirect("DellFetch");
             }
             else{
+            if (derp.equals("CP")){
+                response.sendRedirect("CreatePartner.jsp");
+            }    
             if (derp.equals("CD")) {
 
                 request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));

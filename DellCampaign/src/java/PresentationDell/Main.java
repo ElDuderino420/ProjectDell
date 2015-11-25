@@ -7,6 +7,7 @@ package PresentationDell;
 
 import Domain.CampaignController;
 import Domain.LogInController;
+import Domain.Partner;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ public class Main extends HttpServlet{
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          LogInController lc = new LogInController();
+         CampaignController cc = new CampaignController();
          
          
         try
@@ -33,15 +35,20 @@ public class Main extends HttpServlet{
             String herpderp = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
             if(derp != null){
+                if(cc.CheckPartner(request.getParameter("lid"))){
                 request.getSession().setAttribute("id", derp);
                 response.sendRedirect("PartnerFetch");
+                }else{
+                    Partner p = cc.GetPartner(derp);
+                    request.getSession().setAttribute("part", p);
+                    response.sendRedirect("EditPartner.jsp");}
             }
             else if(herp != null){
                 request.getSession().setAttribute("id", herp);
                 response.sendRedirect("DellFetch");
             }
             else if(herpderp != null){
-                request.getSession().setAttribute("id", herp);
+                request.getSession().setAttribute("id", herpderp);
                 response.sendRedirect("FinanceFetch");
             }
             else{
