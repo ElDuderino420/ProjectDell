@@ -18,50 +18,44 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author butwhole
  */
-public class Main extends HttpServlet{
+public class Main extends HttpServlet {
 
-    
-    
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         LogInController lc = new LogInController();
-         CampaignController cc = new CampaignController();
-         String derp = "";
-         
-        try
-        {
+        LogInController lc = new LogInController();
+        CampaignController cc = new CampaignController();
+        String derp = "";
+
+        try {
             derp = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
             String herp = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
             String herpderp = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
-            if(derp != null){
-                if(cc.CheckPartner(derp)){
-                request.getSession().setAttribute("id", derp);
-                response.sendRedirect("PartnerFetch");
-                }else{
+            if (derp != null) {
+                if (cc.CheckPartner(derp)) {
+                    request.getSession().setAttribute("id", derp);
+                    response.sendRedirect("PartnerFetch");
+                } else {
                     Partner p = cc.GetPartner(derp);
+                    request.getSession().setAttribute("id", derp);
                     request.getSession().setAttribute("part", p);
-                    response.sendRedirect("EditPartner.jsp");}
-            }
-            else if(herp != null){
+                    response.sendRedirect("EditPartner.jsp");
+                }
+            } else if (herp != null) {
                 request.getSession().setAttribute("id", herp);
                 response.sendRedirect("DellFetch");
-            }
-            else if(herpderp != null){
+            } else if (herpderp != null) {
                 request.getSession().setAttribute("id", herpderp);
                 response.sendRedirect("FinanceFetch");
-            }
-            else{
+            } else {
                 response.sendRedirect("index.jsp?msg=Incorrect username or password");
             }
-        }
-        catch (Exception ex) 
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            response.sendRedirect("index.jsp?msg=Error: "+ ex.getMessage());
+            response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());
         }
     }
-     
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
@@ -71,5 +65,5 @@ public class Main extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);
     }
-    
+
 }

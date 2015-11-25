@@ -39,7 +39,7 @@
                         <%} else { %>
                     <tr>
                         <%}%>
-                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><button name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>
@@ -73,7 +73,7 @@
                         <%} else { %>
                     <tr>
                         <%}%>
-                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <td><button name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>

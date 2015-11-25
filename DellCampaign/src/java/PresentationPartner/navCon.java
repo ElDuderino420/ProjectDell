@@ -34,15 +34,13 @@ public class navCon extends HttpServlet {
             String herp = "";
             CampaignController cc = new CampaignController();
 
-            
-
             if (request.getParameter("nav") == null) {
                 herp = request.getParameter("sel");
             } else {
                 derp = request.getParameter("nav");
             }
             // click new campaign
-            
+
             if (derp.equals("EditPartner")) {
                 Partner p = (Partner) request.getSession().getAttribute("part");
                 p.setName(request.getParameter("PartnerName"));
@@ -51,8 +49,7 @@ public class navCon extends HttpServlet {
                 p.setPhone(request.getParameter("Phone"));
                 cc.EditPartner(p);
                 response.sendRedirect("PartnerFetch");
-            }
-            else if (derp.equals("NC")) {
+            } else if (derp.equals("NC")) {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
@@ -68,30 +65,23 @@ public class navCon extends HttpServlet {
                 if (derp.equals("D")) {
                     request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(suckABigDick));
                     response.sendRedirect("PartnerDetails.jsp");
-                }
-                // click Upload POE
-                if (derp.equals("UP")) {
-
+                } // click Upload POE
+                else if (derp.equals("UP") && cc.CheckApproved(suckABigDick)) {
                     response.sendRedirect("POEUpload.jsp");
-
-                }
-                if (derp.equals("Com")) {
-                    if (cc.InvoiceCheck(suckABigDick)) {
-                        cc.CompleteCamp(suckABigDick, "");
-                        cc.LastChange(suckABigDick);
-
-                    }
+                } else if (derp.equals("Com") && cc.InvoiceCheck(suckABigDick)) {
+                    cc.CompleteCamp(suckABigDick, "");
+                    cc.LastChange(suckABigDick);
                     response.sendRedirect("PartnerFetch");
-                }
-
-                if (derp.equals("PD")) {
+                } else if (derp.equals("PD")) {
                     List<POEDetails> list = cc.ViewPOE(suckABigDick);
                     request.getSession().setAttribute("lust", list);
                     response.sendRedirect("PartnerViewPOE.jsp");
+                } else {
+                    response.sendRedirect("PartnerFetch");
                 }
 
             } else {
-                response.sendRedirect("Partner.jsp");
+                response.sendRedirect("PartnerFetch");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

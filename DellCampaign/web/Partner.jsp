@@ -21,7 +21,9 @@
            String count = "class=\"alt\"";
         %>
         <form action="navCon">
-            <h1><button id="NCB" class="button" name="nav" value="NC" type="submit">New Camp</button></h1>
+            <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
+            <h1>&nbsp;Partner Campaigns</h1>
+            <button id="NCB" class="button" name="nav" value="NC" type="submit">New Camp</button>
             <div id="contentarea">
                 <h2>New Campaigns</h2>
                 <table id="partner" cellspacing="0">

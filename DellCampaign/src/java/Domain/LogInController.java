@@ -5,14 +5,15 @@
  */
 package Domain;
 
-import DataSource.Mapper;
+import DataSource.POEMapper;
+import DataSource.UserMapper;
 
 /**
  *
  * @author butwhole
  */
 public class LogInController {
-    Mapper map = new Mapper();
+    private UserMapper map = new UserMapper();
     
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
     public String FetchPartners(String id,String pass) throws Exception {

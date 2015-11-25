@@ -11,7 +11,7 @@ package Domain;
  */
 public class Partner {
     private String id,name,dateCreated,password,email;
-    String phone;
+    private String phone;
 
     /*
     Partner object that contains
