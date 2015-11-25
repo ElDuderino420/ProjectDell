@@ -26,11 +26,11 @@ public class Main extends HttpServlet{
             throws ServletException, IOException {
          LogInController lc = new LogInController();
          CampaignController cc = new CampaignController();
-         
+         String derp = "";
          
         try
         {
-            String derp = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
+            derp = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
             String herp = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
             String herpderp = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
@@ -58,7 +58,7 @@ public class Main extends HttpServlet{
         catch (Exception ex) 
         {
             ex.printStackTrace();
-            response.sendRedirect("index.jsp?msg=Error: "+ex.getMessage());
+            response.sendRedirect("index.jsp?msg=Error: "+ ex.getMessage());
         }
     }
      

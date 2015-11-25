@@ -210,12 +210,15 @@ public class Mapper {
 
     public boolean CheckPartner(String id) throws Exception {
         Connection con = null;
-        PreparedStatement check = null;
+        Statement check = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
-
+            
+            check = con.createStatement();
+            
             ResultSet rs = check.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
 
+            rs.next();
             if (rs.getString(5).equals("")|| rs.getString(6).equals("")) {
                 return false;
             }
@@ -223,8 +226,11 @@ public class Mapper {
         }
         
         finally {
+            if(check!=null){
             check.close();
+            }
         }
+
         return true;
     }
 
@@ -257,12 +263,14 @@ public class Mapper {
 
     public Partner GetPartner(String id) throws Exception {
         Connection con = null;
-        PreparedStatement part = null;
+        Statement part = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
 
-            ResultSet rs = part.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
+            part = con.createStatement();
             
+            ResultSet rs = part.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
+            rs.next();
             Partner p = new Partner(rs.getString(1),
             rs.getString(2),
             rs.getString(3),
@@ -286,6 +294,7 @@ public class Mapper {
         PreparedStatement part = null;
         
         try{
+            con = DatabaseCon.getInstance().getConnection();
             con.setAutoCommit(false);
             part = con.prepareStatement("Delete from Partner where id = '" + p.getId() + "';");
             part.executeUpdate();

@@ -34,7 +34,16 @@ public class navCon extends HttpServlet {
             String herp = "";
             CampaignController cc = new CampaignController();
 
-            if (request.getParameter("EditPartner") != null) {
+            
+
+            if (request.getParameter("nav") == null) {
+                herp = request.getParameter("sel");
+            } else {
+                derp = request.getParameter("nav");
+            }
+            // click new campaign
+            
+            if (derp.equals("EditPartner")) {
                 Partner p = (Partner) request.getSession().getAttribute("part");
                 p.setName(request.getParameter("PartnerName"));
                 p.setPassword(request.getParameter("Password"));
@@ -43,14 +52,7 @@ public class navCon extends HttpServlet {
                 cc.EditPartner(p);
                 response.sendRedirect("PartnerFetch");
             }
-
-            if (request.getParameter("nav") == null) {
-                herp = request.getParameter("sel");
-            } else {
-                derp = request.getParameter("nav");
-            }
-            // click new campaign
-            if (derp.equals("NC")) {
+            else if (derp.equals("NC")) {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
