@@ -296,18 +296,15 @@ public class Mapper {
         try{
             con = DatabaseCon.getInstance().getConnection();
             con.setAutoCommit(false);
-            part = con.prepareStatement("Delete from Partner where id = '" + p.getId() + "';");
+            part = con.prepareStatement("Update Partner set Pname= '" + p.getName() + "' where id = '"+ p.getId() +"';");
             part.executeUpdate();
-            
-            part = con.prepareStatement("Insert Into Partner values(?,?,?,?,?,?);");
-            part.setString(1, p.getId());
-            part.setString(2, p.getName());
-            part.setString(3, p.getDateCreated());
-            part.setString(4, p.getPassword());
-            part.setString(5, p.getEmail());
-            part.setString(6, p.getPhone());
-
+            part = con.prepareStatement("Update Partner set pass= '" + p.getPassword() + "' where id = '"+ p.getId() +"';");
             part.executeUpdate();
+            part = con.prepareStatement("Update Partner set email= '" + p.getEmail() + "' where id = '"+ p.getId() +"';");
+            part.executeUpdate();
+            part = con.prepareStatement("Update Partner set phone= '" + p.getPhone() + "' where id = '"+ p.getId() +"';");
+            part.executeUpdate();
+    
             con.commit();
                         
         }
