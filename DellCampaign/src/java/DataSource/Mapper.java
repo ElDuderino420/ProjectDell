@@ -216,12 +216,13 @@ public class Mapper {
 
             ResultSet rs = check.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
 
-            rs.next();
-            if (rs.getString(5) == null || rs.getString(6) == null) {
+            if (rs.getString(5).equals("")|| rs.getString(6).equals("")) {
                 return false;
             }
 
-        } finally {
+        }
+        
+        finally {
             check.close();
         }
         return true;
@@ -234,12 +235,14 @@ public class Mapper {
             con = DatabaseCon.getInstance().getConnection();
             con.setAutoCommit(false);
 
-            newPartner = con.prepareStatement("Insert into Partner Values(?,?,?,?);");
+            newPartner = con.prepareStatement("Insert into Partner Values(?,?,?,?,?,?);");
 
             newPartner.setString(1, p.getId());
             newPartner.setString(2, p.getName());
             newPartner.setString(3, p.getDateCreated());
             newPartner.setString(4, p.getPassword());
+            newPartner.setString(5, "");
+            newPartner.setString(6, "");
 
             newPartner.executeUpdate();
             con.commit();
@@ -259,8 +262,6 @@ public class Mapper {
             con = DatabaseCon.getInstance().getConnection();
 
             ResultSet rs = part.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
-
-            rs.next();
             
             Partner p = new Partner(rs.getString(1),
             rs.getString(2),

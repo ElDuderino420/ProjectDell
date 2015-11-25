@@ -35,7 +35,7 @@ public class Main extends HttpServlet{
             String herpderp = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
             if(derp != null){
-                if(cc.CheckPartner(request.getParameter("lid"))){
+                if(cc.CheckPartner(derp)){
                 request.getSession().setAttribute("id", derp);
                 response.sendRedirect("PartnerFetch");
                 }else{
