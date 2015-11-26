@@ -11,26 +11,31 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="maincss.css">
+
         <title>Dell Main Window</title>
     </head>
     <body>
+        <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
+        <h1>&nbsp;Dell Campaigns</h1><br><br><br><br><br><br><br>
+
         <form action="DellNavCon" method="POST">
-            
-            <button type="submit" name="DNC" value="DC">Deleted and Completed Campaigns</button>
-            <button type="submit" name="DNC" value="CP">Create Partner</button>
-            
+            <div class="buttons">
+                <button id="bb" class="button" type="submit" name="DNC" value="DC">Deleted and Completed Campaigns</button>
+                <button id="bb" class="button" type="submit" name="DNC" value="CP">Create Partner</button>
+            </div>
         </form>
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
-           List<Campaign> PoeData = (List<Campaign>) session.getAttribute("allPOE");
-           String Selected = request.getSession().getAttribute("Selected").toString();
-           
-           
+            List<Campaign> PoeData = (List<Campaign>) session.getAttribute("allPOE");
+            String Selected = request.getSession().getAttribute("Selected").toString();
+            String count = "class=\"alt\"";
+
         %>
-        
+
         <form action="DellNavCon" method="POST">
-            <div id="contentarea">
-                <h2>New Campaigns</h2>
-                <table cellspacing="0">
+            <div id="partner">
+                <h2>Campaign Approval Queue</h2>
+                <table id="partner" cellspacing="0">
                     <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -40,9 +45,14 @@
                     <th>Last Changed</th>
                     <th>Comments</th>
                         <%                    for (Campaign c : CampData) {
-                            if(Selected.equals(c.getId())){
+                                if (count.equals("class=\"alt\"")) {
+                                    count = "";
+                                } else {
+                                    count = "class=\"alt\"";
+                                }
+                                if (Selected.equals(c.getId())) {
                         %>
-                    <tr bgcolor="red">
+                    <tr <%=count%> id="selected">
                         <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
@@ -52,8 +62,8 @@
                         <td><%= c.getDateChanged()%></td>
                         <td><%= c.getComment()%></td>
                     </tr>
-                    <%} else{ %>
-                    <tr>
+                    <%} else {%>
+                    <tr <%=count%>>
                         <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
@@ -63,17 +73,20 @@
                         <td><%= c.getDateChanged()%></td>
                         <td><%= c.getComment()%></td>
                     </tr>
-                    <%}}%>
+                    <%}
+                        }%>
 
-                </table>
-                    
-                    
+                </table><br>
+
+                <button id="details" class="button" type="submit" value="CD" name="DNC">Details</button>
             </div>
-            <button type="submit" value="CD" name="DNC">Details</button>
+
         </form>
         <form action="DellNavCon" method="POST">
-            <div id="contentarea">
-                <table cellspacing="0">
+            <div id="partner">
+                <h2>POE Approval Queue</h2>
+
+                <table id="partner" cellspacing="0">
                     <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -82,11 +95,18 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                        <%                    for (Campaign c : PoeData) {
-                            if(Selected.equals(c.getId())){
+                        <%                    
+                        count = "class=\"alt\"";
+                        for (Campaign c : PoeData) {
+                                if (count.equals("class=\"alt\"")) {
+                                    count = "";
+                                } else {
+                                    count = "class=\"alt\"";
+                                }
+                                if (Selected.equals(c.getId())) {
                         %>
-                    <tr bgcolor="red">
-                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                    <tr <%=count%> id="selected">
+                        <td id="selectb"><button name="sel" value="<%=c.getId()%>" type="submit">SELECT</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>
@@ -95,9 +115,9 @@
                         <td><%= c.getDateChanged()%></td>
                         <td><%= c.getComment()%></td>
                     </tr>
-                    <%} else{ %>
-                    <tr>
-                        <td><button name="sel" value="<%=c.getId()%>" type="submit">Select</button></td>
+                    <%} else {%>
+                    <tr <%=count%>>
+                        <td><button name="sel" value="<%=c.getId()%>" type="submit">SELECT</button></td>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>
@@ -106,11 +126,13 @@
                         <td><%= c.getDateChanged()%></td>
                         <td><%= c.getComment()%></td>
                     </tr>
-                    <%}}%>
+                    <%}
+                        }%>
 
-                </table>
+                </table><br>
+                <button id="details" class="button" type="submit" value="PD" name="DNC" >Details</button> <br><br><br><br><br>
             </div>
-            <button type="submit" value="PD" name="DNC" >Details</button> <br>
+
             <a href="index.jsp">Log Out</a>
         </form>
     </body>
