@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="coolpoe.css">
         <title>JSP Page</title>
     </head>
     <body>
@@ -18,6 +19,8 @@
            String id = request.getSession().getAttribute("CID").toString().toUpperCase();
             
         %>    
+        <h2>POE List for Campaign <%=id%></h2>
+        <div>
         <ul>
         <% for (POEDetails s : viewpoe) {
             request.getSession().setAttribute("filename",s.getDl() );
@@ -32,10 +35,14 @@
         <form action="POEApproval" method="POST">
             <h5>Comments</h5>
             <textarea name ="comment" ></textarea>
-            <button type='submit' name='poe' value="Approve" >Approve</button>
-            <button type='submit' name='poe' value="Reject" >Reject</button>
+            <button class="button" type='submit' name='poe' value="Approve" >Approve</button>
+            <button class="button" type='submit' name='poe' value="Reject" >Reject</button>
         </form>
-        
+        <br>
+        <form method="POST" action="DellFetch">
+            <button class="button" type="submit">Back</button>
+        </form>
+        </div>
         
     </body>
 </html>

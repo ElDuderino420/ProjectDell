@@ -88,7 +88,7 @@ h2 {
     border: solid 1px #4479BA;
     width: 15%;
     height: 20px;
-    
+
 }
 
 .input:focus{
@@ -150,7 +150,55 @@ h1 {
     font-size: 60px;
     margin-top: 0.55%;
     color: #4479BA;
-    
+
+}
+
+h3 {
+    color: #4479BA;
+    position: relative;
+    font-size: 28px;
+
+}
+.custom-file-input::-webkit-file-upload-button {
+    padding: 10px 15px;
+    background: #4479BA;
+    color: #FFF;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: solid 1px #20538D;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+
+.custom-file-input::-webkit-file-upload-text{
+    font-size: 30px;
+}
+
+#submit{
+    width: 235px;
+}
+
+.upload{
+    border: solid 1px #4479BA;
+    border-radius: 4px;
+    width: 500px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: auto;
+}
+
+.custom-file-input:hover::-webkit-file-upload-button {
+    background: #356094;
+    border: solid 1px #2A4E77;
+    text-decoration: none;
 }
 
 

@@ -9,21 +9,24 @@
 <html>
     <head>
         <title>File Uploading Form</title>
+        <link rel="stylesheet" type="text/css" href="maincss.css">
+
     </head>
     <body>
-        <h3>File Upload:</h3>
-        Select a file to upload: <br />
-        
-        
-        <form role="form" action="UploadFile.jsp" method="post" enctype="multipart/form-data">
-            
-    <div class="btn btn-success btn-file">
-    <i class="fa fa-cloud-upload"></i>
-             Browse
-    <input type="file" name="file" />
-    </div>
-            
-    <button type="submit" value="submit" name='submit'>submit</button>`
-    </form>
+        <div class="upload">
+            <h3>File Upload:</h3>
+            <p>Select a file to upload:</p>
+
+
+            <form role="form" action="UploadFile.jsp" method="post" enctype="multipart/form-data">
+
+                <div class="fileUpload btn btn-primary">
+                    <input class="custom-file-input" type="file" name="file" />
+                </div>
+                <br><br>
+                <button id="submit" class="button" type="submit" value="submit" name='submit'>Submit</button>
+                <br><br>
+            </form>
+        </div>
     </body>
 </html>
