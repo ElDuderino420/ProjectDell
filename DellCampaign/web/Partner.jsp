@@ -79,7 +79,22 @@
                 <button id="b" class="button" name="nav" value="Com" type="submit">Complete</button>
             </div>
             <br>
-            <a href="index.jsp">Log Out</a>
+            
         </form>
+                        <table>
+                            <tr>
+                                <td>
+                        <form action="LogOut">
+                            <button witdh="300" class="button" type="submit">Log Out</button>
+                        </form>
+                                    </td>
+                                    <td>
+                        <form action="navCon">
+                            <button witdh="300" class="button" type="submit" name="nav" value="EP">Edit Profile</button>
+                        </form>
+                                    </td>
+                                    
+                            </tr>
+                            </table>
     </body>
 </html>

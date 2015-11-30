@@ -10,26 +10,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="mdf.css">
-        <title>JSP Page</title>
+        <title>Create Partner</title>
     </head>
     <body>
         <div class="upload">
-        <h2>Create Partner</h2>
-        <form action="ApplyPartner" method="post">
-            <table>
-            
-           <tr><td>Partner ID:  </td><td> <input id="inputtxt" class="input" name="PartnerID" type = "text" required/></td></tr>
-           <tr><td>Partner Name: </td><td><input id="inputtxt" class="input" name="PartnerName" type="text" required/></td></tr>
-           <tr><td>Date Created: </td><td><input id="inputtxt"  class="input" name="DateCreated" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>" readonly required/></td></tr>
-           <tr><td>Password:     </td><td><input id="inputtxt" class="input" name="Password" type="text" required/></td></tr>
+            <h2>Create Partner</h2>
 
-           </table>
-           <button id="details" class="button" name="CreatePartner" type="Submit" value="Create">Create Partner</button><br><br>
-            
-        </form>
-           <form method='Post' action='DellFetch'> 
-                <button id="details" class="button" type="submit">Back</button>
-            </form>
-        </div>
-    </body>
+                <form style="display: inline" action="ApplyPartner" method="post">
+
+                            <table style="margin-left: 10px; text-align: left;">
+                                <tr><td>Partner ID:  </td><td> <input id="inputtxt" class="input" name="PartnerID" type = "text" required/></td></tr>
+                                <tr><td>Partner Name: </td><td><input id="inputtxt" class="input" name="PartnerName" type="text" required/></td></tr>
+                                <tr><td>Date Created: </td><td><input id="inputtxt"  class="input" name="DateCreated" type = "text" value="<%= LocalDateTime.now().toString().substring(0, 10)%>" readonly required/></td></tr>
+                                <tr><td>Password:     </td><td><input id="inputtxt" class="input" name="Password" type="text" required/></td></tr>
+                            </table>
+
+                    <button id="buttons" class="button" name="CreatePartner" type="Submit" value="Create">Create Partner</button>
+                </form>
+                                <form style="display: inline" action="DellFetch">
+            <button id="buttons" class="button" name="CreatePartner" type="submit" value="Back">Back</button>
+                                </form>
+
+    <br><br>
+</div>
+</body>
 </html>

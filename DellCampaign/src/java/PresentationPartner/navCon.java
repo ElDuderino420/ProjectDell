@@ -49,6 +49,9 @@ public class navCon extends HttpServlet {
                 p.setPhone(request.getParameter("Phone"));
                 cc.EditPartner(p);
                 response.sendRedirect("PartnerFetch");
+                if (derp.equals("back")) {
+                    response.sendRedirect("PartnerFetch");
+                }
             } else if (derp.equals("NC")) {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);

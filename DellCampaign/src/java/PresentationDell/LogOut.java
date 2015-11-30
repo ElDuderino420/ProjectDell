@@ -6,6 +6,7 @@
 package PresentationDell;
 
 import Domain.CampaignController;
+import Domain.LogInController;
 import Domain.Partner;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,25 +16,20 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Whalecum
+ * @author Warco
  */
-public class ApplyPartner extends HttpServlet {
+public class LogOut extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LogInController lc = new LogInController();
+        CampaignController cc = new CampaignController();
+        String derp = "";
 
         try {
-            if(request.getParameter("CreatePartner").equals("Back")){
-                response.sendRedirect("DellFetch");
-            }else{
-            Partner p = new Partner(request.getParameter("PartnerID"),
-                    request.getParameter("PartnerName"),
-                    request.getParameter("DateCreated"), 
-                    request.getParameter("Password"));
-            CampaignController cc = new CampaignController();
-            cc.createPartner(p);
-            }
             
+            request.getSession().invalidate();
+            response.sendRedirect("index.jsp");
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());

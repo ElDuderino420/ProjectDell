@@ -26,7 +26,8 @@
         <form action="DellNavCon" method="POST">
             <div id="partner">
                 <h2>Completed Campaigns</h2>
-                <table cellspacing="0">
+                <table id="partner">
+                    <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
                     <th>Dell ID</th>
@@ -43,10 +44,11 @@
                                 if (Selected.equals(c.getId())) {
                         %>
                     <tr <%=count%> id="selected">
+                        <td><button id="selectb" name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <%} else {%>
                     <tr <%=count%>>
-                        <%}%>
                         <td><button name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <%}%>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>
@@ -67,7 +69,8 @@
         <form action="DellNavCon" method="POST">
             <div id="partner">
                 <h2>Deleted Campaigns</h2>
-                <table cellspacing="0">
+                <table id="partner">
+                    <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
                     <th>Dell ID</th>
@@ -86,10 +89,11 @@
                                 if (Selected.equals(c.getId())) {
                         %>
                     <tr <%=count%> id="selected">
+                        <td><button id="selectb" name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <%} else {%>
                     <tr <%=count%>>
-                        <%}%>
                         <td><button name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
+                        <%}%>
                         <td><%= c.getId()%></td>
                         <td><%= c.getPid()%></td>
                         <td><%= c.getDid()%></td>

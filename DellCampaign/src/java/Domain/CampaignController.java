@@ -152,4 +152,12 @@ public class CampaignController {
     public void EditPartner(Partner p) throws Exception{
         dbf.EditPartner(p);
     } 
+    
+    public boolean POECheckApproved(String id) throws Exception {
+        return dbf.POECheckApproved(id);
+    }
+    
+    public boolean CheckDeleted(String id) throws Exception {
+        return dbf.CheckDeleted(id);
+    }
 }

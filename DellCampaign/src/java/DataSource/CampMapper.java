@@ -393,6 +393,25 @@ public class CampMapper {
 
         }
     }
+    
+    public boolean CheckDeleted(String id) throws Exception {
+
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet rs = ps.executeQuery("select CampApproved from Campaign where id = '" + id + "';");
+            rs.next();
+            if (rs.getString(1).equals("DELETED")) {
+                return true;
+            }
+            ps.close();
+
+        } finally {
+
+        }
+        return false;
+    }
 
     
 }

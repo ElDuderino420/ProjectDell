@@ -95,9 +95,9 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                        <%                    
-                        count = "class=\"alt\"";
-                        for (Campaign c : PoeData) {
+                        <%
+                            count = "class=\"alt\"";
+                            for (Campaign c : PoeData) {
                                 if (count.equals("class=\"alt\"")) {
                                     count = "";
                                 } else {
@@ -133,7 +133,10 @@
                 <button id="details" class="button" type="submit" value="PD" name="DNC" >Details</button> <br><br><br><br><br>
             </div>
 
-            <a href="index.jsp">Log Out</a>
+
+        </form>
+        <form action="LogOut">
+            <button witdh="300" class="button" type="submit">Log Out</button>
         </form>
     </body>
 </html>

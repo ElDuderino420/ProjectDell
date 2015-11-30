@@ -247,7 +247,28 @@ public class POEMapper {
         }
         return false;
     }
+    
+    public boolean POECheckApproved(String id) throws Exception {
 
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ResultSet rs = ps.executeQuery("select POEApproved from Campaign where id = '" + id + "';");
+            rs.next();
+            if (rs.getString(1).equals("Approved")) {
+                return true;
+            }
+            ps.close();
+
+        } finally {
+
+        }
+        return false;
+    }
+    
+    
+    
     public boolean validate(String id, String method, String userId) throws Exception {
         Connection con = null;
         con = DatabaseCon.getInstance().getConnection();

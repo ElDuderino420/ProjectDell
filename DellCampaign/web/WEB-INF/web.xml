@@ -21,17 +21,6 @@
         <url-pattern>/POEApproval</url-pattern>
     </servlet-mapping>
     
-    
-    <!-- DellFetch  -->
-    <servlet>
-        <servlet-name>DellFetch</servlet-name>
-        <servlet-class>PresentationDell.DellFetch</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DellFetch</servlet-name>
-        <url-pattern>/DellFetch</url-pattern>
-    </servlet-mapping>
-    
     <!-- Apply Partner  -->
     <servlet>
         <servlet-name>ApplyPartner</servlet-name>
@@ -42,6 +31,16 @@
         <url-pattern>/ApplyPartner</url-pattern>
     </servlet-mapping>
     
+    <!-- DellFetch  -->
+    <servlet>
+        <servlet-name>DellFetch</servlet-name>
+        <servlet-class>PresentationDell.DellFetch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DellFetch</servlet-name>
+        <url-pattern>/DellFetch</url-pattern>
+    </servlet-mapping>
+      
     <!-- dell navigation controller  -->
     <servlet>
         <servlet-name>DellNavCon</servlet-name>
@@ -50,6 +49,16 @@
     <servlet-mapping>
         <servlet-name>DellNavCon</servlet-name>
         <url-pattern>/DellNavCon</url-pattern>
+    </servlet-mapping>
+    
+    <!-- Apply Partner  -->
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>PresentationDell.LogOut</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
     
     <!-- Main  -->
