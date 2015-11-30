@@ -23,7 +23,7 @@ public class ApplyCampaign extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
+        try {           
             HttpSession ss = request.getSession();
 
             CampaignController cc = new CampaignController();

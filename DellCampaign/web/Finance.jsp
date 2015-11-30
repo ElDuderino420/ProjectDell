@@ -19,10 +19,9 @@
     <body>
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
             String count = "class=\"alt\"";
-
         %>
 
-        <div id="contentarea">
+        <div id="partner">
             <h2>Completed Campaigns</h2>
             <table id="partner" cellspacing="0">
                 <th>Campaign ID</th>

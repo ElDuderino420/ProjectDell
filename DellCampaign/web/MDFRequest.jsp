@@ -23,7 +23,7 @@
 
         <h4>Marketing Development Fund (MDF) Request</h4>
         <h6>*Required Field</h6>
-        <form action='ApplyCampaign'>
+        <form action='ApplyCampaign' method="post">
             <table>
                 <tr>
                     <td id="inputtxt">Submission date*<span id="smallstuff">(YYYY-MM-DD)</span>: <br><input class="input" name="SubmissionDate" placeholder="YYYY-MM-DD" type = "text" value="<%= LocalDateTime.now().toString().substring(0, 10)%>" readonly required/></td>
@@ -167,7 +167,7 @@
 
             <div style="border-bottom: 1px solid black"></div><br>
 
-            <div style="overflow:scroll; height:500px;">
+            <div class="scroll" style="overflow:scroll; height:500px;">
                 <h4>Dell MDF Program Process, Terms and Conditions</h4>
                 <p>Dell is pleased to provide this Field Marketing Program (“Program”) to Dell PartnerDirect Partners in the United States.
                     The purpose of this Program is to provide certain marketing development funds, as further described herein, (“Funds”)
@@ -357,7 +357,10 @@
             </div>
             <br>
 
-            <button class="button" type='submit' name='applyCamp' value="Submit" >Apply Campaign</button>
+            <button class="button" type='submit' name='applyCamp' value="Submit" >Apply Campaign</button><br><br>
         </form>
+            <form method='Post' action='PartnerFetch'> 
+                <button id="back" class="button" type="submit">Back</button>
+            </form>
     </body>
 </html>

@@ -23,7 +23,7 @@
 
         <h4>Marketing Development Fund (MDF) Request</h4>
         <h6>*Required Field</h6>
-        <form action='CampaignApproval'>
+        <form action='CampaignApproval' method="post">
             <table>
                 <tr>
                     <td id="inputtxt">Submission date*<span id="smallstuff">(YYYY-MM-DD)</span>: <br><input class="input" name="SubmissionDate" placeholder="YYYY-MM-DD" type = "text" value="<%= LocalDateTime.now().toString().substring(0, 10)%>" readonly required/></td>
@@ -166,7 +166,10 @@
             <h5>Comments</h5>
             <textarea class="binput" name ="comment" ></textarea><br>
             <button class="button" type='submit' name='poe' value="Approve" >Approve</button>
-            <button class="button" type='submit' name='poe' value="Reject" >Reject</button>
+            <button class="button" type='submit' name='poe' value="Reject" >Reject</button><br><br>
         </form>
+            <form method='Post' action='DellFetch'> 
+                <button id="back" class="button" type="submit">Back</button>
+            </form>
     </body>
 </html>

@@ -24,7 +24,12 @@
                     <input class="custom-file-input" type="file" name="file" />
                 </div>
                 <br><br>
-                <button id="submit" class="button" type="submit" value="submit" name='submit'>Submit</button>
+                <button id="submit" class="button" type="submit" value="submit" name="submit">Submit</button>
+                <br><br>
+                
+            </form>
+            <form action="PartnerFetch" method="post" >
+                <button id="submit" class="button" type="submit" value="back" name="submit">Back</button>
                 <br><br>
             </form>
         </div>

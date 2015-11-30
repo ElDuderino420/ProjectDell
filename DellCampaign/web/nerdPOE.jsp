@@ -11,13 +11,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="coolpoe.css">
         <title>JSP Page</title>
     </head>
     <body>
         <% List<POEDetails> viewpoe = (List<POEDetails>) request.getSession().getAttribute("lust");
             String id = request.getSession().getAttribute("campIDDD").toString().toUpperCase();
 
-        %>    
+        %>
+        <h2>POE List for Campaign <%=id%></h2>
+        <div>
         <ul>
             <% for (POEDetails s : viewpoe) {
                     request.getSession().setAttribute("filename", s.getDl());
@@ -30,8 +33,8 @@
         </ul>
 
         <form action="DellNavCon" method="POST">
-            <button type="submit" value="DC" name="DNC">Back</button>
+            <button id="back" class="button" type="submit" value="DC" name="DNC">Back</button>
         </form>
-
+        </div>
     </body>
 </html>

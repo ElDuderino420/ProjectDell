@@ -9,20 +9,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="mdf.css">
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Create Partner</h1>
+        <div class="upload">
+        <h2>Create Partner</h2>
         <form action="ApplyPartner" method="post">
-           Partner ID: <input name="PartnerID" type = "text" required/><br>
-           Partner Name: <input name="PartnerName" type="text" required/><br>
-           Date Created: <input name="DateCreated" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>" readonly required/><br>
-           Password: <input name="Password" type="text" required/><br>
+            <table>
+            
+           <tr><td>Partner ID:  </td><td> <input id="inputtxt" class="input" name="PartnerID" type = "text" required/></td></tr>
+           <tr><td>Partner Name: </td><td><input id="inputtxt" class="input" name="PartnerName" type="text" required/></td></tr>
+           <tr><td>Date Created: </td><td><input id="inputtxt"  class="input" name="DateCreated" type = "text" value="<%= LocalDateTime.now().toString().substring(0,10)%>" readonly required/></td></tr>
+           <tr><td>Password:     </td><td><input id="inputtxt" class="input" name="Password" type="text" required/></td></tr>
 
-           
-           <button name="CreatePartner" type="Submit" value="Create">Create Partner</button>
+           </table>
+           <button id="details" class="button" name="CreatePartner" type="Submit" value="Create">Create Partner</button><br><br>
             
         </form>
-        
+           <form method='Post' action='DellFetch'> 
+                <button id="details" class="button" type="submit">Back</button>
+            </form>
+        </div>
     </body>
 </html>

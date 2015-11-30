@@ -34,6 +34,26 @@ ul{
     font-size: 18px;
 }
 
+.upload{
+    border: solid 1px #4479BA;
+    border-radius: 4px;
+    width: 500px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    margin-bottom: auto;
+}
+
+.scroll{
+    border: solid 1px #4479BA;
+    border-radius: 4px;
+    width: 1880px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: auto;
+}
 
 .button {
     padding: 10px 15px;

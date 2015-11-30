@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="maincss.css">
         <title>Deleted and Completed Campaigns</title>
     </head>
     <body>
@@ -19,10 +20,11 @@
             List<Campaign> DeletedData = (List<Campaign>) session.getAttribute("deletedCamp");
             request.getSession().setAttribute("filepath", application.getRealPath(request.getServletPath()));
             String Selected = request.getSession().getAttribute("Selected").toString();
+            String count = "class=\"alt\"";
         %>
-        
+
         <form action="DellNavCon" method="POST">
-            <div id="contentarea">
+            <div id="partner">
                 <h2>Completed Campaigns</h2>
                 <table cellspacing="0">
                     <th>Campaign ID</th>
@@ -33,11 +35,16 @@
                     <th>Last Changed</th>
                     <th>Comments</th>
                         <%                    for (Campaign c : DoneData) {
+                                if (count.equals("class=\"alt\"")) {
+                                    count = "";
+                                } else {
+                                    count = "class=\"alt\"";
+                                }
                                 if (Selected.equals(c.getId())) {
                         %>
-                    <tr bgcolor="red">
-                        <%} else { %>
-                    <tr>
+                    <tr <%=count%> id="selected">
+                        <%} else {%>
+                    <tr <%=count%>>
                         <%}%>
                         <td><button name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
@@ -51,13 +58,15 @@
                     <%}%>
 
                 </table>
+                    <br><button id="details" class="button" type="submit" value="nerd" name="DNC">Details</button>
+            <button id="details" class="button" type="submit" value="viewpoe" name="DNC">View POE</button><br><br>
             </div>
-            <button type="submit" value="nerd" name="DNC">Details</button>
-            <button type="submit" value="viewpoe" name="DNC">View POE</button>
+            
 
         </form>
         <form action="DellNavCon" method="POST">
-            <div id="contentarea">
+            <div id="partner">
+                <h2>Deleted Campaigns</h2>
                 <table cellspacing="0">
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -66,12 +75,19 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                         <%                    for (Campaign c : DeletedData) {
+                        <%
+                            count = "class=\"alt\"";
+                            for (Campaign c : DeletedData) {
+                                if (count.equals("class=\"alt\"")) {
+                                    count = "";
+                                } else {
+                                    count = "class=\"alt\"";
+                                }
                                 if (Selected.equals(c.getId())) {
                         %>
-                    <tr bgcolor="red">
-                        <%} else { %>
-                    <tr>
+                    <tr <%=count%> id="selected">
+                        <%} else {%>
+                    <tr <%=count%>>
                         <%}%>
                         <td><button name="sel2" value="<%=c.getId()%>" type="submit">Select</button></td>
                         <td><%= c.getId()%></td>
@@ -85,14 +101,12 @@
                     <%}%>
 
                 </table>
-            </div>
-            <button type="submit" value="nuke" name="DNC" >Permanent Delete</button> <br>
+                    <br><button id="bb" class="button" type="submit" value="nuke" name="DNC" >Permanent Delete</button> <br><br><br><br>
+                    <button id="back" class="button" type="submit" value="back" name="DNC" >Back</button>
+            </div><br><br>
+            
 
         </form>
 
-        <form action="DellNavCon">
-            <button type="submit" value="back" name="DNC" >Back</button>
-        </form>
-        <a href="index.jsp">Log Out</a>
     </body>
 </html>
