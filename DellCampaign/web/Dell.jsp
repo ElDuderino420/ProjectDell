@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="maincss.css">
 
-        <title>Dell Main Window</title>
+        <title>Dell Home</title>
     </head>
     <body>
         <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
@@ -23,6 +23,7 @@
             <div class="buttons">
                 <button id="bb" class="button" type="submit" name="DNC" value="DC">Deleted and Completed Campaigns</button>
                 <button id="bb" class="button" type="submit" name="DNC" value="CP">Create Partner</button>
+                <button id="bb" class="button" type="submit" value="VP" name="DNC">View Partners</button>
             </div>
         </form>
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
@@ -35,7 +36,7 @@
         <form action="DellNavCon" method="POST">
             <div id="partner">
                 <h2>Campaign Approval Queue</h2>
-                <table id="partner" cellspacing="0">
+                <table id="partner">
                     <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -86,7 +87,7 @@
             <div id="partner">
                 <h2>POE Approval Queue</h2>
 
-                <table id="partner" cellspacing="0">
+                <table id="partner">
                     <th></th>
                     <th>Campaign ID</th>
                     <th>Partner ID</th>
@@ -136,7 +137,7 @@
 
         </form>
         <form action="LogOut">
-            <button witdh="300" class="button" type="submit">Log Out</button>
+            <button class="button" type="submit">Log Out</button>
         </form>
     </body>
 </html>

@@ -14,26 +14,28 @@
 
 <%
     File file;
-    int maxFileSize = 5000000 * 1024;
-    int maxMemSize = 5000000 * 1024;
-    ServletContext context = pageContext.getServletContext();
     String filePath = application.getRealPath(request.getServletPath());
     String id = request.getSession().getAttribute("CampId").toString().toUpperCase();
     if (id == null || id.equals("")) {
         response.sendRedirect("PartnerFetch");
     } else {
 
-        int derp = filePath.indexOf("/web/");
+        int n = filePath.indexOf("/web/");
         String f = "/";
 
-        if (derp == -1) {
+        if (n == -1) {
             f = "\\";
-            derp = filePath.indexOf("\\web\\");
+            n = filePath.indexOf("\\web\\");
         }
-        filePath = filePath.substring(0, derp) + f + "web" + f + "Poe" + f + id + f;
+        filePath = filePath.substring(0, n) + f + "web" + f + "Poe" + f + id + f;
         file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
+            request.getSession().setAttribute("dupli", "false");
+        }
+        else{
+            file.delete();
+            request.getSession().setAttribute("dupli", "true");
         }
 
         // Verify the content type
@@ -66,10 +68,12 @@
                         String fileName = fi.getName();
                         if(fileName.equalsIgnoreCase("Invoice.pdf")){
                            fileName = "invoice.pdf";
+                           request.getSession().setAttribute("invoi", "true");
+                        }
+                        else{
+                           request.getSession().setAttribute("invoi", "false"); 
                         }
 
-                        boolean isInMemory = fi.isInMemory();
-                        long sizeInBytes = fi.getSize();
                         // Write the file
                         if (fileName.lastIndexOf(f) >= 0) {
                             file = new File(filePath

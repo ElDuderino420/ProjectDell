@@ -89,14 +89,14 @@ public class CampMapper {
         }
     }
 
-    public void CreateCampaign(CampaignDetails cp, String pid, String derp, String comment) throws Exception {
+    public void CreateCampaign(CampaignDetails cd, String pid, String derp, String comment) throws Exception {
 
         Connection con = null;
-        PreparedStatement ezshit = null;
-        PreparedStatement fuckThis = null;
-        PreparedStatement ezshit2 = null;
-        PreparedStatement dammit = null;
-        PreparedStatement fuckThis2 = null;
+        PreparedStatement camp = null;
+        PreparedStatement campDeets = null;
+        PreparedStatement camp2 = null;
+        PreparedStatement poeDeets = null;
+        PreparedStatement campDeets2 = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
             con.setAutoCommit(false);
@@ -106,17 +106,17 @@ public class CampMapper {
             }
 
             if (derp.equals("edit")) {
-                fuckThis2 = con.prepareStatement("Delete from CampaignDetails where id = '" + cp.getId() + "';");
-                dammit = con.prepareStatement("Delete From POEDetails where Cid ='" + cp.getId() + "';");
-                ezshit2 = con.prepareStatement("Delete From Campaign where id= '" + cp.getId() + "';");
-                dammit.executeUpdate();
-                ezshit2.executeUpdate();
-                fuckThis2.executeUpdate();
+                campDeets2 = con.prepareStatement("Delete from CampaignDetails where id = '" + cd.getId() + "';");
+                poeDeets = con.prepareStatement("Delete From POEDetails where Cid ='" + cd.getId() + "';");
+                camp2 = con.prepareStatement("Delete From Campaign where id= '" + cd.getId() + "';");
+                poeDeets.executeUpdate();
+                camp2.executeUpdate();
+                campDeets2.executeUpdate();
 
             }
 
-            ezshit = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?);");
-            fuckThis = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
+            camp = con.prepareStatement("Insert into Campaign values(?,?,?,?,?,?,?,?);");
+            campDeets = con.prepareStatement("Insert into CampaignDetails values(?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?,"
@@ -127,81 +127,84 @@ public class CampMapper {
                     + "?,?,?,?,?,"
                     + "?,?,?,?,?);");
 
-            fuckThis.setString(1, cp.getId());
-            ezshit.setString(1, cp.getId());
-            fuckThis.setString(2, cp.getDateCreated());
-            ezshit.setString(2, cp.getDateCreated());
-            ezshit.setString(3, "Pending");
-            ezshit.setString(4, "N/A");
-            ezshit.setString(5, pid);
-            ezshit.setString(6, null);
-            ezshit.setBoolean(7, false);
-            ezshit.setString(8, comment);
-            fuckThis.setString(3, cp.getContactName());
-            fuckThis.setString(4, cp.getCompanyName());
-            fuckThis.setString(5, cp.getCompanyAddress());
-            fuckThis.setString(6, cp.getContactEmail());
-            fuckThis.setString(7, cp.getContactPhone());
-            fuckThis.setString(8, cp.getProgramDate());
-            fuckThis.setString(9, cp.getStartTime());
-            fuckThis.setString(10, cp.getEndTime());
-            fuckThis.setInt(11, cp.getEstimatedAttendees());
-            fuckThis.setString(12, cp.getVenueName());
-            fuckThis.setString(13, cp.getVenueAddress());
-            fuckThis.setBoolean(14, cp.isFaceToFace());
-            fuckThis.setBoolean(15, cp.isTradeShows());
-            fuckThis.setBoolean(16, cp.isMultiTouch());
-            fuckThis.setBoolean(17, cp.isDoorOpener());
-            fuckThis.setBoolean(18, cp.isThirdParty());
-            fuckThis.setBoolean(19, cp.isDirectMail());
-            fuckThis.setBoolean(20, cp.isBlitz());
-            fuckThis.setString(21, cp.getProgramDescription());
-            fuckThis.setBoolean(22, cp.isSc4000());
-            fuckThis.setBoolean(23, cp.isPs4210());
-            fuckThis.setBoolean(24, cp.isDellStorageSol());
-            fuckThis.setBoolean(25, cp.isFlashPriceDisk());
-            fuckThis.setBoolean(26, cp.isFluidCache());
-            fuckThis.setBoolean(27, cp.isDataProtection());
-            fuckThis.setBoolean(28, cp.isPowerEdgeServers());
-            fuckThis.setBoolean(29, cp.isWindowsServer());
-            fuckThis.setBoolean(30, cp.isX86Server());
-            fuckThis.setBoolean(31, cp.isPowerEdgeVRTX());
-            fuckThis.setBoolean(32, cp.isSdn());
-            fuckThis.setBoolean(33, cp.isUserCentric());
-            fuckThis.setBoolean(34, cp.isCloudClientComputing());
-            fuckThis.setBoolean(35, cp.isInfrastructureHardware());
-            fuckThis.setBoolean(36, cp.isBladeDataCenter());
-            fuckThis.setBoolean(37, cp.isOptimizedEnterprise());
-            fuckThis.setBoolean(38, cp.isPowerEdgeFX());
-            fuckThis.setBoolean(39, cp.isSds());
-            fuckThis.setString(40, cp.getSoftwareComponent());
-            fuckThis.setBoolean(41, cp.isSmb());
-            fuckThis.setBoolean(42, cp.isLe());
-            fuckThis.setBoolean(43, cp.isPub());
-            fuckThis.setInt(44, cp.getTotalProjectedCost());
-            fuckThis.setInt(45, cp.getMdfRequest());
-            fuckThis.setString(46, cp.getReimbursement());
-            fuckThis.setString(47, cp.getTechnologyPartners());
-            fuckThis.setInt(48, cp.getTotalMDFContribution());
-            fuckThis.setInt(49, cp.getEstimatedOpportunities());
-            fuckThis.setInt(50, cp.getEstimatedRevenue());
-            fuckThis.executeUpdate();
-            ezshit.executeUpdate();
+            campDeets.setString(1, cd.getId());
+            camp.setString(1, cd.getId());
+            campDeets.setString(2, cd.getDateCreated());
+            camp.setString(2, cd.getDateCreated());
+            camp.setString(3, "Pending");
+            camp.setString(4, "N/A");
+            camp.setString(5, pid);
+            camp.setString(6, null);
+            camp.setBoolean(7, false);
+            camp.setString(8, comment);
+            campDeets.setString(3, cd.getContactName());
+            campDeets.setString(4, cd.getCompanyName());
+            campDeets.setString(5, cd.getCompanyAddress());
+            campDeets.setString(6, cd.getContactEmail());
+            campDeets.setString(7, cd.getContactPhone());
+            campDeets.setString(8, cd.getProgramDate());
+            campDeets.setString(9, cd.getStartTime());
+            campDeets.setString(10, cd.getEndTime());
+            campDeets.setInt(11, cd.getEstimatedAttendees());
+            campDeets.setString(12, cd.getVenueName());
+            campDeets.setString(13, cd.getVenueAddress());
+            campDeets.setBoolean(14, cd.isFaceToFace());
+            campDeets.setBoolean(15, cd.isTradeShows());
+            campDeets.setBoolean(16, cd.isMultiTouch());
+            campDeets.setBoolean(17, cd.isDoorOpener());
+            campDeets.setBoolean(18, cd.isThirdParty());
+            campDeets.setBoolean(19, cd.isDirectMail());
+            campDeets.setBoolean(20, cd.isBlitz());
+            campDeets.setString(21, cd.getProgramDescription());
+            campDeets.setBoolean(22, cd.isSc4000());
+            campDeets.setBoolean(23, cd.isPs4210());
+            campDeets.setBoolean(24, cd.isDellStorageSol());
+            campDeets.setBoolean(25, cd.isFlashPriceDisk());
+            campDeets.setBoolean(26, cd.isFluidCache());
+            campDeets.setBoolean(27, cd.isDataProtection());
+            campDeets.setBoolean(28, cd.isPowerEdgeServers());
+            campDeets.setBoolean(29, cd.isWindowsServer());
+            campDeets.setBoolean(30, cd.isX86Server());
+            campDeets.setBoolean(31, cd.isPowerEdgeVRTX());
+            campDeets.setBoolean(32, cd.isSdn());
+            campDeets.setBoolean(33, cd.isUserCentric());
+            campDeets.setBoolean(34, cd.isCloudClientComputing());
+            campDeets.setBoolean(35, cd.isInfrastructureHardware());
+            campDeets.setBoolean(36, cd.isBladeDataCenter());
+            campDeets.setBoolean(37, cd.isOptimizedEnterprise());
+            campDeets.setBoolean(38, cd.isPowerEdgeFX());
+            campDeets.setBoolean(39, cd.isSds());
+            campDeets.setString(40, cd.getSoftwareComponent());
+            campDeets.setBoolean(41, cd.isSmb());
+            campDeets.setBoolean(42, cd.isLe());
+            campDeets.setBoolean(43, cd.isPub());
+            campDeets.setInt(44, cd.getTotalProjectedCost());
+            campDeets.setInt(45, cd.getMdfRequest());
+            campDeets.setString(46, cd.getReimbursement());
+            campDeets.setString(47, cd.getTechnologyPartners());
+            campDeets.setInt(48, cd.getTotalMDFContribution());
+            campDeets.setInt(49, cd.getEstimatedOpportunities());
+            campDeets.setInt(50, cd.getEstimatedRevenue());
+            campDeets.executeUpdate();
+            camp.executeUpdate();
             con.commit();
 
         } finally {
 
-            if (fuckThis != null) {
-                fuckThis.close();
+            if (campDeets != null) {
+                campDeets.close();
             }
-            if (ezshit != null) {
-                ezshit.close();
+            if (camp != null) {
+                camp.close();
             }
-            if (fuckThis2 != null) {
-                fuckThis2.close();
+            if (campDeets2 != null) {
+                campDeets2.close();
             }
-            if (ezshit2 != null) {
-                ezshit2.close();
+            if (camp2 != null) {
+                camp2.close();
+            }
+            if(poeDeets != null){
+                poeDeets.close();
             }
 
             con.setAutoCommit(true);
@@ -213,59 +216,59 @@ public class CampMapper {
         try {
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
-            ResultSet fuckThis = ps.executeQuery("SELECT * FROM CampaignDetails where id = '" + id + "';");
-            fuckThis.next();
+            ResultSet CampDeets = ps.executeQuery("SELECT * FROM CampaignDetails where id = '" + id + "';");
+            CampDeets.next();
             CampaignDetails cd = new CampaignDetails(
-                    fuckThis.getString(1),
-                    fuckThis.getString(2),
-                    fuckThis.getString(3),
-                    fuckThis.getString(4),
-                    fuckThis.getString(5),
-                    fuckThis.getString(6),
-                    fuckThis.getString(7),
-                    fuckThis.getString(8),
-                    fuckThis.getString(9),
-                    fuckThis.getString(10),
-                    fuckThis.getInt(11),
-                    fuckThis.getString(12),
-                    fuckThis.getString(13),
-                    fuckThis.getBoolean(14),
-                    fuckThis.getBoolean(15),
-                    fuckThis.getBoolean(16),
-                    fuckThis.getBoolean(17),
-                    fuckThis.getBoolean(18),
-                    fuckThis.getBoolean(19),
-                    fuckThis.getBoolean(20),
-                    fuckThis.getString(21),
-                    fuckThis.getBoolean(22),
-                    fuckThis.getBoolean(23),
-                    fuckThis.getBoolean(24),
-                    fuckThis.getBoolean(25),
-                    fuckThis.getBoolean(26),
-                    fuckThis.getBoolean(27),
-                    fuckThis.getBoolean(28),
-                    fuckThis.getBoolean(29),
-                    fuckThis.getBoolean(30),
-                    fuckThis.getBoolean(31),
-                    fuckThis.getBoolean(32),
-                    fuckThis.getBoolean(33),
-                    fuckThis.getBoolean(34),
-                    fuckThis.getBoolean(35),
-                    fuckThis.getBoolean(36),
-                    fuckThis.getBoolean(37),
-                    fuckThis.getBoolean(38),
-                    fuckThis.getBoolean(39),
-                    fuckThis.getString(40),
-                    fuckThis.getBoolean(41),
-                    fuckThis.getBoolean(42),
-                    fuckThis.getBoolean(43),
-                    fuckThis.getInt(44),
-                    fuckThis.getInt(45),
-                    fuckThis.getString(46),
-                    fuckThis.getString(47),
-                    fuckThis.getInt(48),
-                    fuckThis.getInt(49),
-                    fuckThis.getInt(50)
+                    CampDeets.getString(1),
+                    CampDeets.getString(2),
+                    CampDeets.getString(3),
+                    CampDeets.getString(4),
+                    CampDeets.getString(5),
+                    CampDeets.getString(6),
+                    CampDeets.getString(7),
+                    CampDeets.getString(8),
+                    CampDeets.getString(9),
+                    CampDeets.getString(10),
+                    CampDeets.getInt(11),
+                    CampDeets.getString(12),
+                    CampDeets.getString(13),
+                    CampDeets.getBoolean(14),
+                    CampDeets.getBoolean(15),
+                    CampDeets.getBoolean(16),
+                    CampDeets.getBoolean(17),
+                    CampDeets.getBoolean(18),
+                    CampDeets.getBoolean(19),
+                    CampDeets.getBoolean(20),
+                    CampDeets.getString(21),
+                    CampDeets.getBoolean(22),
+                    CampDeets.getBoolean(23),
+                    CampDeets.getBoolean(24),
+                    CampDeets.getBoolean(25),
+                    CampDeets.getBoolean(26),
+                    CampDeets.getBoolean(27),
+                    CampDeets.getBoolean(28),
+                    CampDeets.getBoolean(29),
+                    CampDeets.getBoolean(30),
+                    CampDeets.getBoolean(31),
+                    CampDeets.getBoolean(32),
+                    CampDeets.getBoolean(33),
+                    CampDeets.getBoolean(34),
+                    CampDeets.getBoolean(35),
+                    CampDeets.getBoolean(36),
+                    CampDeets.getBoolean(37),
+                    CampDeets.getBoolean(38),
+                    CampDeets.getBoolean(39),
+                    CampDeets.getString(40),
+                    CampDeets.getBoolean(41),
+                    CampDeets.getBoolean(42),
+                    CampDeets.getBoolean(43),
+                    CampDeets.getInt(44),
+                    CampDeets.getInt(45),
+                    CampDeets.getString(46),
+                    CampDeets.getString(47),
+                    CampDeets.getInt(48),
+                    CampDeets.getInt(49),
+                    CampDeets.getInt(50)
             );
 
             ps.close();
@@ -413,5 +416,6 @@ public class CampMapper {
         return false;
     }
 
+    
     
 }

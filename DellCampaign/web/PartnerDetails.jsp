@@ -12,9 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="mdf.css">
-
-        <!-- <link rel="stylesheet" href="maincss.css" type="text/css" media="screen"/> -->
-        <title>MDF Request</title>
+        <title>Edit Campaign</title>
     </head>
     <% CampaignDetails cd = (CampaignDetails) request.getSession().getAttribute("currentCD");
     %>
@@ -224,8 +222,9 @@
                                 <li>Webinar</li>
                                 <li>Online advertising</li>
                                 <li>Or as otherwise previously approved by Dell</li>
-                                <br>
+                                
                             </ul>
+                            <br>
                         </td>
                     </tr>
                 </table>

@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="maincss.css">
 
-        <title>JSP Page</title>
+        <title>Finance Home</title>
     </head>
     <body>
         <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");

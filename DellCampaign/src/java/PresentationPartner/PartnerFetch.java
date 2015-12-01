@@ -24,7 +24,6 @@ public class PartnerFetch extends HttpServlet {
         try {
                         
             CampaignController cc = new CampaignController();
-            if(cc.CheckPartner(request.getSession().getAttribute("id").toString()))
             request.getSession().setAttribute("allCamp", cc.FetchCampaigns("ongoing", request.getSession().getAttribute("id").toString()));
             response.sendRedirect("Partner.jsp");
 

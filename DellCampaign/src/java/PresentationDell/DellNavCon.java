@@ -29,33 +29,34 @@ public class DellNavCon extends HttpServlet {
             String selected = request.getSession().getAttribute("Selected").toString();
             String sel = "";
             String sel2 = "";
-            String derp = "";
+            String DNC = "";
             if (request.getParameter("DNC") == null && request.getParameter("sel2") == null) {
                 sel = request.getParameter("sel");
             } else if (request.getParameter("DNC") == null && request.getParameter("sel") == null) {
                 sel2 = request.getParameter("sel2");
             } else {
-                derp = request.getParameter("DNC");
+                DNC = request.getParameter("DNC");
             }
-            if (derp.equals("") && sel2.equals("")) {
+            if (DNC.equals("") && sel2.equals("")) {
                 request.getSession().setAttribute("Selected", sel);
                 request.getSession().setAttribute("CampId", sel);
                 response.sendRedirect("DellFetch");
             }
-            if (derp.equals("") && sel.equals("")) {
+            if (DNC.equals("") && sel.equals("")) {
                 request.getSession().setAttribute("Selected", sel2);
                 request.getSession().setAttribute("CampId", sel2);
                 response.sendRedirect("DCComics.jsp");
             } else {
                 // Create Partner Button
-                if (derp.equals("CP")) {
+                if (DNC.equals("CP")) {
                     request.getSession().setAttribute("Selected", "null");
+                    request.getSession().setAttribute("PartId", cc.getNextPartId());
                     response.sendRedirect("CreatePartner.jsp");
 
                 }
                 // Campaign Detail Button
                 // checks if campaign is applicable (campaign status = Pending)
-                if (derp.equals("CD")) {
+                if (DNC.equals("CD")) {
                     if (!selected.equals("null") && !cc.POECheckUpload(selected)) {
 
                         request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
@@ -65,7 +66,12 @@ public class DellNavCon extends HttpServlet {
                     }
                 }
                 
-                if (derp.equals("PD")) {
+                if(DNC.equals("VP")){
+                    request.getSession().setAttribute("Partners", cc.FetchAllPartners());
+                    response.sendRedirect("ViewPartners.jsp");
+                }
+                
+                if (DNC.equals("PD")) {
 
                     if (!selected.equals("null") && cc.POECheckUpload(selected)) {
                         request.getSession().setAttribute("CID", selected);
@@ -76,16 +82,16 @@ public class DellNavCon extends HttpServlet {
                         response.sendRedirect("DellFetch");
                     }
                 }
-                if (derp.equals("nuke")) {
+                if (DNC.equals("nuke")) {
                     if (!selected.equals("null") && cc.CheckDeleted(selected)) {
                         String path = request.getSession().getAttribute("filepath").toString();
                         cc.nukeCamp(selected, path);
-                        derp = "DC";
+                        DNC = "DC";
                     } else {
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
-                if (derp.equals("DC")) {
+                if (DNC.equals("DC")) {
                     request.getSession().setAttribute("Selected", "null");
                     request.getSession().setAttribute("deletedCamp", cc.FetchCampaigns("deleted", ""));
                     request.getSession().setAttribute("doneCamp", cc.FetchCampaigns("completed", ""));
@@ -93,30 +99,31 @@ public class DellNavCon extends HttpServlet {
 
                 }
 
-                if (derp.equals("nerd")) {
+                if (DNC.equals("nerd")) {
                     if (!selected.equals("null") && cc.POECheckApproved(selected)) {
                         request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
-                        response.sendRedirect("nerd.jsp");
+                        response.sendRedirect("Nerd.jsp");
                     } else {
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
-                if (derp.equals("back")) {
+                if (DNC.equals("back")) {
 
                     response.sendRedirect("DellFetch");
 
                 }
-                if (derp.equals("viewpoe")) {
+                if (DNC.equals("viewpoe")) {
                     if (!selected.equals("null") && cc.POECheckApproved(selected)) {
                         request.getSession().setAttribute("campIDDD", selected);
                         List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("campIDDD").toString());
                         request.getSession().setAttribute("lust", list);
-                        response.sendRedirect("nerdPOE.jsp");
+                        response.sendRedirect("NerdPOE.jsp");
                     }
                     else{
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
+                
             }
 
         } catch (Exception ex) {

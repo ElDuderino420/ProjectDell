@@ -24,32 +24,33 @@ public class Main extends HttpServlet {
             throws ServletException, IOException {
         LogInController lc = new LogInController();
         CampaignController cc = new CampaignController();
-        String derp = "";
+        String part = "";
 
         try {
             
-            derp = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
-            String herp = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
-            String herpderp = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
+            part = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
+            String dell = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
+            String finan = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
-            if (derp != null) {
-                if (cc.CheckPartner(derp)) {
-                    request.getSession().setAttribute("id", derp);
+            if (part != null) {
+                if (cc.CheckPartner(part)) {
+                    request.getSession().setAttribute("id", part);
                     response.sendRedirect("PartnerFetch");
                 } else {
-                    Partner p = cc.GetPartner(derp);
-                    request.getSession().setAttribute("id", derp);
+                    Partner p = cc.GetPartner(part);
+                    request.getSession().setAttribute("id", part);
                     request.getSession().setAttribute("part", p);
                     response.sendRedirect("EditPartner.jsp");
                 }
-            } else if (herp != null) {
-                request.getSession().setAttribute("id", herp);
+            } else if (dell != null) {
+                request.getSession().setAttribute("id", dell);
                 response.sendRedirect("DellFetch");
-            } else if (herpderp != null) {
-                request.getSession().setAttribute("id", herpderp);
+            } else if (finan != null) {
+                request.getSession().setAttribute("id", finan);
                 response.sendRedirect("FinanceFetch");
             } else {
-                response.sendRedirect("index.jsp?msg=Incorrect username or password");
+                request.getSession().setAttribute("errUP", "Incorrect username or password");
+                response.sendRedirect("index.jsp");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

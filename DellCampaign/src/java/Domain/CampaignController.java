@@ -30,8 +30,8 @@ public class CampaignController {
     }
     
     // CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
-    public void CreateCampaign(CampaignDetails cp, String pid, String derp, String comment) throws Exception {
-        dbf.CreateCampaign(cp, pid, derp, comment);
+    public void CreateCampaign(CampaignDetails cd, String pid, String derp, String comment) throws Exception {
+        dbf.CreateCampaign(cd, pid, derp, comment);
     }
 
     // returns a campaign details with the specifik id
@@ -159,5 +159,17 @@ public class CampaignController {
     
     public boolean CheckDeleted(String id) throws Exception {
         return dbf.CheckDeleted(id);
+    }
+    
+    public String getNextPartId() throws Exception {
+        return dbf.getNextPartId();
+    }
+    
+    public List<Partner> FetchAllPartners() throws Exception {
+        return dbf.FetchAllPartners();
+    }
+    
+    public void deletePart(String id) throws Exception {
+        dbf.deletePart(id);
     }
 }

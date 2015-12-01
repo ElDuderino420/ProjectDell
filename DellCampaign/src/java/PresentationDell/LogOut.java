@@ -22,12 +22,7 @@ public class LogOut extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        LogInController lc = new LogInController();
-        CampaignController cc = new CampaignController();
-        String derp = "";
-
         try {
-            
             request.getSession().invalidate();
             response.sendRedirect("index.jsp");
         } catch (Exception ex) {

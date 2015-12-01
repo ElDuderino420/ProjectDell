@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-
     <!-- Campaign Approval  -->
     <servlet>
         <servlet-name>CampaignApproval</servlet-name>
@@ -10,7 +9,6 @@
         <servlet-name>CampaignApproval</servlet-name>
         <url-pattern>/CampaignApproval</url-pattern>
     </servlet-mapping>
-    
     <!-- POE Approval  -->
     <servlet>
         <servlet-name>POEApproval</servlet-name>
@@ -20,7 +18,15 @@
         <servlet-name>POEApproval</servlet-name>
         <url-pattern>/POEApproval</url-pattern>
     </servlet-mapping>
-    
+    <!-- partner controller  -->
+    <servlet>
+        <servlet-name>PartnerCon</servlet-name>
+        <servlet-class>PresentationDell.PartnerCon</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PartnerCon</servlet-name>
+        <url-pattern>/PartnerCon</url-pattern>
+    </servlet-mapping>
     <!-- Apply Partner  -->
     <servlet>
         <servlet-name>ApplyPartner</servlet-name>
@@ -30,7 +36,6 @@
         <servlet-name>ApplyPartner</servlet-name>
         <url-pattern>/ApplyPartner</url-pattern>
     </servlet-mapping>
-    
     <!-- DellFetch  -->
     <servlet>
         <servlet-name>DellFetch</servlet-name>
@@ -40,7 +45,6 @@
         <servlet-name>DellFetch</servlet-name>
         <url-pattern>/DellFetch</url-pattern>
     </servlet-mapping>
-      
     <!-- dell navigation controller  -->
     <servlet>
         <servlet-name>DellNavCon</servlet-name>
@@ -50,7 +54,6 @@
         <servlet-name>DellNavCon</servlet-name>
         <url-pattern>/DellNavCon</url-pattern>
     </servlet-mapping>
-    
     <!-- Apply Partner  -->
     <servlet>
         <servlet-name>LogOut</servlet-name>
@@ -60,7 +63,6 @@
         <servlet-name>LogOut</servlet-name>
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
-    
     <!-- Main  -->
     <servlet>
         <servlet-name>Main</servlet-name>
@@ -70,7 +72,6 @@
         <servlet-name>Main</servlet-name>
         <url-pattern>/Main</url-pattern>
     </servlet-mapping>
-    
     <!-- Apply Campaign  -->
     <servlet>
         <servlet-name>ApplyCampaign</servlet-name>
@@ -80,8 +81,6 @@
         <servlet-name>ApplyCampaign</servlet-name>
         <url-pattern>/ApplyCampaign</url-pattern>
     </servlet-mapping>
-    
-  
     <!-- CompletePOE  -->
     <servlet>
         <servlet-name>CompletePoe</servlet-name>
@@ -91,7 +90,6 @@
         <servlet-name>CompletePoe</servlet-name>
         <url-pattern>/CompletePoe</url-pattern>
     </servlet-mapping>
-    
     <!-- DownloadPOE  -->
     <servlet>
         <servlet-name>DownloadPOE</servlet-name>
@@ -101,7 +99,6 @@
         <servlet-name>DownloadPOE</servlet-name>
         <url-pattern>/DownloadPOE</url-pattern>
     </servlet-mapping>
-    
     <!-- Partner Fetch  -->
     <servlet>
         <servlet-name>PartnerFetch</servlet-name>
@@ -111,8 +108,7 @@
         <servlet-name>PartnerFetch</servlet-name>
         <url-pattern>/PartnerFetch</url-pattern>
     </servlet-mapping>
-  
-  <!-- Partner View POE  -->
+    <!-- Partner View POE  -->
     <servlet>
         <servlet-name>PartnerViewPOE</servlet-name>
         <servlet-class>PresentationPartner.PartnerViewPOE</servlet-class>
@@ -121,17 +117,15 @@
         <servlet-name>PartnerViewPOE</servlet-name>
         <url-pattern>/PartnerViewPOE</url-pattern>
     </servlet-mapping>
-  
     <!-- navigation controller  -->
     <servlet>
         <servlet-name>navCon</servlet-name>
-        <servlet-class>PresentationPartner.navCon</servlet-class>
+        <servlet-class>PresentationPartner.NavCon</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>navCon</servlet-name>
         <url-pattern>/navCon</url-pattern>
     </servlet-mapping>
-
     <!-- UploadFile  -->
     <servlet>
         <servlet-name>UploadFile</servlet-name>
@@ -141,7 +135,6 @@
         <servlet-name>UploadFile</servlet-name>
         <url-pattern>/UploadFile</url-pattern>
     </servlet-mapping>
-
     <context-param>
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
@@ -150,7 +143,6 @@
          
         </param-value>
     </context-param>
-    
     <!-- Finance Fetch  -->
     <servlet>
         <servlet-name>FinanceFetch</servlet-name>

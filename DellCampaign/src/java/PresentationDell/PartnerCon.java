@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationPartner;
+package PresentationDell;
 
 import Domain.CampaignController;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,28 +17,44 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author butwhole
  */
-public class UploadFile extends HttpServlet {
+public class PartnerCon extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
             CampaignController cc = new CampaignController();
-            String id = request.getSession().getAttribute("CampId").toString();
-            cc.LastChange(id);
-            String dupli = request.getSession().getAttribute("dupli").toString();
-            String invoi = request.getSession().getAttribute("invoi").toString();
+            String selected = request.getSession().getAttribute("Selected").toString();
+            String pc = "";
+            String sel = "";
+
             
-            if (invoi.equals("true")) {
-                invoi = "Invoice has been uploaded";
+            if (request.getParameter("PC") == null) {
+                sel = request.getParameter("sel");
             } else {
-                invoi = "";
+                pc = request.getParameter("PC");
+            }
+               
+            if(!pc.equals("")){
+                if(pc.equals("D")){
+                    cc.deletePart(selected);
+                    request.getSession().setAttribute("Partners", cc.FetchAllPartners());
+                    response.sendRedirect("ViewPartners.jsp");
+                }
+                if(pc.equals("B")){
+                    response.sendRedirect("DellFetch");
+                }
             }
             
-            if (dupli.equals("false")) {
-                cc.createPOE(id, request.getSession().getAttribute("POEname").toString(), invoi);
+            else if (!sel.equals("")) {
+                request.getSession().setAttribute("Selected", sel);
+                response.sendRedirect("ViewPartners.jsp");
+                    
             }
-            response.sendRedirect("PartnerFetch");
+            else{
+                response.sendRedirect("ViewPartners.jsp");
+            }
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());

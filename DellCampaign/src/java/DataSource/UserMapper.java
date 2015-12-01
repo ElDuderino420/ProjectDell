@@ -5,11 +5,15 @@
  */
 package DataSource;
 
+import Domain.Campaign;
 import Domain.Partner;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -18,6 +22,39 @@ import java.sql.Statement;
 public class UserMapper {
     
     
+    public String getNextPartId() throws Exception {
+        Connection con = null;
+        Random id =  new Random();
+        boolean next = true;
+        int result = 0;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+
+            ResultSet rs = ps.executeQuery("SELECT id FROM Partner");
+            while(next){
+               result = id.nextInt(89999)+10000;
+            while (rs.next()) {
+                
+                int temp = Integer.parseInt(rs.getString(1).substring(1));
+                if (temp == result) {
+                    next=true;
+                    break;
+                }
+                else{
+                    next = false;
+                }
+            }
+            }
+            
+            ps.close();
+            return "P" + result;
+
+        } finally {
+
+        }
+
+    }
     
     public boolean CheckPartner(String id) throws Exception {
         Connection con = null;
@@ -187,4 +224,48 @@ public class UserMapper {
 
     }
 
+    public List<Partner> FetchAllPartners() throws Exception {
+        List<Partner> result = new ArrayList<>();
+        Connection con = null;
+        
+        con = DatabaseCon.getInstance().getConnection();
+        Statement ps = con.createStatement();
+        try {
+
+            ResultSet rs = ps.executeQuery("SELECT * FROM Partner;");
+            while (rs.next()) {
+                Partner part = new Partner(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        "");
+                
+                      part.setEmail(rs.getString(5));        
+                      part.setPhone(rs.getString(6));
+
+
+                result.add(part);
+            }
+
+        } finally {
+
+        }
+        ps.close();
+        return result;
+    }
+    
+     public void deletePart(String id) throws Exception {
+
+        Connection con = null;
+        try {
+            
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("Delete from Partner where id = '" + id + "';");
+            ps.close();
+        } finally {
+
+        }
+
+    }
 }

@@ -18,9 +18,9 @@ public class CampaignDetails {
     CampaignDetails contains all the infomation from the MDFRequest
     */
     
-    public String getChecked(boolean cunt){
+    public String getChecked(boolean check){
         
-        if(cunt){
+        if(check){
             return "checked";
         }
         

@@ -24,8 +24,4 @@ public class POEDetails {
     public void setDl(String dl) {
         this.dl = dl;
     }
-
-    
-    
-    
 }

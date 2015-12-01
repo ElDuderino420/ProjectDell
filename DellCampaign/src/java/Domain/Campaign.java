@@ -45,11 +45,7 @@ public class Campaign {
     public String getId() {
         return id;
     }
-
     
-
-    
-
     public String getPid() {
         return pid;
     }
@@ -98,9 +94,6 @@ public class Campaign {
         this.dismissed = dismissed;
     }
 
-    
-    
-
     public String getDateChanged() {
         return dateChanged;
     }
@@ -108,6 +101,4 @@ public class Campaign {
     public void setDateChanged(String dateChanged) {
         this.dateChanged = dateChanged;
     }
-    
-    
 }

@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="coolpoe.css">
-        <title>JSP Page</title>
+        <title>View POE</title>
     </head>
     <body>
         <% List<POEDetails> viewpoe = (List<POEDetails>) request.getSession().getAttribute("lust");

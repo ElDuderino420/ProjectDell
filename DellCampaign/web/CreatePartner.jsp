@@ -19,7 +19,7 @@
                 <form style="display: inline" action="ApplyPartner" method="post">
 
                             <table style="margin-left: 10px; text-align: left;">
-                                <tr><td>Partner ID:  </td><td> <input id="inputtxt" class="input" name="PartnerID" type = "text" required/></td></tr>
+                                <tr><td>Partner ID:  </td><td> <input id="inputtxt" class="input" name="PartnerID" type = "text" value="<%=request.getSession().getAttribute("PartId").toString()%>" readonly required/></td></tr>
                                 <tr><td>Partner Name: </td><td><input id="inputtxt" class="input" name="PartnerName" type="text" required/></td></tr>
                                 <tr><td>Date Created: </td><td><input id="inputtxt"  class="input" name="DateCreated" type = "text" value="<%= LocalDateTime.now().toString().substring(0, 10)%>" readonly required/></td></tr>
                                 <tr><td>Password:     </td><td><input id="inputtxt" class="input" name="Password" type="text" required/></td></tr>

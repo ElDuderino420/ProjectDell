@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="maincss.css">
-        <title>Main Partner Window</title>
+        <title>Partner Home</title>
     </head>
     <body>
 
@@ -23,7 +23,7 @@
         <form action="navCon">
             <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
             <h1>&nbsp;Partner Campaigns</h1><br><br><br><br><br><br><br>
-            
+
             <div id="partner">
                 <br>
                 <table id="partner" cellspacing="0">
@@ -69,7 +69,7 @@
                         }%>
 
                 </table>
-                        <br>
+                <br>
             </div>
             <div class="buttons">
                 <button id="b" class="button" name="nav" value="NC" type="submit">Create Campaign</button>
@@ -79,22 +79,22 @@
                 <button id="b" class="button" name="nav" value="Com" type="submit">Complete</button>
             </div>
             <br>
-            
+
         </form>
-                        <table>
-                            <tr>
-                                <td>
-                        <form action="LogOut">
-                            <button witdh="300" class="button" type="submit">Log Out</button>
-                        </form>
-                                    </td>
-                                    <td>
-                        <form action="navCon">
-                            <button witdh="300" class="button" type="submit" name="nav" value="EP">Edit Profile</button>
-                        </form>
-                                    </td>
-                                    
-                            </tr>
-                            </table>
+        <table>
+            <tr>
+                <td>
+                    <form action="LogOut">
+                        <button class="button" type="submit">Log Out</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="navCon">
+                        <button class="button" type="submit" name="nav" value="EP">Edit Profile</button>
+                    </form>
+                </td>
+
+            </tr>
+        </table>
     </body>
 </html>

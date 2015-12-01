@@ -41,8 +41,8 @@ public class DBFacade {
     }
     
     // CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
-    public void CreateCampaign(CampaignDetails cp, String pid, String derp, String comment) throws Exception {
-        cm.CreateCampaign(cp, pid, derp, comment);
+    public void CreateCampaign(CampaignDetails cd, String pid, String derp, String comment) throws Exception {
+        cm.CreateCampaign(cd, pid, derp, comment);
     }
 
     // returns a campaign details with the specifik id
@@ -144,7 +144,16 @@ public class DBFacade {
         return cm.CheckDeleted(id);
     }
     
+    public String getNextPartId() throws Exception {
+        return um.getNextPartId();
+    }
     
+    public List<Partner> FetchAllPartners() throws Exception {
+        return um.FetchAllPartners();
+    }
     
+    public void deletePart(String id) throws Exception {
+        um.deletePart(id);
+    }
     
 }

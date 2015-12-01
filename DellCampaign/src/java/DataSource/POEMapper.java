@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class POEMapper {
 
-    
     public void deleteCamp(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -168,7 +167,7 @@ public class POEMapper {
 
     }
 
-    public boolean CheckApproved(String id) throws Exception{
+    public boolean CheckApproved(String id) throws Exception {
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
@@ -185,7 +184,7 @@ public class POEMapper {
         }
         return false;
     }
-    
+
     public boolean InvoiceCheck(String id) throws Exception {
 
         Connection con = null;
@@ -247,7 +246,7 @@ public class POEMapper {
         }
         return false;
     }
-    
+
     public boolean POECheckApproved(String id) throws Exception {
 
         Connection con = null;
@@ -265,62 +264,6 @@ public class POEMapper {
 
         }
         return false;
-    }
-    
-    
-    
-    public boolean validate(String id, String method, String userId) throws Exception {
-        Connection con = null;
-        con = DatabaseCon.getInstance().getConnection();
-        Statement ps = con.createStatement();
-        String statement = null;
-        try {
-            switch (method) {
-                //partner functions
-                case "poeupload":
-                    statement = "select * from Campaign where id = '" + id + "' and CampApproved = 'Approved' and Pid = '" + userId + "';";
-                    break;
-                case "viewpoe":
-                    statement = "select * from Campaign,POEDetails where Campaign.id = POEDEtails.Cid "
-                            + "and Campaign.CampApproved = 'Approved' "
-                            + "and Campaign.PartnerId = '" + userId + "' "
-                            + "and Campaign.id = '" + id + "';";
-                    break;
-                case "complete":
-                    statement = "select * from POEDetails,Campaign where Campaign.id = POEDEtails.Cid "
-                            + "and DL = 'faktura.pdf' "
-                            + "and Cid = '" + id + "' "
-                            + "and Campaign.PartnerId = '" + userId + "';";
-                    break;
-                case "edit":
-                    statement = "select * from Campaign where POEApproved = 'N/A'"
-                            + "and Campaign.PartnerId = '" + userId + "' "
-                            + "and Campaign.id = '" + id + "';";
-                    break;
-
-                //dell functions
-                case "campapprove":
-                    statement = "select * from Campaign where CampApproved = 'Pending'"
-                            + "and Campaign.id = '" + id + "';";
-                    break;
-                case "poeapprove":
-                    statement = "select * from Campaign where POEApproved = 'Pending'"
-                            + "and Campaign.DellId = '" + userId + "' "
-                            + "and Campaign.id = '" + id + "';";
-                    break;
-                case "completed":
-                    statement = "select * from Campaign where POEApproved = 'Approved'"
-                            + "and Campaign.id = '" + id + "';";
-                    break;
-                case "deleted":
-                    statement = "select * from Campaign where CampApproved = 'DELETED'"
-                            + "and Campaign.id = '" + id + "';";
-                    break;
-            }
-        } finally {
-
-        }
-        return true;
     }
 
 }
