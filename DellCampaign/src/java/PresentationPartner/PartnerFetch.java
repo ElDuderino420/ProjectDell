@@ -22,14 +22,12 @@ public class PartnerFetch extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-                        
+            // retreives all ongoing and completed campaigns in 2 attributes for a specific partner
             CampaignController cc = new CampaignController();
             String id = request.getSession().getAttribute("id").toString();
-            request.getSession().setAttribute("allCamp", cc.FetchCampaigns("ongoing", id));
-            request.getSession().setAttribute("doneCamp", cc.FetchCampaigns("partcompleted", id));
-            
+            request.getSession().setAttribute("allCamp", cc.fetchCampaigns("ongoing", id));
+            request.getSession().setAttribute("doneCamp", cc.fetchCampaigns("partcompleted", id));
             response.sendRedirect("Partner.jsp");
-
         } catch (Exception ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp?msg=Error: " + ex.getMessage());

@@ -27,28 +27,37 @@ public class Main extends HttpServlet {
         String part = "";
 
         try {
-            
+            //the string will be made if there is a user with that id and password
             part = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
             String dell = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
             String finan = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
+            
+            // checks if user is a partner
             if (part != null) {
-                if (cc.CheckPartner(part)) {
+                // checks if the user has all informations on their profile
+                if (cc.checkPartner(part)) {
                     request.getSession().setAttribute("id", part);
                     response.sendRedirect("PartnerFetch");
                 } else {
-                    Partner p = cc.GetPartner(part);
+                    Partner p = cc.getPartner(part);
                     request.getSession().setAttribute("id", part);
                     request.getSession().setAttribute("part", p);
                     response.sendRedirect("EditPartner.jsp");
                 }
-            } else if (dell != null) {
+            } 
+            // checks if the user is a Dell employee
+            else if (dell != null) {
                 request.getSession().setAttribute("id", dell);
                 response.sendRedirect("DellFetch");
-            } else if (finan != null) {
+            } 
+            // checks if the user is a finance employee
+            else if (finan != null) {
                 request.getSession().setAttribute("id", finan);
                 response.sendRedirect("FinanceFetch");
-            } else {
+            } 
+            // if a user does not exist with that id and password returns to login with eror message
+            else {
                 request.getSession().setAttribute("errUP", "Incorrect username or password");
                 response.sendRedirect("index.jsp");
             }

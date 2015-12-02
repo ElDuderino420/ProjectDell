@@ -20,11 +20,17 @@
             List<Campaign> doneCamp = (List<Campaign>) session.getAttribute("doneCamp");
             String Selected = request.getSession().getAttribute("Selected").toString();
             String count = "class=\"alt\"";
+            String msg = "";
+            if (request.getSession().getAttribute("errIN") != null) {
+                msg = request.getSession().getAttribute("errIN").toString();
+            }
         %>
         <form action="navCon">
             <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
             <h1>&nbsp;Partner Campaigns</h1><br><br><br><br><br><br><br>
-
+            <%if (!msg.equals("")) {
+            %><div style="float: top;" id="warning"><%=msg%></div>
+            <%}%>
             <div id="partner">
                 <br>
                 <table id="partner" cellspacing="0">
@@ -69,6 +75,8 @@
                     <%}
                         }%>
 
+
+
                 </table>
                 <br>
             </div>
@@ -82,38 +90,38 @@
             <br>
 
         </form>
-                        <div id="partner">
-                <br>
-                <table id="partner" cellspacing="0">
-                    <th>Campaign ID</th>
-                    <th>Partner ID</th>
-                    <th>Dell ID</th>
-                    <th>Campaign approval</th>
-                    <th>POE status</th>
-                    <th>Last Changed</th>
-                    <th>Comments</th>
-                        <%                    for (Campaign c : doneCamp) {
-                                if (count.equals("class=\"alt\"")) {
-                                    count = "";
-                                } else {
-                                    count = "class=\"alt\"";
-                                }
-                        %>
-                    <tr <%=count%>>
-                        <td><%= c.getId()%></td>
-                        <td><%= c.getPid()%></td>
-                        <td><%= c.getDid()%></td>
-                        <td><%= c.getCampApproved()%></td>
-                        <td><%= c.getPoeApproved()%></td>
-                        <td><%= c.getDateChanged()%></td>
-                        <td><%= c.getComment()%></td>
-                    </tr>
-                    <%}%>
+        <div id="partner">
+            <br>
+            <table id="partner" cellspacing="0">
+                <th>Campaign ID</th>
+                <th>Partner ID</th>
+                <th>Dell ID</th>
+                <th>Campaign approval</th>
+                <th>POE status</th>
+                <th>Last Changed</th>
+                <th>Comments</th>
+                    <%                    for (Campaign c : doneCamp) {
+                            if (count.equals("class=\"alt\"")) {
+                                count = "";
+                            } else {
+                                count = "class=\"alt\"";
+                            }
+                    %>
+                <tr <%=count%>>
+                    <td><%= c.getId()%></td>
+                    <td><%= c.getPid()%></td>
+                    <td><%= c.getDid()%></td>
+                    <td><%= c.getCampApproved()%></td>
+                    <td><%= c.getPoeApproved()%></td>
+                    <td><%= c.getDateChanged()%></td>
+                    <td><%= c.getComment()%></td>
+                </tr>
+                <%}%>
 
-                </table>
-                <br>
-            </div>
-                        
+            </table>
+            <br>
+        </div>
+
         <table>
             <tr>
                 <td>

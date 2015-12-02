@@ -28,7 +28,7 @@ public class ApplyCampaign extends HttpServlet {
             HttpSession ss = request.getSession();
 
             CampaignController cc = new CampaignController();
-
+            // makes a CampaignDetail of all the information that is on site, (does not matter if it is correct or not)
             CampaignDetails cd = new CampaignDetails(
                     cc.getNextId(),
                     request.getParameter("SubmissionDate"),
@@ -80,45 +80,58 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("partnercontribution").toString()),
                     Integer.parseInt(request.getParameter("NoOpp").toString()),
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
-            if(request.getParameter("edit") == null){
-            if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false){
-                request.getSession().setAttribute("cd", cd);
-                request.getSession().setAttribute("errMDF", "Please select atleast 1 target audience");
-                response.sendRedirect("MDFRequest.jsp");
-            }else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
-                request.getSession().setAttribute("cd", cd);
-                request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
-                response.sendRedirect("MDFRequest.jsp");
-            }
-            }else {
-                String id = request.getSession().getAttribute("id").toString();
 
+            String comment = request.getParameter("Comment");
+            String redirect = "PartnerFetch";
+            String id = request.getSession().getAttribute("id").toString();
+
+            // apply campaign button
+            if (request.getParameter("edit") == null) {
+                // checks if target audience is selected if not returns with previous information and error message
+                if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false) {
+                    request.getSession().setAttribute("cd", cd);
+                    request.getSession().setAttribute("errMDF", "Please select atleast 1 target audience");
+                    response.sendRedirect("MDFRequest.jsp");
+                } // checks if time and/or date is of wrong format, returns with all informations previously typed and an error message
+                else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())) {
+                    request.getSession().setAttribute("cd", cd);
+                    request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
+                    response.sendRedirect("MDFRequest.jsp");
+                } 
+                // the campaign and campaign detail is created in the database
+                else {
+                    cc.createCampaign(cd, id, "", comment);
+                    response.sendRedirect("PartnerFetch");
+                }
+            } // if the edit button is clicked
+            else {
                 String submit = request.getParameter("edit");
-                String comment = request.getParameter("Comment");
-                String redirect = "PartnerFetch";
                 if (submit != null) {
+                    // if delete is clicked
                     if (submit.equals("Delete")) {
                         String Campid = request.getSession().getAttribute("CampId").toString();
                         cc.deleteCamp(Campid, comment);
-                    }
+                    } 
+                    // checks if target audience is selected if not returns with previous information and error message
                     else if (!cd.isSmb() && !cd.isPub() && !cd.isLe()) {
                         request.getSession().setAttribute("currentCD", cd);
                         request.getSession().setAttribute("errMDF", "Please select atleast 1 target audience");
                         redirect = "PartnerDetails.jsp";
-
-                    } else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
+                    }
+                    // checks if time and/or date is of wrong format, returns with all informations previously typed and an error message
+                    else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())) {
                         request.getSession().setAttribute("currentCD", cd);
                         request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
                         redirect = "PartnerDetails.jsp";
-                    } else if (submit.equals("Save")) {
+                    } 
+                    // if the save is clicked and no error is met, overwrites the campaign in the database
+                    else if (submit.equals("Save")) {
                         CampaignDetails cd2 = (CampaignDetails) request.getSession().getAttribute("currentCD");
                         cd.setId(cd2.getId());
-                        cc.CreateCampaign(cd, id, "edit", comment);
+                        cc.createCampaign(cd, id, "edit", comment);
                     }
 
-                } else {
-                    cc.CreateCampaign(cd, id, "", comment);
-                }
+                } 
                 response.sendRedirect(redirect);
             }
         } catch (Exception ex) {

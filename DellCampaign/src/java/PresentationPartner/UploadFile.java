@@ -28,10 +28,10 @@ public class UploadFile extends HttpServlet {
             String id = request.getSession().getAttribute("CampId").toString();
             String POEname = request.getSession().getAttribute("POEname").toString();
             boolean dupli = false;
-            cc.LastChange(id);
+            cc.lastChange(id);
+            List<POEDetails> list = cc.viewPOE(id);
             
-            List<POEDetails> list = cc.ViewPOE(id);
-            
+            // checks if there is a duplicate file in the database
             for (POEDetails poe : list) {
                 if(poe.getDl().equals(POEname)){
                     dupli = true;
@@ -39,16 +39,17 @@ public class UploadFile extends HttpServlet {
             }
 
             String invoi = request.getSession().getAttribute("invoi").toString();
-            
+            // checks if the poe is and invoice 
             if (invoi.equals("true")) {
                 invoi = "Invoice has been uploaded";
             } else {
                 invoi = "";
             }
-            
+            // if there is a duplicate in the database it is deleted
             if (dupli == true) {
                 cc.deletePOE(id, POEname);
             }
+            // creates the poe in the database
             cc.createPOE(id, POEname, invoi);
             response.sendRedirect("PartnerFetch");
         } catch (Exception ex) {

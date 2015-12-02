@@ -30,18 +30,22 @@ public class DellNavCon extends HttpServlet {
             String sel = "";
             String sel2 = "";
             String DNC = "";
+            // retreives the button pressed
             if (request.getParameter("DNC") == null && request.getParameter("sel2") == null) {
                 sel = request.getParameter("sel");
-            } else if (request.getParameter("DNC") == null && request.getParameter("sel") == null) {
+            }
+            else if (request.getParameter("DNC") == null && request.getParameter("sel") == null) {
                 sel2 = request.getParameter("sel2");
             } else {
                 DNC = request.getParameter("DNC");
             }
+            // if the select is pressed in Dell Home
             if (DNC.equals("") && sel2.equals("")) {
                 request.getSession().setAttribute("Selected", sel);
                 request.getSession().setAttribute("CampId", sel);
                 response.sendRedirect("DellFetch");
             }
+            // if the select is pressed in Deleted and Completed
             if (DNC.equals("") && sel.equals("")) {
                 request.getSession().setAttribute("Selected", sel2);
                 request.getSession().setAttribute("CampId", sel2);
@@ -57,7 +61,7 @@ public class DellNavCon extends HttpServlet {
                 // Campaign Detail Button
                 // checks if campaign is applicable (campaign status = Pending)
                 if (DNC.equals("CD")) {
-                    if (!selected.equals("null") && !cc.POECheckUpload(selected)) {
+                    if (!selected.equals("null") && !cc.poeCheckUpload(selected)) {
 
                         request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                         response.sendRedirect("CampDetails.jsp");
@@ -66,24 +70,27 @@ public class DellNavCon extends HttpServlet {
                     }
                 }
                 
+                // view partner button
                 if(DNC.equals("VP")){
-                    request.getSession().setAttribute("Partners", cc.FetchAllPartners());
+                    request.getSession().setAttribute("Partners", cc.fetchAllPartners());
                     response.sendRedirect("ViewPartners.jsp");
                 }
-                
-                if (DNC.equals("PD")) {
-
-                    if (!selected.equals("null") && cc.POECheckUpload(selected)) {
+                // detail button on the poe table
+                // checks if a campaign is selected and if that campaign has poe status "Pending"
+                if (DNC.equals("PD")){
+                    if (!selected.equals("null") && cc.poeCheckUpload(selected)) {
                         request.getSession().setAttribute("CID", selected);
-                        List<POEDetails> list = cc.ViewPOE(selected);
+                        List<POEDetails> list = cc.viewPOE(selected);
                         request.getSession().setAttribute("lust", list);
                         response.sendRedirect("DellViewPOE.jsp");
                     } else {
                         response.sendRedirect("DellFetch");
                     }
                 }
+                // Permanent delete button
+                // checks if a campaign is selected and if that campaign has status "DELETED"
                 if (DNC.equals("nuke")) {
-                    if (!selected.equals("null") && cc.CheckDeleted(selected)) {
+                    if (!selected.equals("null") && cc.checkDeleted(selected)) {
                         String path = request.getSession().getAttribute("filepath").toString();
                         cc.nukeCamp(selected, path);
                         DNC = "DC";
@@ -91,31 +98,37 @@ public class DellNavCon extends HttpServlet {
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
+                // Deleted and Completed button
+                // sets campaigns marked as poe status "approved" / "DELETED"
                 if (DNC.equals("DC")) {
                     request.getSession().setAttribute("Selected", "null");
-                    request.getSession().setAttribute("deletedCamp", cc.FetchCampaigns("deleted", ""));
-                    request.getSession().setAttribute("doneCamp", cc.FetchCampaigns("completed", ""));
+                    request.getSession().setAttribute("deletedCamp", cc.fetchCampaigns("deleted", ""));
+                    request.getSession().setAttribute("doneCamp", cc.fetchCampaigns("completed", ""));
                     response.sendRedirect("DCComics.jsp");
 
                 }
-
+                // detail button from Completed Campaigns
+                // checks if a campaign is selected and if that campaign has poe status Approved
                 if (DNC.equals("nerd")) {
-                    if (!selected.equals("null") && cc.POECheckApproved(selected)) {
+                    if (!selected.equals("null") && cc.poeCheckApproved(selected)) {
                         request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                         response.sendRedirect("Nerd.jsp");
                     } else {
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
+                // back button
                 if (DNC.equals("back")) {
 
                     response.sendRedirect("DellFetch");
 
                 }
+                // view poe on deleted and completed
+                // checks if a campaign is selected and if that campaign has poe status Approved
                 if (DNC.equals("viewpoe")) {
-                    if (!selected.equals("null") && cc.POECheckApproved(selected)) {
+                    if (!selected.equals("null") && cc.poeCheckApproved(selected)) {
                         request.getSession().setAttribute("campIDDD", selected);
-                        List<POEDetails> list = cc.ViewPOE(request.getSession().getAttribute("campIDDD").toString());
+                        List<POEDetails> list = cc.viewPOE(request.getSession().getAttribute("campIDDD").toString());
                         request.getSession().setAttribute("lust", list);
                         response.sendRedirect("NerdPOE.jsp");
                     }

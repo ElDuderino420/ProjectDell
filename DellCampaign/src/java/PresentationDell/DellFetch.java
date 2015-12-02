@@ -27,8 +27,10 @@ public class DellFetch extends HttpServlet{
         {
             
             CampaignController cc = new CampaignController();
-            request.getSession().setAttribute("allCamp",cc.FetchCampaigns("camp",""));
-            request.getSession().setAttribute("allPOE",cc.FetchCampaigns("poe",request.getSession().getAttribute("id").toString()));
+            // sets an attribute with all campaigns that needs approval
+            request.getSession().setAttribute("allCamp",cc.fetchCampaigns("camp",""));
+            // sets an attribute with all campaigns that needs poe Approved
+            request.getSession().setAttribute("allPOE",cc.fetchCampaigns("poe",request.getSession().getAttribute("id").toString()));
             response.sendRedirect("Dell.jsp");
         }
         catch (Exception ex) 

@@ -40,7 +40,7 @@ public class DBFacade {
     }
 
     public void createPartner(Partner p) throws Exception{
-        um.CreatePartner(p);
+        um.createPartner(p);
     }
     
     
@@ -84,12 +84,12 @@ public class DBFacade {
 
     
     public void poeApprove(String id, String Comment) throws Exception {
-        poem.POEApprove(id, Comment);
+        poem.poeApprove(id, Comment);
     }
 
     
     public void poeReject(String id, String Comment) throws Exception {
-        poem.POEReject(id, Comment);
+        poem.poeReject(id, Comment);
     }
 
     
@@ -104,16 +104,16 @@ public class DBFacade {
 
     
     public boolean invoiceCheck(String id) throws Exception {
-        return poem.InvoiceCheck(id);
+        return poem.invoiceCheck(id);
     }
 
     public boolean checkApproved(String id) throws Exception{
-        return poem.CheckApproved(id);
+        return poem.checkApproved(id);
     }
     
     
     public List<POEDetails> viewPOE(String id) throws Exception {
-        return poem.ViewPOE(id);
+        return poem.viewPOE(id);
     }
 
     
@@ -128,23 +128,23 @@ public class DBFacade {
 
     
     public boolean poeCheckUpload(String id) throws Exception {
-        return poem.POECheckUpload(id);
+        return poem.poeCheckUpload(id);
     }
     
     public boolean checkPartner(String id) throws Exception{
-        return um.CheckPartner(id);
+        return um.checkPartner(id);
     }
     
     public Partner getPartner(String id) throws Exception{
-        return um.GetPartner(id);
+        return um.getPartner(id);
     }
    
     public void editPartner(Partner p) throws Exception{
-        um.EditPartner(p);
+        um.editPartner(p);
     } 
     
     public boolean poeCheckApproved(String id) throws Exception {
-        return poem.POECheckApproved(id);
+        return poem.poeCheckApproved(id);
     }
     
     public boolean checkDeleted(String id) throws Exception {
@@ -156,7 +156,7 @@ public class DBFacade {
     }
     
     public List<Partner> fetchAllPartners() throws Exception {
-        return um.FetchAllPartners();
+        return um.fetchAllPartners();
     }
     
     

@@ -14,10 +14,10 @@ public class CampaignDetails {
     private boolean faceToFace, tradeShows, multiTouch, doorOpener, thirdParty, directMail, blitz, sc4000, ps4210, dellStorageSol, flashPriceDisk, fluidCache, dataProtection, powerEdgeServers, windowsServer, x86Server, powerEdgeVRTX, sdn, userCentric, cloudClientComputing, infrastructureHardware, bladeDataCenter, optimizedEnterprise, powerEdgeFX, sds, smb, le, pub;
     private int estimatedAttendees, totalProjectedCost, mdfRequest, totalMDFContribution, estimatedOpportunities, estimatedRevenue;
     
-    /*
-    CampaignDetails contains all the infomation from the MDFRequest
-    */
     
+    // CampaignDetails contains all the infomation from the MDFRequest
+    
+    //returns checked if true (used to check boxes in all MDFRequest forms)
     public String getChecked(boolean check){
         
         if(check){

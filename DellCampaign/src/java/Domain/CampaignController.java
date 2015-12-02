@@ -16,21 +16,22 @@ public class CampaignController {
     private DBFacade dbf = new DBFacade();
 
     // FetchCampaigns selects all the campaigns from the database and puts them into a list of campaigns and returns it
-    public List<Campaign> FetchCampaigns(String s, String id) throws Exception {
+    public List<Campaign> fetchCampaigns(String s, String id) throws Exception {
         return dbf.fetchCampaigns(s, id);
     }
     
     // sets poe status to Pending and changes comment
-    public void CompleteCamp(String id, String comment) throws Exception {
+    public void completeCamp(String id, String comment) throws Exception {
         dbf.completeCamp(id, comment);
     }
 
+    // creates a partner in the database
     public void createPartner(Partner p) throws Exception{
         dbf.createPartner(p);
     }
     
     // CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
-    public void CreateCampaign(CampaignDetails cd, String pid, String command, String comment) throws Exception {
+    public void createCampaign(CampaignDetails cd, String pid, String command, String comment) throws Exception {
         dbf.createCampaign(cd, pid, command, comment);
     }
 
@@ -98,12 +99,12 @@ public class CampaignController {
     }
 
     // POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
-    public void POEApprove(String id, String Comment) throws Exception {
+    public void poeApprove(String id, String Comment) throws Exception {
         dbf.poeApprove(id, Comment);
     }
 
     // POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
-    public void POEReject(String id, String Comment) throws Exception {
+    public void poeReject(String id, String Comment) throws Exception {
         dbf.poeReject(id, Comment);
     }
 
@@ -118,16 +119,16 @@ public class CampaignController {
     }
 
     // returns a boolean if a specific campaign has an Invoice.pdf in their poe folder
-    public boolean InvoiceCheck(String id) throws Exception {
+    public boolean invoiceCheck(String id) throws Exception {
         return dbf.invoiceCheck(id);
     }
 
-    public boolean CheckApproved(String id) throws Exception{
+    public boolean checkApproved(String id) throws Exception{
         return dbf.checkApproved(id);
     }
     
     // returns a list of POEs for a campaign
-    public List<POEDetails> ViewPOE(String id) throws Exception {
+    public List<POEDetails> viewPOE(String id) throws Exception {
         return dbf.viewPOE(id);
     }
 
@@ -137,40 +138,47 @@ public class CampaignController {
     }
     
     // LastChange updates the date of a given campaign id to todays date
-    public void LastChange(String id) throws Exception {
+    public void lastChange(String id) throws Exception {
         dbf.lastChange(id);
     }
 
     // checks if a campaign has been completed
-    public boolean POECheckUpload(String id) throws Exception {
+    public boolean poeCheckUpload(String id) throws Exception {
         return dbf.poeCheckUpload(id);
     }
     
-    public boolean CheckPartner(String id) throws Exception{
+    // returns false if the partner is missing information
+    public boolean checkPartner(String id) throws Exception{
         return dbf.checkPartner(id);
     }
     
-    public Partner GetPartner(String id) throws Exception{
+    // returns a partner from the database
+    public Partner getPartner(String id) throws Exception{
         return dbf.getPartner(id);
     }
    
-    public void EditPartner(Partner p) throws Exception{
+    // edits information about a partner
+    public void editPartner(Partner p) throws Exception{
         dbf.editPartner(p);
     } 
     
-    public boolean POECheckApproved(String id) throws Exception {
+    // returns true if the campaigns poe has been approved
+    public boolean poeCheckApproved(String id) throws Exception {
         return dbf.poeCheckApproved(id);
     }
     
-    public boolean CheckDeleted(String id) throws Exception {
+    // returns true if campaign is marked DELETED
+    public boolean checkDeleted(String id) throws Exception {
         return dbf.checkDeleted(id);
     }
     
+    // returns a String with a viable campaign id
     public String getNextPartId() throws Exception {
         return dbf.getNextPartId();
     }
     
-    public List<Partner> FetchAllPartners() throws Exception {
+    // returns a list of all partners (excluding passwords)
+    public List<Partner> fetchAllPartners() throws Exception {
         return dbf.fetchAllPartners();
     }
     

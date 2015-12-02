@@ -23,6 +23,7 @@ public class LogOut extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            // clears session and goes back to login page
             request.getSession().invalidate();
             response.sendRedirect("index.jsp");
         } catch (Exception ex) {

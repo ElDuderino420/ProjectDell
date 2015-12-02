@@ -56,7 +56,7 @@ public class UserMapper {
     }
 
     // returns false if the partner is missing information
-    public boolean CheckPartner(String id) throws Exception {
+    public boolean checkPartner(String id) throws Exception {
         Connection con = null;
         Statement check = null;
         try {
@@ -81,7 +81,7 @@ public class UserMapper {
     }
 
     // creates a partner in the database
-    public void CreatePartner(Partner p) throws Exception {
+    public void createPartner(Partner p) throws Exception {
         Connection con = null;
         PreparedStatement newPartner = null;
         try {
@@ -109,7 +109,7 @@ public class UserMapper {
     }
 
     // returns a partner from the database
-    public Partner GetPartner(String id) throws Exception {
+    public Partner getPartner(String id) throws Exception {
         Connection con = null;
         Statement part = null;
         try {
@@ -138,7 +138,7 @@ public class UserMapper {
     }
 
     // edits information about a partner
-    public void EditPartner(Partner p) throws Exception {
+    public void editPartner(Partner p) throws Exception {
         Connection con = null;
         PreparedStatement part = null;
 
@@ -165,7 +165,7 @@ public class UserMapper {
     }
 
     // checks if user login is a partner
-    public String FetchPartners(String id, String pass) throws Exception {
+    public String fetchPartners(String id, String pass) throws Exception {
         String Partner = null;
         Connection con = null;
         try {
@@ -185,7 +185,7 @@ public class UserMapper {
     }
 
     // checks if user login is a Dell employee
-    public String FetchDell(String id, String pass) throws Exception {
+    public String fetchDell(String id, String pass) throws Exception {
         String Dell = null;
         Connection con = null;
         try {
@@ -205,7 +205,7 @@ public class UserMapper {
     }
 
     // checks if user login is a finance member
-    public String FetchFinance(String id, String pass) throws Exception {
+    public String fetchFinance(String id, String pass) throws Exception {
         String Finance = null;
         Connection con = null;
         try {
@@ -225,7 +225,7 @@ public class UserMapper {
     }
 
     // returns a list of all partners (excluding passwords)
-    public List<Partner> FetchAllPartners() throws Exception {
+    public List<Partner> fetchAllPartners() throws Exception {
         List<Partner> result = new ArrayList<>();
         Connection con = null;
 

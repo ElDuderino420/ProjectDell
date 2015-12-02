@@ -26,6 +26,7 @@ public class NavCon extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            request.getSession().setAttribute("errIN",null);
             request.getSession().setAttribute("errMDF", null);
             String selected = request.getSession().getAttribute("Selected").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
@@ -35,49 +36,67 @@ public class NavCon extends HttpServlet {
             String sel = "";
             CampaignController cc = new CampaignController();
 
+            // checks if the button is a select or an other type of button
             if (request.getParameter("nav") == null) {
                 sel = request.getParameter("sel");
             } else {
                 nav = request.getParameter("nav");
             }
-            // click new campaign
-
+            // edit profile button
             if (nav.equals("EditPartner")) {
                 Partner p = (Partner) request.getSession().getAttribute("part");
                 p.setName(request.getParameter("PartnerName"));
                 p.setPassword(request.getParameter("Password"));
                 p.setEmail(request.getParameter("Email"));
                 p.setPhone(request.getParameter("Phone"));
-                cc.EditPartner(p);
+                cc.editPartner(p);
                 response.sendRedirect("PartnerFetch");
-                if (nav.equals("back")) {
-                    response.sendRedirect("PartnerFetch");
-                }
-            } else if (nav.equals("NC")) {
+            }
+            // new campaign button
+            else if (nav.equals("NC")) {
                 CampaignDetails cd = new CampaignDetails();
                 request.getSession().setAttribute("cd", cd);
                 response.sendRedirect("MDFRequest.jsp");
-            } else if (nav.equals("EP")) {
-                Partner p = cc.GetPartner(request.getSession().getAttribute("id").toString());
+            }
+            // edit partner button
+            else if (nav.equals("EP")) {
+                Partner p = cc.getPartner(request.getSession().getAttribute("id").toString());
                 request.getSession().setAttribute("part", p);
                 response.sendRedirect("EditPartner.jsp");
-            } else if (!sel.equals("")) {
+            } 
+            // select button
+            else if (!sel.equals("")) {
                 request.getSession().setAttribute("Selected", sel);
                 request.getSession().setAttribute("CampId", sel);
                 response.sendRedirect("PartnerFetch");
-            } else if (cc.checkID(selected)) {
+            } 
+            // checks if there is a valid campaign selected
+            else if (cc.checkID(selected)) {
+                // details button
                 if (nav.equals("D")) {
                     request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                     response.sendRedirect("PartnerDetails.jsp");
-                } // click Upload POE
-                else if (nav.equals("UP") && cc.CheckApproved(selected)) {
+                } 
+                // Upload POE button
+                else if (nav.equals("UP") && cc.checkApproved(selected)) {
                     response.sendRedirect("POEUpload.jsp");
-                } else if (nav.equals("Com") && cc.InvoiceCheck(selected)) {
-                    cc.CompleteCamp(selected, "");
-                    cc.LastChange(selected);
+                } 
+                // complete button
+                else if (nav.equals("Com")) {
+                    // checks if the selected campaign has an invoice
+                    if(cc.invoiceCheck(selected)){
+                    cc.completeCamp(selected, "");
+                    cc.lastChange(selected);
+                    }
+                    // else it goes back with an error message
+                    else{
+                        request.getSession().setAttribute("errIN","Please upload an Invoice before completing your campaign");
+                    }
                     response.sendRedirect("PartnerFetch");
-                } else if (nav.equals("PD")) {
-                    List<POEDetails> list = cc.ViewPOE(selected);
+                } 
+                // view poe button 
+                else if (nav.equals("PD")) {
+                    List<POEDetails> list = cc.viewPOE(selected);
                     request.getSession().setAttribute("lust", list);
                     response.sendRedirect("PartnerViewPOE.jsp");
                 } else {

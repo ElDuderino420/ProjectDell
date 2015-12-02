@@ -23,9 +23,12 @@ public class ApplyPartner extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            // retuns to Dell Home if "back" is clicked
             if(request.getParameter("CreatePartner").equals("Back")){
                 response.sendRedirect("DellFetch");
-            }else{
+            }
+            // creates a partner in the database from the data entered, then returns to Dell Home
+            else{
             Partner p = new Partner(request.getParameter("PartnerID"),
                     request.getParameter("PartnerName"),
                     request.getParameter("DateCreated"), 

@@ -30,9 +30,11 @@ public class CampaignApproval extends HttpServlet{
             CampaignController cc = new CampaignController();
             CampaignDetails derp = (CampaignDetails) request.getSession().getAttribute("currentCD");
             String s = request.getSession().getAttribute("id").toString();
+            // changes status of the campaign to "Approved"
             if(request.getParameter("poe").equals("Approve")){
                 cc.campApprove(derp.getId(), request.getParameter("comment"),s);
             }
+            // changes status of the campaign to "Rejected"
             if(request.getParameter("poe").equals("Reject")){
                 cc.campReject(derp.getId(), request.getParameter("comment"),s);
             }

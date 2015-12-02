@@ -17,17 +17,17 @@ public class LogInController {
     
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
     public String FetchPartners(String id,String pass) throws Exception {
-        return map.FetchPartners(id, pass);
+        return map.fetchPartners(id, pass);
     }
     
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
     public String FetchDell(String id,String pass) throws Exception {
-        return map.FetchDell(id, pass);
+        return map.fetchDell(id, pass);
     }
 
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false    
     public String FetchFinance(String id,String pass) throws Exception {
-        return map.FetchFinance(id, pass);
+        return map.fetchFinance(id, pass);
     }
     
 }

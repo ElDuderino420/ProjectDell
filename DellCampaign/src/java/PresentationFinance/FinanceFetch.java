@@ -25,9 +25,9 @@ public class FinanceFetch extends HttpServlet{
         
         try
         {
-            
+            // sets and attibute with a list of all campaigns that are completed
             CampaignController cc = new CampaignController();
-            request.getSession().setAttribute("allCamp",cc.FetchCampaigns("completed",""));
+            request.getSession().setAttribute("allCamp",cc.fetchCampaigns("completed",""));
             response.sendRedirect("Finance.jsp");
         }
         catch (Exception ex) 

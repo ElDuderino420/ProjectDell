@@ -75,11 +75,11 @@ public class POEMapper {
         }
         path = path.substring(0, derp) + f + "Poe" + f + id;
         file = new File(path);
-        DeleteFileFolder(file);
+        deleteFileFolder(file);
     }
 
     // runs a loop which calls delte method (runned through nukeFolder)
-    private void DeleteFileFolder(File file) {
+    private void deleteFileFolder(File file) {
 
         if (file.exists()) {
             do {
@@ -109,7 +109,7 @@ public class POEMapper {
     }
 
     // POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
-    public void POEApprove(String id, String Comment) throws Exception {
+    public void poeApprove(String id, String Comment) throws Exception {
 
         Connection con = null;
         try {
@@ -129,7 +129,7 @@ public class POEMapper {
     }
 
     // POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
-    public void POEReject(String id, String Comment) throws Exception {
+    public void poeReject(String id, String Comment) throws Exception {
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
@@ -184,7 +184,7 @@ public class POEMapper {
     }
     
     // returns true if a specific campaign has been approved
-    public boolean CheckApproved(String id) throws Exception {
+    public boolean checkApproved(String id) throws Exception {
         Connection con = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
@@ -203,7 +203,7 @@ public class POEMapper {
     }
     
 // returns a boolean if a specific campaign has an Invoice.pdf in their poe folder
-    public boolean InvoiceCheck(String id) throws Exception {
+    public boolean invoiceCheck(String id) throws Exception {
 
         Connection con = null;
         try {
@@ -223,7 +223,7 @@ public class POEMapper {
     }
 
     // returns a list of POEs for a campaign
-    public List<POEDetails> ViewPOE(String id) throws Exception {
+    public List<POEDetails> viewPOE(String id) throws Exception {
 
         Connection con = null;
         try {
@@ -248,7 +248,7 @@ public class POEMapper {
     }
 
     // returns true if the campaign has been marked completed
-    public boolean POECheckUpload(String id) throws Exception {
+    public boolean poeCheckUpload(String id) throws Exception {
 
         Connection con = null;
         try {
@@ -268,7 +268,7 @@ public class POEMapper {
     }
 
     // returns true if the campaigns poe has been approved
-    public boolean POECheckApproved(String id) throws Exception {
+    public boolean poeCheckApproved(String id) throws Exception {
 
         Connection con = null;
         try {
