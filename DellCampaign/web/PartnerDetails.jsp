@@ -15,12 +15,20 @@
         <title>Edit Campaign</title>
     </head>
     <% CampaignDetails cd = (CampaignDetails) request.getSession().getAttribute("currentCD");
+        String msg = "";
+        if (request.getSession().getAttribute("errMDF") != null) {
+            msg = request.getSession().getAttribute("errMDF").toString();
+        }
     %>
     <body>
         <h2>Enterprise Field Marketing:</h2>
 
         <h4>Marketing Development Fund (MDF) Request</h4>
         <h6>*Required Field</h6>
+        <%if (!msg.equals("")) {
+        %><div style="margin-left: 50px;" id="warning"><%=msg%></div>
+        <%}%>
+        
         <form action='ApplyCampaign' method="post">
             <table>
                 <tr>
@@ -77,7 +85,7 @@
                 </tr>
             </table>
 
-                
+
 
             <p id="inputtxt">Program description and/or agenda*:</p>
             <textarea class="binput" name ="desc" required><%= cd.getProgramDescription()%></textarea>
@@ -222,7 +230,7 @@
                                 <li>Webinar</li>
                                 <li>Online advertising</li>
                                 <li>Or as otherwise previously approved by Dell</li>
-                                
+
                             </ul>
                             <br>
                         </td>
@@ -360,8 +368,8 @@
             <button class="button" type='submit' name='edit' value="Save" >Save and Edit</button>
             <button class="button" type='submit' name='edit' value="Delete">Delete</button><br><br>
         </form>
-            <form method='Post' action='PartnerFetch'> 
-                <button id="back" class="button" type="submit">Back</button>
-            </form>
+        <form method='Post' action='PartnerFetch'> 
+            <button id="back" class="button" type="submit">Back</button>
+        </form>
     </body>
 </html>

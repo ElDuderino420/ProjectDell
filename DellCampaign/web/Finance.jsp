@@ -59,6 +59,8 @@
 
         </div>
         <br><br><br><br><br>
-        <a href ="index.jsp">Log Out</a>
+        <form action="LogOut">
+                        <button class="button" type="submit">Log Out</button>
+                    </form>
     </body>
 </html>

@@ -16,7 +16,8 @@
     </head>
     <body>
 
-        <% List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
+        <%  List<Campaign> CampData = (List<Campaign>) session.getAttribute("allCamp");
+            List<Campaign> doneCamp = (List<Campaign>) session.getAttribute("doneCamp");
             String Selected = request.getSession().getAttribute("Selected").toString();
             String count = "class=\"alt\"";
         %>
@@ -81,6 +82,38 @@
             <br>
 
         </form>
+                        <div id="partner">
+                <br>
+                <table id="partner" cellspacing="0">
+                    <th>Campaign ID</th>
+                    <th>Partner ID</th>
+                    <th>Dell ID</th>
+                    <th>Campaign approval</th>
+                    <th>POE status</th>
+                    <th>Last Changed</th>
+                    <th>Comments</th>
+                        <%                    for (Campaign c : doneCamp) {
+                                if (count.equals("class=\"alt\"")) {
+                                    count = "";
+                                } else {
+                                    count = "class=\"alt\"";
+                                }
+                        %>
+                    <tr <%=count%>>
+                        <td><%= c.getId()%></td>
+                        <td><%= c.getPid()%></td>
+                        <td><%= c.getDid()%></td>
+                        <td><%= c.getCampApproved()%></td>
+                        <td><%= c.getPoeApproved()%></td>
+                        <td><%= c.getDateChanged()%></td>
+                        <td><%= c.getComment()%></td>
+                    </tr>
+                    <%}%>
+
+                </table>
+                <br>
+            </div>
+                        
         <table>
             <tr>
                 <td>

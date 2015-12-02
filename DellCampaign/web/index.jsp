@@ -7,8 +7,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<% request.getSession().setAttribute("realPath", application.getRealPath(request.getServletPath()));
+<% 
     String msg = "";
+    if(request.getSession().getAttribute("errUP") != null){
+                msg = request.getSession().getAttribute("errUP").toString();
+    }
+    request.getSession().invalidate();
+    request.getSession().setAttribute("realPath", application.getRealPath(request.getServletPath()));
 %>
 
 <html>
@@ -22,8 +27,7 @@
         <img id="pic" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Dell-Logo.svg/2000px-Dell-Logo.svg.png"/><br><br><br><br><br><br><br><br><br>
         <form action="Main" id="login" method="POST">
             <%
-            if(request.getSession().getAttribute("errUP") != null){
-                msg = request.getSession().getAttribute("errUP").toString();
+            if(!msg.equals("")){
         %><div id="warning"><%=msg%></div>
         <%}%>
             

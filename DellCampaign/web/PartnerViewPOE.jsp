@@ -3,7 +3,7 @@
     Created on : 12-Nov-2015, 12:24:20
     Author     : Whalecum
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.List"%>
 <%@page import="Domain.POEDetails"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -23,7 +23,8 @@ import java.util.List;
  * @author Warco
  */
 public class POEMapper {
-
+    
+    // marks a campaign for deleting
     public void deleteCamp(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -42,6 +43,7 @@ public class POEMapper {
 
     }
 
+    // completely deletes a specific campaign from database as well as any poe on the server
     public void nukeCamp(String id, String path) throws Exception {
         Connection con = null;
 
@@ -60,7 +62,8 @@ public class POEMapper {
 
         }
     }
-
+    
+    // builds a path to the poe folder (runned through nukeCamp)
     private void nukeFolder(String id, String path) {
         File file;
         int derp = path.indexOf("/build/web/");
@@ -75,42 +78,37 @@ public class POEMapper {
         DeleteFileFolder(file);
     }
 
-    private void DeleteFileFolder(File file2) {
+    // runs a loop which calls delte method (runned through nukeFolder)
+    private void DeleteFileFolder(File file) {
 
-        File file = file2;
         if (file.exists()) {
             do {
                 delete(file);
             } while (file.exists());
-        } else {
-
-        }
-
+        } 
     }
 
+    // iterates a folder deleting every file one by one (runned through DeleteFileFolder)
     private void delete(File file) {
         if (file.isDirectory()) {
             String fileList[] = file.list();
             if (fileList.length == 0) {
-                System.out.println("Deleting Directory : " + file.getPath());
                 file.delete();
             } else {
                 int size = fileList.length;
                 for (int i = 0; i < size; i++) {
                     String fileName = fileList[i];
-                    System.out.println("File path : " + file.getPath() + " and name :" + fileName);
                     String fullPath = file.getPath() + "/" + fileName;
                     File fileOrFolder = new File(fullPath);
-                    System.out.println("Full Path :" + fileOrFolder.getPath());
                     delete(fileOrFolder);
                 }
             }
         } else {
-            System.out.println("Deleting file : " + file.getPath());
             file.delete();
         }
     }
 
+    // POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
     public void POEApprove(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -130,6 +128,7 @@ public class POEMapper {
         }
     }
 
+    // POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
     public void POEReject(String id, String Comment) throws Exception {
         Connection con = null;
         try {
@@ -148,6 +147,7 @@ public class POEMapper {
         }
     }
 
+    // creates a poe detail in the database and changes comment
     public void createPOE(String id, String path, String Comment) throws Exception {
 
         Connection con = null;
@@ -157,7 +157,7 @@ public class POEMapper {
             if (Comment == null || Comment.equals("")) {
                 Comment = "POE has been Uploaded";
             }
-            ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "')");
+            ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "');");
             ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
@@ -167,6 +167,23 @@ public class POEMapper {
 
     }
 
+    // deletes a poe detail in the database
+    public void deletePOE(String id, String path) throws Exception {
+
+        Connection con = null;
+        try {
+            con = DatabaseCon.getInstance().getConnection();
+            Statement ps = con.createStatement();
+            ps.executeUpdate("delete from POEDetails where DL = '" + path + "' and Cid = '" + id + "';");
+            ps.close();
+
+        } finally {
+
+        }
+
+    }
+    
+    // returns true if a specific campaign has been approved
     public boolean CheckApproved(String id) throws Exception {
         Connection con = null;
         try {
@@ -184,7 +201,8 @@ public class POEMapper {
         }
         return false;
     }
-
+    
+// returns a boolean if a specific campaign has an Invoice.pdf in their poe folder
     public boolean InvoiceCheck(String id) throws Exception {
 
         Connection con = null;
@@ -204,6 +222,7 @@ public class POEMapper {
 
     }
 
+    // returns a list of POEs for a campaign
     public List<POEDetails> ViewPOE(String id) throws Exception {
 
         Connection con = null;
@@ -228,6 +247,7 @@ public class POEMapper {
 
     }
 
+    // returns true if the campaign has been marked completed
     public boolean POECheckUpload(String id) throws Exception {
 
         Connection con = null;
@@ -247,6 +267,7 @@ public class POEMapper {
         return false;
     }
 
+    // returns true if the campaigns poe has been approved
     public boolean POECheckApproved(String id) throws Exception {
 
         Connection con = null;

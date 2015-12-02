@@ -17,12 +17,12 @@ public class CampaignController {
 
     // FetchCampaigns selects all the campaigns from the database and puts them into a list of campaigns and returns it
     public List<Campaign> FetchCampaigns(String s, String id) throws Exception {
-        return dbf.FetchCampaigns(s, id);
+        return dbf.fetchCampaigns(s, id);
     }
     
     // sets poe status to Pending and changes comment
     public void CompleteCamp(String id, String comment) throws Exception {
-        dbf.CompleteCamp(id, comment);
+        dbf.completeCamp(id, comment);
     }
 
     public void createPartner(Partner p) throws Exception{
@@ -30,8 +30,8 @@ public class CampaignController {
     }
     
     // CreateCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
-    public void CreateCampaign(CampaignDetails cd, String pid, String derp, String comment) throws Exception {
-        dbf.CreateCampaign(cd, pid, derp, comment);
+    public void CreateCampaign(CampaignDetails cd, String pid, String command, String comment) throws Exception {
+        dbf.createCampaign(cd, pid, command, comment);
     }
 
     // returns a campaign details with the specifik id
@@ -99,31 +99,36 @@ public class CampaignController {
 
     // POEApprove sets the POEApproved status to approved for a given campaign id and sets its comment to poe has been approved
     public void POEApprove(String id, String Comment) throws Exception {
-        dbf.POEApprove(id, Comment);
+        dbf.poeApprove(id, Comment);
     }
 
     // POEReject sets the poeapproved status to rejected for a given campaign id and changes the comment to poe has been rejected
     public void POEReject(String id, String Comment) throws Exception {
-        dbf.POEReject(id, Comment);
+        dbf.poeReject(id, Comment);
     }
 
     // creates a poe detail in the database and changes comment
     public void createPOE(String id, String path, String Comment) throws Exception {
         dbf.createPOE(id, path, Comment);
     }
+    
+    // deletes a poe detail in the database
+    public void deletePOE(String id, String path) throws Exception {
+        dbf.deletePOE(id, path);
+    }
 
     // returns a boolean if a specific campaign has an Invoice.pdf in their poe folder
     public boolean InvoiceCheck(String id) throws Exception {
-        return dbf.InvoiceCheck(id);
+        return dbf.invoiceCheck(id);
     }
 
     public boolean CheckApproved(String id) throws Exception{
-        return dbf.CheckApproved(id);
+        return dbf.checkApproved(id);
     }
     
     // returns a list of POEs for a campaign
     public List<POEDetails> ViewPOE(String id) throws Exception {
-        return dbf.ViewPOE(id);
+        return dbf.viewPOE(id);
     }
 
     // campChangeComment changes the comment of a given campaign id to a given comment
@@ -133,32 +138,32 @@ public class CampaignController {
     
     // LastChange updates the date of a given campaign id to todays date
     public void LastChange(String id) throws Exception {
-        dbf.LastChange(id);
+        dbf.lastChange(id);
     }
 
     // checks if a campaign has been completed
     public boolean POECheckUpload(String id) throws Exception {
-        return dbf.POECheckUpload(id);
+        return dbf.poeCheckUpload(id);
     }
     
     public boolean CheckPartner(String id) throws Exception{
-        return dbf.CheckPartner(id);
+        return dbf.checkPartner(id);
     }
     
     public Partner GetPartner(String id) throws Exception{
-        return dbf.GetPartner(id);
+        return dbf.getPartner(id);
     }
    
     public void EditPartner(Partner p) throws Exception{
-        dbf.EditPartner(p);
+        dbf.editPartner(p);
     } 
     
     public boolean POECheckApproved(String id) throws Exception {
-        return dbf.POECheckApproved(id);
+        return dbf.poeCheckApproved(id);
     }
     
     public boolean CheckDeleted(String id) throws Exception {
-        return dbf.CheckDeleted(id);
+        return dbf.checkDeleted(id);
     }
     
     public String getNextPartId() throws Exception {
@@ -166,10 +171,15 @@ public class CampaignController {
     }
     
     public List<Partner> FetchAllPartners() throws Exception {
-        return dbf.FetchAllPartners();
+        return dbf.fetchAllPartners();
     }
     
-    public void deletePart(String id) throws Exception {
+    // iterates a list of campaign ids from a partner for nuking, then deletes the partner
+    public void deletePart(String id,String path) throws Exception {
+        List<String> list = dbf.fetchAllCampaigns(id);
+        for (String camp : list) {
+            dbf.nukeCamp(camp, path);
+        }
         dbf.deletePart(id);
     }
 }

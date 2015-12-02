@@ -32,6 +32,7 @@ public class ApplyPartner extends HttpServlet {
                     request.getParameter("Password"));
             CampaignController cc = new CampaignController();
             cc.createPartner(p);
+            response.sendRedirect("DellFetch");
             }
             
         } catch (Exception ex) {

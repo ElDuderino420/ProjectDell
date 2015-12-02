@@ -23,25 +23,49 @@ import java.util.List;
  */
 public class CampMapper {
     
+    // returns a list of all campaign ids with a specific partner id
+    public List<String> fetchAllCampaigns(String id) throws Exception{
+        List<String> result = new ArrayList<>();
+        Connection con = DatabaseCon.getInstance().getConnection();
+        try{
+        Statement ps = con.createStatement();
+        ResultSet rs = ps.executeQuery("SELECT id FROM Campaign where PartnerId = '" + id + "';");
+        while(rs.next()){
+            result.add(rs.getString(1));
+        }
+        ps.close();
+        return result;
+        }
+        finally{
+            
+        }
+    }
     
-    public List<Campaign> FetchCampaigns(String s, String id) throws Exception {
+    // returns a list of all campaigns with a method status and a user id
+    public List<Campaign> fetchCampaigns(String status, String id) throws Exception {
         List<Campaign> result = new ArrayList<>();
         Connection con = null;
-        switch (s) {
+        switch (status) {
             case "ongoing":
-                s = "  where POEApproved != 'Approved' and PartnerId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC;";
+                status = "  where POEApproved != 'Approved' and PartnerId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC;";
                 break;
             case "completed":
-                s = " where POEApproved = 'Approved' and CampApproved != 'DELETED' order by LastChange DESC;";
+                status = " where POEApproved = 'Approved' and CampApproved != 'DELETED' order by LastChange DESC;";
                 break;
             case "poe":
-                s = " where POEApproved = 'Pending' and DellId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC;";
+                status = " where POEApproved = 'Pending' and DellId = '" + id + "' and CampApproved != 'DELETED' order by LastChange DESC;";
                 break;
             case "camp":
-                s = " where CampApproved = 'Pending' order by LastChange DESC;";
+                status = " where CampApproved = 'Pending' order by LastChange DESC;";
                 break;
             case "deleted":
-                s = " where CampApproved = 'DELETED' order by LastChange DESC;";
+                status = " where CampApproved = 'DELETED' order by LastChange DESC;";
+                break;
+            case "truncate":
+                status = "  where POEApproved != 'Approved' and PartnerId = '" + id + "' and CampApproved != 'DELETED' and CampApproved != 'Pending' order by LastChange DESC;";
+                break;
+            case "partcompleted":
+                status = " where POEApproved = 'Approved' and CampApproved != 'DELETED' and PartnerId = '" + id + "' order by LastChange DESC;";
                 break;
 
         }
@@ -49,7 +73,7 @@ public class CampMapper {
         Statement ps = con.createStatement();
         try {
 
-            ResultSet rs = ps.executeQuery("SELECT * FROM Campaign" + s);
+            ResultSet rs = ps.executeQuery("SELECT * FROM Campaign" + status);
             while (rs.next()) {
                 Campaign camp = new Campaign(
                         rs.getString(1),
@@ -71,7 +95,8 @@ public class CampMapper {
         return result;
     }
 
-    public void CompleteCamp(String id, String comment) throws Exception {
+    // sets poe status to Pending and changes comment
+    public void completeCamp(String id, String comment) throws Exception {
 
         Connection con = null;
 
@@ -89,7 +114,8 @@ public class CampMapper {
         }
     }
 
-    public void CreateCampaign(CampaignDetails cd, String pid, String derp, String comment) throws Exception {
+    // createCampaign takes a campaigndetail and inserts it into the campaign table and the campaigndetails table
+    public void createCampaign(CampaignDetails cd, String pid, String command, String comment) throws Exception {
 
         Connection con = null;
         PreparedStatement camp = null;
@@ -105,7 +131,7 @@ public class CampMapper {
                 comment = "Waiting for Approval";
             }
 
-            if (derp.equals("edit")) {
+            if (command.equals("edit")) {
                 campDeets2 = con.prepareStatement("Delete from CampaignDetails where id = '" + cd.getId() + "';");
                 poeDeets = con.prepareStatement("Delete From POEDetails where Cid ='" + cd.getId() + "';");
                 camp2 = con.prepareStatement("Delete From Campaign where id= '" + cd.getId() + "';");
@@ -211,6 +237,7 @@ public class CampMapper {
         }
     }
     
+    // returns a campaign details with the specifik id
     public CampaignDetails getCampDetail(String id) throws Exception {
         Connection con = null;
         try {
@@ -279,6 +306,7 @@ public class CampMapper {
         }
     }
 
+    // returns true if an campaign exists with that id
     public boolean checkID(String id) throws Exception {
 
         Connection con = null;
@@ -300,6 +328,7 @@ public class CampMapper {
 
     }
 
+    // getNextId returns the next string needed for the campaign id by adding 1 to the newest campaign in the database
     public String getNextId() throws Exception {
         int result = 0;
         Connection con = null;
@@ -324,6 +353,7 @@ public class CampMapper {
 
     }
 
+    // campApprove takes a campaign id and comment and sets the campapproved status to approved and sets the comment to capaign has been approved
     public void campApprove(String id, String Comment, String did) throws Exception {
 
         Connection con = null;
@@ -344,6 +374,7 @@ public class CampMapper {
         }
     }
 
+    // campReject takes the campaign id and a comment of a campaign and sets the campapproved status to rejected and the comment to campaign has been rejected
     public void campReject(String id, String Comment, String did) throws Exception {
 
         Connection con = null;
@@ -364,6 +395,7 @@ public class CampMapper {
         }
     }
 
+    // campChangeComment changes the comment of a given campaign id to a given comment
     public void campChangeComment(String id, String Comment) throws Exception {
 
         Connection con = null;
@@ -382,7 +414,8 @@ public class CampMapper {
         }
     }
 
-    public void LastChange(String id) throws Exception {
+    // lastChange updates the date of a given campaign id to todays date
+    public void lastChange(String id) throws Exception {
         Connection con = null;
         try {
 
@@ -397,7 +430,8 @@ public class CampMapper {
         }
     }
     
-    public boolean CheckDeleted(String id) throws Exception {
+    // returns true if campaign is marked DELETED
+    public boolean checkDeleted(String id) throws Exception {
 
         Connection con = null;
         try {
@@ -415,7 +449,4 @@ public class CampMapper {
         }
         return false;
     }
-
-    
-    
 }

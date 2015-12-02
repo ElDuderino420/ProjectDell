@@ -23,7 +23,8 @@ public class ApplyCampaign extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {           
+        try {
+            request.getSession().setAttribute("errMDF", null);
             HttpSession ss = request.getSession();
 
             CampaignController cc = new CampaignController();
@@ -49,7 +50,7 @@ public class ApplyCampaign extends HttpServlet {
                     cc.getChecked(request.getParameter("3rdparty")),
                     cc.getChecked(request.getParameter("directmail")),
                     cc.getChecked(request.getParameter("blitzcamp")),
-                    request.getParameter("desc"), 
+                    request.getParameter("desc"),
                     cc.getChecked(request.getParameter("SC4000")),
                     cc.getChecked(request.getParameter("PS4210")),
                     cc.getChecked(request.getParameter("storagesolutions")),
@@ -79,34 +80,44 @@ public class ApplyCampaign extends HttpServlet {
                     Integer.parseInt(request.getParameter("partnercontribution").toString()),
                     Integer.parseInt(request.getParameter("NoOpp").toString()),
                     Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
-            
-            if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false && request.getParameter("edit") == null) {
+            if(request.getParameter("edit") == null){
+            if (cd.isSmb() == false && cd.isLe() == false && cd.isPub() == false){
                 request.getSession().setAttribute("cd", cd);
-                response.sendRedirect("MDFRequest.jsp?msg=please select atleast 1 target audience");
-            } else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
+                request.getSession().setAttribute("errMDF", "Please select atleast 1 target audience");
+                response.sendRedirect("MDFRequest.jsp");
+            }else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
                 request.getSession().setAttribute("cd", cd);
-                response.sendRedirect("MDFRequest.jsp?msg=time and/or date incorrect");
-            } else {
+                request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
+                response.sendRedirect("MDFRequest.jsp");
+            }
+            }else {
                 String id = request.getSession().getAttribute("id").toString();
-                String Campid = request.getSession().getAttribute("CampId").toString();
 
                 String submit = request.getParameter("edit");
                 String comment = request.getParameter("Comment");
                 String redirect = "PartnerFetch";
                 if (submit != null) {
-                    if (!cd.isSmb() && !cd.isPub() && !cd.isLe()) {
+                    if (submit.equals("Delete")) {
+                        String Campid = request.getSession().getAttribute("CampId").toString();
+                        cc.deleteCamp(Campid, comment);
+                    }
+                    else if (!cd.isSmb() && !cd.isPub() && !cd.isLe()) {
                         request.getSession().setAttribute("currentCD", cd);
+                        request.getSession().setAttribute("errMDF", "Please select atleast 1 target audience");
+                        redirect = "PartnerDetails.jsp";
+
+                    } else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())){
+                        request.getSession().setAttribute("currentCD", cd);
+                        request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
                         redirect = "PartnerDetails.jsp";
                     } else if (submit.equals("Save")) {
                         CampaignDetails cd2 = (CampaignDetails) request.getSession().getAttribute("currentCD");
                         cd.setId(cd2.getId());
                         cc.CreateCampaign(cd, id, "edit", comment);
                     }
-                    if (submit.equals("Delete")) {
-                        cc.deleteCamp(Campid, comment);
-                    }
+
                 } else {
-                    cc.CreateCampaign(cd, id, "Create", null);
+                    cc.CreateCampaign(cd, id, "", comment);
                 }
                 response.sendRedirect(redirect);
             }

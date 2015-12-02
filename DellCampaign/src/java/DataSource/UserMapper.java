@@ -20,11 +20,11 @@ import java.util.Random;
  * @author David
  */
 public class UserMapper {
-    
-    
+
+    // returns a String with a viable campaign id
     public String getNextPartId() throws Exception {
         Connection con = null;
-        Random id =  new Random();
+        Random id = new Random();
         boolean next = true;
         int result = 0;
         try {
@@ -32,21 +32,20 @@ public class UserMapper {
             Statement ps = con.createStatement();
 
             ResultSet rs = ps.executeQuery("SELECT id FROM Partner");
-            while(next){
-               result = id.nextInt(89999)+10000;
-            while (rs.next()) {
-                
-                int temp = Integer.parseInt(rs.getString(1).substring(1));
-                if (temp == result) {
-                    next=true;
-                    break;
-                }
-                else{
-                    next = false;
+            while (next) {
+                result = id.nextInt(89999) + 10000;
+                while (rs.next()) {
+
+                    int temp = Integer.parseInt(rs.getString(1).substring(1));
+                    if (temp == result) {
+                        next = true;
+                        break;
+                    } else {
+                        next = false;
+                    }
                 }
             }
-            }
-            
+
             ps.close();
             return "P" + result;
 
@@ -55,33 +54,33 @@ public class UserMapper {
         }
 
     }
-    
+
+    // returns false if the partner is missing information
     public boolean CheckPartner(String id) throws Exception {
         Connection con = null;
         Statement check = null;
         try {
             con = DatabaseCon.getInstance().getConnection();
-            
+
             check = con.createStatement();
-            
+
             ResultSet rs = check.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
 
             rs.next();
-            if (rs.getString(5).equals("")|| rs.getString(6).equals("")) {
+            if (rs.getString(5).equals("") || rs.getString(6).equals("")) {
                 return false;
             }
 
-        }
-        
-        finally {
-            if(check!=null){
-            check.close();
+        } finally {
+            if (check != null) {
+                check.close();
             }
         }
 
         return true;
     }
 
+    // creates a partner in the database
     public void CreatePartner(Partner p) throws Exception {
         Connection con = null;
         PreparedStatement newPartner = null;
@@ -109,6 +108,7 @@ public class UserMapper {
         con.setAutoCommit(true);
     }
 
+    // returns a partner from the database
     public Partner GetPartner(String id) throws Exception {
         Connection con = null;
         Statement part = null;
@@ -116,55 +116,55 @@ public class UserMapper {
             con = DatabaseCon.getInstance().getConnection();
 
             part = con.createStatement();
-            
+
             ResultSet rs = part.executeQuery("SELECT * FROM Partner where id ='" + id + "';");
             rs.next();
             Partner p = new Partner(rs.getString(1),
-            rs.getString(2),
-            rs.getString(3),
-            rs.getString(4));
-            
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4));
+
             p.setEmail(rs.getString(5));
             p.setPhone(rs.getString(6));
 
             return p;
-            
+
         } finally {
             if (part != null) {
                 part.close();
             }
         }
-        
+
     }
-    
-    public void EditPartner(Partner p) throws Exception{
+
+    // edits information about a partner
+    public void EditPartner(Partner p) throws Exception {
         Connection con = null;
         PreparedStatement part = null;
-        
-        try{
+
+        try {
             con = DatabaseCon.getInstance().getConnection();
             con.setAutoCommit(false);
-            part = con.prepareStatement("Update Partner set Pname= '" + p.getName() + "' where id = '"+ p.getId() +"';");
+            part = con.prepareStatement("Update Partner set Pname= '" + p.getName() + "' where id = '" + p.getId() + "';");
             part.executeUpdate();
-            part = con.prepareStatement("Update Partner set pass= '" + p.getPassword() + "' where id = '"+ p.getId() +"';");
+            part = con.prepareStatement("Update Partner set pass= '" + p.getPassword() + "' where id = '" + p.getId() + "';");
             part.executeUpdate();
-            part = con.prepareStatement("Update Partner set email= '" + p.getEmail() + "' where id = '"+ p.getId() +"';");
+            part = con.prepareStatement("Update Partner set email= '" + p.getEmail() + "' where id = '" + p.getId() + "';");
             part.executeUpdate();
-            part = con.prepareStatement("Update Partner set phone= '" + p.getPhone() + "' where id = '"+ p.getId() +"';");
+            part = con.prepareStatement("Update Partner set phone= '" + p.getPhone() + "' where id = '" + p.getId() + "';");
             part.executeUpdate();
-    
+
             con.commit();
-                        
-        }
-        finally{
-            if(part!=null){
+
+        } finally {
+            if (part != null) {
                 part.close();
             }
         }
         con.setAutoCommit(true);
     }
 
-        // checks if user login is a partner
+    // checks if user login is a partner
     public String FetchPartners(String id, String pass) throws Exception {
         String Partner = null;
         Connection con = null;
@@ -224,10 +224,11 @@ public class UserMapper {
 
     }
 
+    // returns a list of all partners (excluding passwords)
     public List<Partner> FetchAllPartners() throws Exception {
         List<Partner> result = new ArrayList<>();
         Connection con = null;
-        
+
         con = DatabaseCon.getInstance().getConnection();
         Statement ps = con.createStatement();
         try {
@@ -239,10 +240,9 @@ public class UserMapper {
                         rs.getString(2),
                         rs.getString(3),
                         "");
-                
-                      part.setEmail(rs.getString(5));        
-                      part.setPhone(rs.getString(6));
 
+                part.setEmail(rs.getString(5));
+                part.setPhone(rs.getString(6));
 
                 result.add(part);
             }
@@ -253,12 +253,13 @@ public class UserMapper {
         ps.close();
         return result;
     }
-    
-     public void deletePart(String id) throws Exception {
 
+    // deletes a partner from the database
+    public void deletePart(String id) throws Exception {
+        
         Connection con = null;
         try {
-            
+
             con = DatabaseCon.getInstance().getConnection();
             Statement ps = con.createStatement();
             ps.executeUpdate("Delete from Partner where id = '" + id + "';");
@@ -266,6 +267,5 @@ public class UserMapper {
         } finally {
 
         }
-
     }
 }

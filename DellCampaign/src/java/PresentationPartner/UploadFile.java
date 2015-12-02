@@ -6,7 +6,9 @@
 package PresentationPartner;
 
 import Domain.CampaignController;
+import Domain.POEDetails;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +26,18 @@ public class UploadFile extends HttpServlet {
         try {
             CampaignController cc = new CampaignController();
             String id = request.getSession().getAttribute("CampId").toString();
+            String POEname = request.getSession().getAttribute("POEname").toString();
+            boolean dupli = false;
             cc.LastChange(id);
-            String dupli = request.getSession().getAttribute("dupli").toString();
+            
+            List<POEDetails> list = cc.ViewPOE(id);
+            
+            for (POEDetails poe : list) {
+                if(poe.getDl().equals(POEname)){
+                    dupli = true;
+                }
+            }
+
             String invoi = request.getSession().getAttribute("invoi").toString();
             
             if (invoi.equals("true")) {
@@ -34,9 +46,10 @@ public class UploadFile extends HttpServlet {
                 invoi = "";
             }
             
-            if (dupli.equals("false")) {
-                cc.createPOE(id, request.getSession().getAttribute("POEname").toString(), invoi);
+            if (dupli == true) {
+                cc.deletePOE(id, POEname);
             }
+            cc.createPOE(id, POEname, invoi);
             response.sendRedirect("PartnerFetch");
         } catch (Exception ex) {
             ex.printStackTrace();

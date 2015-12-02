@@ -24,9 +24,7 @@ public class DatabaseCon {
     private static DatabaseCon instance;
 
     
-    /*
-    Singleton Database connection manager, creates a connection to the database
-    */
+    // Singleton Database connection manager, creates a connection to the database
     private DatabaseCon() {
         try {
             Class.forName(driver);
@@ -39,9 +37,8 @@ public class DatabaseCon {
         }
     }
 
-    /*
-    return the instance of the database connector
-    */
+    
+    // return the instance of the database connector
     public static DatabaseCon getInstance() {
         if (instance == null) {
             instance = new DatabaseCon();
@@ -50,9 +47,7 @@ public class DatabaseCon {
     }
     //------------------
 
-    /*
-    getConnection returns the connection to the database
-    */
+    // getConnection returns the connection to the database
     public Connection getConnection() {
         return con;
     }

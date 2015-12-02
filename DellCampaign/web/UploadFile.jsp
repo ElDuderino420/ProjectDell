@@ -14,6 +14,8 @@
 
 <%
     File file;
+    int maxFileSize = 5000 * 1024;
+    int maxMemSize = 5000 * 1024;
     String filePath = application.getRealPath(request.getServletPath());
     String id = request.getSession().getAttribute("CampId").toString().toUpperCase();
     if (id == null || id.equals("")) {
@@ -31,11 +33,9 @@
         file = new File(filePath);
         if (!file.exists()) {
             file.mkdirs();
-            request.getSession().setAttribute("dupli", "false");
         }
         else{
             file.delete();
-            request.getSession().setAttribute("dupli", "true");
         }
 
         // Verify the content type

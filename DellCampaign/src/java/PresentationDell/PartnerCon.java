@@ -27,7 +27,10 @@ public class PartnerCon extends HttpServlet {
             String selected = request.getSession().getAttribute("Selected").toString();
             String pc = "";
             String sel = "";
-
+            
+            if(request.getSession().getAttribute("errDEL") != null){
+            request.getSession().removeAttribute("errDEL");
+            }
             
             if (request.getParameter("PC") == null) {
                 sel = request.getParameter("sel");
@@ -37,9 +40,16 @@ public class PartnerCon extends HttpServlet {
                
             if(!pc.equals("")){
                 if(pc.equals("D")){
-                    cc.deletePart(selected);
+                    if(cc.FetchCampaigns("truncate", selected).isEmpty()){
+                    String path = request.getSession().getAttribute("filepath").toString();
+                    cc.deletePart(selected,path);
                     request.getSession().setAttribute("Partners", cc.FetchAllPartners());
                     response.sendRedirect("ViewPartners.jsp");
+                    }
+                    else{
+                        request.getSession().setAttribute("errDEL", "This Partner has ongoing campaigns and cannot be deleted at this time.");
+                        response.sendRedirect("ViewPartners.jsp");
+                    }
                 }
                 if(pc.equals("B")){
                     response.sendRedirect("DellFetch");

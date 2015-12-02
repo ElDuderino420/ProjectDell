@@ -26,6 +26,7 @@ public class NavCon extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+            request.getSession().setAttribute("errMDF", null);
             String selected = request.getSession().getAttribute("Selected").toString();
             request.getSession().setAttribute("Comment", request.getParameter("Comment"));
             request.getSession().setAttribute("Path", request.getContextPath());

@@ -17,12 +17,21 @@
 
     </head>
     <% CampaignDetails cd = (CampaignDetails) request.getSession().getAttribute("cd");
+        String msg = "";
+        if (request.getSession().getAttribute("errMDF") != null) {
+            msg = request.getSession().getAttribute("errMDF").toString();
+        }
+
     %>
     <body>
         <h2>Enterprise Field Marketing:</h2>
 
         <h4>Marketing Development Fund (MDF) Request</h4>
         <h6>*Required Field</h6>
+        <%if(!msg.equals("")){
+        %><div style="margin-left: 50px;" id="warning"><%=msg%></div>
+        <%}%>
+        
         <form action='ApplyCampaign' method="post">
             <table>
                 <tr>
@@ -79,7 +88,7 @@
                 </tr>
             </table>
 
-                
+
 
             <p id="inputtxt">Program description and/or agenda*:</p>
             <textarea class="binput" name ="desc" required><%= cd.getProgramDescription()%></textarea>
@@ -359,8 +368,8 @@
 
             <button class="button" type='submit' name='applyCamp' value="Submit" >Apply Campaign</button><br><br>
         </form>
-            <form method='Post' action='PartnerFetch'> 
-                <button id="back" class="button" type="submit">Back</button>
-            </form>
+        <form method='Post' action='PartnerFetch'> 
+            <button id="back" class="button" type="submit">Back</button>
+        </form>
     </body>
 </html>
