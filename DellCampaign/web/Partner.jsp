@@ -21,9 +21,13 @@
             String Selected = request.getSession().getAttribute("Selected").toString();
             String count = "class=\"alt\"";
             String msg = "";
+            if (request.getSession().getAttribute("derp") != null) {
+                msg = request.getSession().getAttribute("derp").toString();
+            }
             if (request.getSession().getAttribute("errIN") != null) {
                 msg = request.getSession().getAttribute("errIN").toString();
             }
+            
         %>
         <form action="navCon">
             <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>

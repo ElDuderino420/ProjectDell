@@ -78,8 +78,13 @@ public class NavCon extends HttpServlet {
                     response.sendRedirect("PartnerDetails.jsp");
                 } 
                 // Upload POE button
-                else if (nav.equals("UP") && cc.checkApproved(selected)) {
+                else if (nav.equals("UP")) {
+                    if(cc.checkApproved(selected)){
                     response.sendRedirect("POEUpload.jsp");
+                    }else{
+                        request.getSession().setAttribute("errIN","There cannot be uploaded a POE to an unapproved campaign");
+                        response.sendRedirect("PartnerFetch");
+                    }
                 } 
                 // complete button
                 else if (nav.equals("Com")) {

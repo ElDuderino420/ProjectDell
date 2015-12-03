@@ -32,10 +32,12 @@ public class POEApproval extends HttpServlet{
             String comment = request.getParameter("comment");
             // changes poe status to "Approved"
             if(request.getParameter("poe").equals("Approve")){
+                cc.lastChange(id);
                 cc.poeApprove(id, comment);
             }
             // changes poe status to "Rejected"
             if(request.getParameter("poe").equals("Reject")){
+                cc.lastChange(id);
                 cc.poeReject(id, comment);
             }
             response.sendRedirect("DellFetch");

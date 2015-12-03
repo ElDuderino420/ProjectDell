@@ -37,7 +37,7 @@
         else{
             file.delete();
         }
-
+        
         // Verify the content type
         String contentType = request.getContentType();
 
@@ -92,8 +92,10 @@
                 }
 
             } catch (Exception ex) {
-                System.out.println(ex);
-            }
+                request.getSession().setAttribute("derp" , "file too big");
+                response.sendRedirect("PartnerFetch");
+            } 
+            
         } else {
             request.setAttribute("Error", "Error!!");
             response.sendRedirect("PartnerFetch");

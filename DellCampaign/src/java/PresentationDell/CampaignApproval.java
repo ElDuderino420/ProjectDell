@@ -32,10 +32,12 @@ public class CampaignApproval extends HttpServlet{
             String s = request.getSession().getAttribute("id").toString();
             // changes status of the campaign to "Approved"
             if(request.getParameter("poe").equals("Approve")){
+                cc.lastChange(derp.getId());
                 cc.campApprove(derp.getId(), request.getParameter("comment"),s);
             }
             // changes status of the campaign to "Rejected"
             if(request.getParameter("poe").equals("Reject")){
+                cc.lastChange(derp.getId());
                 cc.campReject(derp.getId(), request.getParameter("comment"),s);
             }
             response.sendRedirect("DellFetch");
