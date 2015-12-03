@@ -43,8 +43,14 @@ public class JUnitTest {
     public void loginTest() {
         try {
             Assert.assertEquals("D2232", um.fetchDell("D2232", "123"));
+            Assert.assertEquals(null, um.fetchDell("D2232", "111"));
+            Assert.assertNotSame("D2232", um.fetchDell("D2232", "321"));
             Assert.assertEquals("finans", um.fetchFinance("finans", "123"));
+            Assert.assertEquals(null, um.fetchFinance("finans", "111"));
+            Assert.assertNotSame("D2232", um.fetchFinance("finans", "321"));
             Assert.assertEquals("P1234", um.fetchPartners("P1234", "123"));
+            Assert.assertEquals(null, um.fetchPartners("P1234", "111"));
+            Assert.assertNotSame("D2232", um.fetchPartners("P1234", "321"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
