@@ -23,6 +23,8 @@ public class Partner {
     phone: Partner phone number
     */
     
+    
+
     public Partner() {
     }
 
@@ -76,6 +78,11 @@ public class Partner {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Partner{" + "id=" + id + ", name=" + name + ", dateCreated=" + dateCreated + ", password=" + password + ", email=" + email + ", phone=" + phone + '}';
     }
     
     

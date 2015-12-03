@@ -94,8 +94,8 @@ public class UserMapper {
             newPartner.setString(2, p.getName());
             newPartner.setString(3, p.getDateCreated());
             newPartner.setString(4, p.getPassword());
-            newPartner.setString(5, "");
-            newPartner.setString(6, "");
+            newPartner.setString(5, p.getEmail());
+            newPartner.setString(6, p.getPhone());
 
             newPartner.executeUpdate();
             con.commit();
