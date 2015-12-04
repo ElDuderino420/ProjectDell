@@ -92,7 +92,7 @@
                 }
 
             } catch (Exception ex) {
-                request.getSession().setAttribute("derp" , "file too big");
+                request.getSession().setAttribute("errIN" , "file too big");
                 response.sendRedirect("PartnerFetch");
             } 
             

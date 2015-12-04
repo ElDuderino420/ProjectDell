@@ -16,9 +16,17 @@
         <title>Dell Home</title>
     </head>
     <body>
+        <%
+            String msg = "";
+            if (request.getSession().getAttribute("errDell") != null) {
+                msg = request.getSession().getAttribute("errDell").toString();
+            }
+        %>
         <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
         <h1>&nbsp;Dell Campaigns</h1><br><br><br><br><br><br><br>
-
+        <%if (!msg.equals("")) {
+        %><div style="float: top;" id="warning"><%=msg%></div>
+        <%}%>
         <form action="DellNavCon" method="POST">
             <div class="buttons">
                 <button id="bb" class="button" type="submit" name="DNC" value="DC">Deleted and Completed Campaigns</button>
@@ -35,6 +43,7 @@
 
         <form action="DellNavCon" method="POST">
             <div id="partner">
+
                 <h2>Campaign Approval Queue</h2>
                 <table id="partner">
                     <th></th>

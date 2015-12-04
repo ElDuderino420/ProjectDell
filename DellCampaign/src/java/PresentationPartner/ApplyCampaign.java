@@ -40,7 +40,7 @@ public class ApplyCampaign extends HttpServlet {
                     request.getParameter("ProgramDate"),
                     request.getParameter("StartTime"),
                     request.getParameter("EndTime"),
-                    Integer.parseInt(request.getParameter("NOAttendees").toString()),
+                    cc.checkInt(request.getParameter("NOAttendees").toString()),
                     request.getParameter("VenueName"),
                     request.getParameter("VenueAddress"),
                     cc.getChecked(request.getParameter("ftfevent")),
@@ -73,13 +73,13 @@ public class ApplyCampaign extends HttpServlet {
                     cc.getChecked(request.getParameter("SMB")),
                     cc.getChecked(request.getParameter("LE")),
                     cc.getChecked(request.getParameter("PUB")),
-                    Integer.parseInt(request.getParameter("cost").toString()),
-                    Integer.parseInt(request.getParameter("requesting").toString()),
+                    cc.checkInt(request.getParameter("cost").toString()),
+                    cc.checkInt(request.getParameter("requesting").toString()),
                     request.getParameter("methodofreimbursement"),
                     request.getParameter("partner"),
-                    Integer.parseInt(request.getParameter("partnercontribution").toString()),
-                    Integer.parseInt(request.getParameter("NoOpp").toString()),
-                    Integer.parseInt(request.getParameter("estimatedrevenue").toString()));
+                    cc.checkInt(request.getParameter("partnercontribution").toString()),
+                    cc.checkInt(request.getParameter("NoOpp").toString()),
+                    cc.checkInt(request.getParameter("estimatedrevenue").toString()));
 
             String comment = request.getParameter("Comment");
             String redirect = "PartnerFetch";
@@ -97,8 +97,17 @@ public class ApplyCampaign extends HttpServlet {
                     request.getSession().setAttribute("cd", cd);
                     request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
                     response.sendRedirect("MDFRequest.jsp");
-                } 
-                // the campaign and campaign detail is created in the database
+                } // checks if there are typed in integegers properly
+                else if (cd.getEstimatedAttendees() == -1
+                        || cd.getEstimatedOpportunities() == -1
+                        || cd.getEstimatedRevenue() == -1
+                        || cd.getMdfRequest() == -1
+                        || cd.getTotalMDFContribution() == -1
+                        || cd.getTotalProjectedCost() == -1) {
+                    request.getSession().setAttribute("cd", cd);
+                    request.getSession().setAttribute("errMDF", "Please type number into areas with \"-1\"");
+                    response.sendRedirect("MDFRequest.jsp");
+                } // the campaign and campaign detail is created in the database
                 else {
                     cc.createCampaign(cd, id, "", comment);
                     response.sendRedirect("PartnerFetch");
@@ -111,27 +120,34 @@ public class ApplyCampaign extends HttpServlet {
                     if (submit.equals("Delete")) {
                         String Campid = request.getSession().getAttribute("CampId").toString();
                         cc.deleteCamp(Campid, comment);
-                    } 
-                    // checks if target audience is selected if not returns with previous information and error message
+                    } // checks if target audience is selected if not returns with previous information and error message
                     else if (!cd.isSmb() && !cd.isPub() && !cd.isLe()) {
                         request.getSession().setAttribute("currentCD", cd);
                         request.getSession().setAttribute("errMDF", "Please select atleast 1 target audience");
                         redirect = "PartnerDetails.jsp";
-                    }
-                    // checks if time and/or date is of wrong format, returns with all informations previously typed and an error message
+                    } // checks if time and/or date is of wrong format, returns with all informations previously typed and an error message
                     else if (!cc.checkDate(cd.getProgramDate()) || !cc.checkTime(cd.getStartTime()) || !cc.checkTime(cd.getEndTime()) || !cc.checkDate(cd.getDateCreated())) {
                         request.getSession().setAttribute("currentCD", cd);
                         request.getSession().setAttribute("errMDF", "Please type time and/or date in the correct format");
                         redirect = "PartnerDetails.jsp";
-                    } 
-                    // if the save is clicked and no error is met, overwrites the campaign in the database
+                    } // checks if there are typed in integegers properly
+                    else if (cd.getEstimatedAttendees() == -1
+                            || cd.getEstimatedOpportunities() == -1
+                            || cd.getEstimatedRevenue() == -1
+                            || cd.getMdfRequest() == -1
+                            || cd.getTotalMDFContribution() == -1
+                            || cd.getTotalProjectedCost() == -1) {
+                        request.getSession().setAttribute("cd", cd);
+                        request.getSession().setAttribute("errMDF", "Please type number into areas with \"-1\"");
+                        redirect = "PartnerDetails.jsp";
+                    } // if the save is clicked and no error is met, overwrites the campaign in the database
                     else if (submit.equals("Save")) {
                         CampaignDetails cd2 = (CampaignDetails) request.getSession().getAttribute("currentCD");
                         cd.setId(cd2.getId());
                         cc.createCampaign(cd, id, "edit", comment);
                     }
 
-                } 
+                }
                 response.sendRedirect(redirect);
             }
         } catch (Exception ex) {

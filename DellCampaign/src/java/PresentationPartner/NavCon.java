@@ -109,6 +109,7 @@ public class NavCon extends HttpServlet {
                 }
 
             } else {
+                request.getSession().setAttribute("errIN","Please select a campaign before that");
                 response.sendRedirect("PartnerFetch");
             }
         } catch (Exception ex) {

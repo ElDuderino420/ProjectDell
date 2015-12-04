@@ -27,14 +27,15 @@ public class DellNavCon extends HttpServlet {
         try {
             CampaignController cc = new CampaignController();
             String selected = request.getSession().getAttribute("Selected").toString();
+            request.getSession().setAttribute("errDC", null);
+            request.getSession().setAttribute("errDell", null);
             String sel = "";
             String sel2 = "";
             String DNC = "";
             // retreives the button pressed
             if (request.getParameter("DNC") == null && request.getParameter("sel2") == null) {
                 sel = request.getParameter("sel");
-            }
-            else if (request.getParameter("DNC") == null && request.getParameter("sel") == null) {
+            } else if (request.getParameter("DNC") == null && request.getParameter("sel") == null) {
                 sel2 = request.getParameter("sel2");
             } else {
                 DNC = request.getParameter("DNC");
@@ -56,34 +57,34 @@ public class DellNavCon extends HttpServlet {
                     request.getSession().setAttribute("Selected", "null");
                     request.getSession().setAttribute("PartId", cc.getNextPartId());
                     response.sendRedirect("CreatePartner.jsp");
-
                 }
                 // Campaign Detail Button
                 // checks if campaign is applicable (campaign status = Pending)
                 if (DNC.equals("CD")) {
                     if (!selected.equals("null") && !cc.poeCheckUpload(selected)) {
-
                         request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                         response.sendRedirect("CampDetails.jsp");
                     } else {
+                        request.getSession().setAttribute("errDell", "Please select a campaign from the Campaign Aproval Queue");
                         response.sendRedirect("DellFetch");
                     }
                 }
-                
+
                 // view partner button
-                if(DNC.equals("VP")){
+                if (DNC.equals("VP")) {
                     request.getSession().setAttribute("Partners", cc.fetchAllPartners());
                     response.sendRedirect("ViewPartners.jsp");
                 }
                 // detail button on the poe table
                 // checks if a campaign is selected and if that campaign has poe status "Pending"
-                if (DNC.equals("PD")){
+                if (DNC.equals("PD")) {
                     if (!selected.equals("null") && cc.poeCheckUpload(selected)) {
                         request.getSession().setAttribute("CID", selected);
                         List<POEDetails> list = cc.viewPOE(selected);
                         request.getSession().setAttribute("lust", list);
                         response.sendRedirect("DellViewPOE.jsp");
                     } else {
+                        request.getSession().setAttribute("errDell", "Please select a campaign from the POE Aproval Queue");
                         response.sendRedirect("DellFetch");
                     }
                 }
@@ -95,6 +96,7 @@ public class DellNavCon extends HttpServlet {
                         cc.nukeCamp(selected, path);
                         DNC = "DC";
                     } else {
+                        request.getSession().setAttribute("errDC", "Please select a campaign from Deleted Campaigns");
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
@@ -114,6 +116,7 @@ public class DellNavCon extends HttpServlet {
                         request.getSession().setAttribute("currentCD", (CampaignDetails) cc.getCampDetail(selected));
                         response.sendRedirect("Nerd.jsp");
                     } else {
+                        request.getSession().setAttribute("errDC", "Please select a campaign from Completed Campaigns");
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
@@ -131,12 +134,12 @@ public class DellNavCon extends HttpServlet {
                         List<POEDetails> list = cc.viewPOE(request.getSession().getAttribute("campIDDD").toString());
                         request.getSession().setAttribute("lust", list);
                         response.sendRedirect("NerdPOE.jsp");
-                    }
-                    else{
+                    } else {
+                        request.getSession().setAttribute("errDC", "Please select a campaign from Completed Campaigns");
                         response.sendRedirect("DCComics.jsp");
                     }
                 }
-                
+
             }
 
         } catch (Exception ex) {

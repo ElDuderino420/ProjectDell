@@ -88,6 +88,18 @@ public class CampaignController {
 
     }
 
+    // returns an int from a string, if no int availeble, returns -1
+    public int checkInt(String s) throws Exception{
+        int i = 0;
+        try{
+        i = Integer.parseInt(s);
+        return i;
+        }
+        catch(Exception ex){
+        return -1;    
+        }
+    }
+    
     // campApprove takes a campaign id and comment and sets the campapproved status to approved and sets the comment to capaign has been approved
     public void campApprove(String id, String Comment, String did) throws Exception {
         dbf.campApprove(id, Comment, did);

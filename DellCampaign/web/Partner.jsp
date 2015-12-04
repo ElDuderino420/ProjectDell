@@ -21,13 +21,11 @@
             String Selected = request.getSession().getAttribute("Selected").toString();
             String count = "class=\"alt\"";
             String msg = "";
-            if (request.getSession().getAttribute("derp") != null) {
-                msg = request.getSession().getAttribute("derp").toString();
-            }
+            
             if (request.getSession().getAttribute("errIN") != null) {
                 msg = request.getSession().getAttribute("errIN").toString();
             }
-            
+
         %>
         <form action="navCon">
             <img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
@@ -46,7 +44,8 @@
                     <th>POE status</th>
                     <th>Last Changed</th>
                     <th>Comments</th>
-                        <%                    for (Campaign c : CampData) {
+                        <%
+                            for (Campaign c : CampData) {
                                 if (count.equals("class=\"alt\"")) {
                                     count = "";
                                 } else {
@@ -104,7 +103,9 @@
                 <th>POE status</th>
                 <th>Last Changed</th>
                 <th>Comments</th>
-                    <%                    for (Campaign c : doneCamp) {
+                    <%                    
+                            count = "class=\"alt\"";
+                            for (Campaign c : doneCamp) {
                             if (count.equals("class=\"alt\"")) {
                                 count = "";
                             } else {

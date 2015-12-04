@@ -16,13 +16,21 @@
     </head>
     <body>
         <%
+            String msg = "";
+            if (request.getSession().getAttribute("errDC") != null) {
+                msg = request.getSession().getAttribute("errDC").toString();
+            }
             List<Campaign> DoneData = (List<Campaign>) session.getAttribute("doneCamp");
             List<Campaign> DeletedData = (List<Campaign>) session.getAttribute("deletedCamp");
             request.getSession().setAttribute("filepath", application.getRealPath(request.getServletPath()));
             String Selected = request.getSession().getAttribute("Selected").toString();
             String count = "class=\"alt\"";
         %>
-
+<img class="delllogo" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg"/>
+        <h1>&nbsp;Dell Campaigns</h1><br><br><br><br><br><br><br>
+        <%if (!msg.equals("")) {
+        %><div style="float: top;" id="warning"><%=msg%></div>
+        <%}%>
         <form action="DellNavCon" method="POST">
             <div id="partner">
                 <h2>Completed Campaigns</h2>

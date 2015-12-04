@@ -158,6 +158,7 @@ public class POEMapper {
                 Comment = "POE has been Uploaded";
             }
             ps.executeUpdate("Insert into POEDetails values('" + path + "','" + id + "');");
+            ps.executeUpdate("update Campaign set POEApproved = 'Uploaded' where id = '" + id + "';");
             ps.executeUpdate("update Campaign set CampComment = '" + Comment + "' where id = '" + id + "';");
             ps.close();
 
