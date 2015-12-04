@@ -164,4 +164,18 @@ public class DBFacade {
         um.deletePart(id);
     }
     
+        // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
+    public String fetchPartners(String id,String pass) throws Exception {
+        return um.fetchPartners(id, pass);
+    }
+    
+    // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
+    public String fetchDell(String id,String pass) throws Exception {
+        return um.fetchDell(id, pass);
+    }
+
+    // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false    
+    public String fetchFinance(String id,String pass) throws Exception {
+        return um.fetchFinance(id, pass);
+    }
 }

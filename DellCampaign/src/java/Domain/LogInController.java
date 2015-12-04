@@ -5,7 +5,7 @@
  */
 package Domain;
 
-import DataSource.POEMapper;
+import DataSource.DBFacade;
 import DataSource.UserMapper;
 
 /**
@@ -13,21 +13,21 @@ import DataSource.UserMapper;
  * @author butwhole
  */
 public class LogInController {
-    private UserMapper map = new UserMapper();
+    private DBFacade dbf = new DBFacade();
     
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
-    public String FetchPartners(String id,String pass) throws Exception {
-        return map.fetchPartners(id, pass);
+    public String fetchPartners(String id,String pass) throws Exception {
+        return dbf.fetchPartners(id, pass);
     }
     
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false
-    public String FetchDell(String id,String pass) throws Exception {
-        return map.fetchDell(id, pass);
+    public String fetchDell(String id,String pass) throws Exception {
+        return dbf.fetchDell(id, pass);
     }
 
     // FetchPartners checks if there is a partner with the given id and password, if so will return true else returns false    
-    public String FetchFinance(String id,String pass) throws Exception {
-        return map.fetchFinance(id, pass);
+    public String fetchFinance(String id,String pass) throws Exception {
+        return dbf.fetchFinance(id, pass);
     }
     
 }

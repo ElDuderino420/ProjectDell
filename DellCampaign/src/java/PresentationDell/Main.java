@@ -28,9 +28,9 @@ public class Main extends HttpServlet {
 
         try {
             //the string will be made if there is a user with that id and password
-            part = lc.FetchPartners(request.getParameter("lid"), request.getParameter("pass"));
-            String dell = lc.FetchDell(request.getParameter("lid"), request.getParameter("pass"));
-            String finan = lc.FetchFinance(request.getParameter("lid"), request.getParameter("pass"));
+            part = lc.fetchPartners(request.getParameter("lid"), request.getParameter("pass"));
+            String dell = lc.fetchDell(request.getParameter("lid"), request.getParameter("pass"));
+            String finan = lc.fetchFinance(request.getParameter("lid"), request.getParameter("pass"));
             request.getSession().setAttribute("Selected", "null");
             
             // checks if user is a partner
